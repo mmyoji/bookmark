@@ -1,0 +1,25 @@
+name: Run Reminder
+
+on:
+  schedule:
+    # 08:00 (JST) everyday
+    - cron: "00 23 * * *"
+
+jobs:
+  run_reminder:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+      - run: npm install dayjs
+      - uses: actions/github-script@v6
+        env:
+          SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
+          PROJECT_ID: ${{ secrets.PROJECT_ID }}
+        with:
+          script: |
+            const dayjs = require("dayjs");
+            const script = require("./.github/scripts/run-reminder.js");
+            await script({ github, context, dayjs });
