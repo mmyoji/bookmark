@@ -1,0 +1,22 @@
+name: Deploy Functions
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    env:
+      SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
+      PROJECT_ID: ${{ secrets.PROJECT_ID }}
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: supabase/setup-cli@v1
+        with:
+          version: latest
+      - run: supabase functions deploy create-item  --project-ref $PROJECT_ID --import-map=./supabase/functions/import_map.json
+      - run: supabase functions deploy search-items --project-ref $PROJECT_ID --import-map=./supabase/functions/import_map.json
