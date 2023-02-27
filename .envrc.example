@@ -1,0 +1,2 @@
+export SUPABASE_ANON_KEY="xxx"
+export SUPABASE_SERVICE_ROLE_KEY="yyy"
