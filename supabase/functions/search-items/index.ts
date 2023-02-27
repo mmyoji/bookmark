@@ -1,11 +1,15 @@
 import { serve } from "std/http/server.ts";
 import { createClient } from "supabase-js";
 
+const key = "created_at";
+
 serve(async (req) => {
   // e.g., created_at="2023-02-26"
-  const { created_at } = await req.json();
+  const { created_at: createdAt } = (await req.json()) as {
+    created_at: string;
+  };
 
-  const d = new Date(`${created_at}T00:00:00.000+0900`);
+  const d = new Date(`${createdAt}T00:00:00.000+0000`);
   const date = d.getDate();
   d.setDate(date + 1);
   const tomorrow = d.toISOString().slice(0, 10);
@@ -18,8 +22,9 @@ serve(async (req) => {
   const { data: items, error } = await supabase
     .from("items")
     .select("*")
-    .gte("created_at", created_at)
-    .lt("created_at", tomorrow);
+    .gte(key, createdAt)
+    .lt(key, tomorrow)
+    .order(key, { ascending: true });
 
   if (error) {
     console.error(error);
