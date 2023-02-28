@@ -1,10 +1,16 @@
 import { serve } from "std/http/server.ts";
 import { createClient } from "supabase-js";
 
+import { corsHeaders } from "../_shared/cors.ts";
+
 // const SERVICE_ROLE =
 //   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNnd3RiZ2Joa3dmeGZobHViaG5lIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTY3NzQwNzQwOCwiZXhwIjoxOTkyOTgzNDA4fQ.ASlyhCYZJzzZOdvdKAEZ7kbTXeUjQL06Ts1a-SiE-eY";
 
 serve(async (req) => {
+  if (req.method === "OPTIONS") {
+    return new Response("ok", { headers: corsHeaders });
+  }
+
   const { url } = await req.json();
 
   const supabase = createClient(
@@ -19,7 +25,7 @@ serve(async (req) => {
   if (error) {
     console.error(error);
     return new Response(JSON.stringify({ error }), {
-      headers: { "Content-Type": "application/json" },
+      headers: { ...corsHeaders, "Content-Type": "application/json" },
       status: 400,
     });
   }
@@ -28,9 +34,8 @@ serve(async (req) => {
 
   return new Response(JSON.stringify(data), {
     headers: {
+      ...corsHeaders,
       "Content-Type": "application/json",
-      "Access-Control-Allow-Origin": "*",
-      "Access-Control-Allow-Methods": "POST, OPTIONS",
     },
     status: 201,
   });
