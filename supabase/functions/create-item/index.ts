@@ -3,9 +3,6 @@ import { createClient } from "supabase-js";
 
 import { corsHeaders } from "../_shared/cors.ts";
 
-// const SERVICE_ROLE =
-//   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNnd3RiZ2Joa3dmeGZobHViaG5lIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTY3NzQwNzQwOCwiZXhwIjoxOTkyOTgzNDA4fQ.ASlyhCYZJzzZOdvdKAEZ7kbTXeUjQL06Ts1a-SiE-eY";
-
 serve(async (req) => {
   if (req.method === "OPTIONS") {
     return new Response("ok", { headers: corsHeaders });
