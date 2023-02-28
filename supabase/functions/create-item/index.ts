@@ -27,7 +27,11 @@ serve(async (req) => {
   console.log({ data });
 
   return new Response(JSON.stringify(data), {
-    headers: { "Content-Type": "application/json" },
+    headers: {
+      "Content-Type": "application/json",
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Methods": "POST, OPTIONS",
+    },
     status: 201,
   });
 });
