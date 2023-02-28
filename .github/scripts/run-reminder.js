@@ -1,4 +1,4 @@
-module.exports = async ({ github, context, dayjs }) => {
+module.exports = async ({ github, context, fetch, dayjs }) => {
   const { PROJECT_ID, SUPABASE_ANON_KEY } = process.env;
 
   const created_at = dayjs().subtract(7, "day").format("YYYY-MM-DD");
