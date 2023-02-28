@@ -22,4 +22,4 @@ jobs:
           script: |
             const dayjs = require("dayjs");
             const script = require("./.github/scripts/run-reminder.js");
-            await script({ github, context, dayjs });
+            await script({ github, context, fetch, dayjs });
