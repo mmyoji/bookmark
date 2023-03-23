@@ -11,18 +11,18 @@ export type Database = {
     Tables: {
       items: {
         Row: {
-          id: string;
+          id: number;
           url: string;
           created_at: string;
           uid: string;
         };
         Insert: {
-          id?: string;
+          id?: number;
           url: string;
           uid: string;
         };
         Update: {
-          id?: string;
+          id?: number;
           url: string;
           uid: string;
         };
