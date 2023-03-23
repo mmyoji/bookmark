@@ -31,7 +31,7 @@ export const handler: Handlers = {
     const result = await supabase.from("items").select("*").eq(
       "uid",
       user.id,
-    ).order("created_at", { ascending: false });
+    ).order("created_at", { ascending: false }).limit(20);
 
     return await ctx.render({ items: result.error ? [] : result.data });
   },
