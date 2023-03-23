@@ -3,6 +3,9 @@ import { assert } from "std/testing/asserts.ts";
 import { Head } from "$fresh/runtime.ts";
 import { type Handlers, type PageProps } from "$fresh/server.ts";
 
+import { CreateForm } from "@/components/CreateForm.tsx";
+import { URLListItem } from "@/components/URLListItem.tsx";
+
 import { createSupabaseClient } from "@/lib/supabase.ts";
 
 export const handler: Handlers = {
@@ -36,7 +39,6 @@ export const handler: Handlers = {
 
 type PageData = {
   items: {
-    id: string;
     url: string;
     created_at: string;
   }[];
@@ -46,7 +48,7 @@ export default function Home({ data: { items } }: PageProps<PageData>) {
   return (
     <>
       <Head>
-        <title>Fresh App</title>
+        <title>Archive Reminder</title>
       </Head>
 
       <div class="p-4 mx-auto max-w-screen-md">
@@ -55,25 +57,19 @@ export default function Home({ data: { items } }: PageProps<PageData>) {
           class="w-32 h-32"
           alt="the fresh logo: a sliced lemon dripping with juice"
         />
-        <p class="my-6">
-          Welcome to `fresh`. Try updating this message in the
-          ./routes/index.tsx file, and refresh.
-        </p>
+        <h1 class="my-6 text-2xl font-bold">Archive Reminder</h1>
 
-        <form action="/api/items" method="POST">
-          <label for="url">URL</label>
-          <input
-            type="url"
-            name="url"
-            id="url"
-            required
-            pattern="https?://.*"
-          />
-          <button>Submit</button>
-        </form>
+        <div class="my-4">
+          <CreateForm />
+        </div>
 
         <ul>
-          {items.map((i) => <li>{i.id} - {i.url} - {i.created_at}</li>)}
+          {items.map(({ url, created_at: createdAt }) => (
+            <URLListItem
+              url={url}
+              createdAt={createdAt}
+            />
+          ))}
         </ul>
       </div>
     </>
