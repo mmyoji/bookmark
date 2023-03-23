@@ -57,7 +57,14 @@ export default function Home({ data: { items } }: PageProps<PageData>) {
           class="w-32 h-32"
           alt="the fresh logo: a sliced lemon dripping with juice"
         />
-        <h1 class="my-6 text-2xl font-bold">Archive Reminder</h1>
+
+        <div class="my-6 flex justify-between">
+          <h1 class="text-2xl font-bold">Archive Reminder</h1>
+
+          <div>
+            <a href="/api/logout" class="underline">Sign out</a>
+          </div>
+        </div>
 
         <div class="my-4">
           <CreateForm />
