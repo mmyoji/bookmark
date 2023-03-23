@@ -9,7 +9,7 @@ Remind what you read before (1 week ago).
   - [Database](https://supabase.com/docs/guides/database)
 - direnv
 
-### Usage
+## Usage
 
 Start the project:
 
