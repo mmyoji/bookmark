@@ -15,9 +15,6 @@ jobs:
           node-version: 16
       - run: npm install dayjs
       - uses: actions/github-script@v6
-        env:
-          SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
-          PROJECT_ID: ${{ secrets.PROJECT_ID }}
         with:
           script: |
             const dayjs = require("dayjs");

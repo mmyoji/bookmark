@@ -4,8 +4,17 @@ Remind what you read before (1 week ago).
 
 ## Dependency
 
-- [Supabase CLI](https://supabase.com/docs/guides/cli) (through npx)
 - Supabase
-  - [Edge Functions](https://supabase.com/docs/guides/functions) (Deno)
+  - [Auth](https://supabase.com/docs/guides/auth/overview)
   - [Database](https://supabase.com/docs/guides/database)
 - direnv
+
+### Usage
+
+Start the project:
+
+```
+deno task start
+```
+
+This will watch the project directory and restart as necessary.
