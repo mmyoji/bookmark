@@ -18,7 +18,12 @@ export const handler: Handlers = {
 
     assert(session);
 
-    await supabase.from("items").insert({ url, uid: session.user.id });
+    // TODO: fetch title
+    await supabase.from("items").insert({
+      title: "",
+      url,
+      uid: session.user.id,
+    });
 
     return new Response(null, { headers: { location: "/" }, status: 302 });
   },

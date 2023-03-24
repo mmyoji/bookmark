@@ -1,5 +1,6 @@
 type Props = {
   url: string;
+  title: string;
   createdAt: string;
 };
 
@@ -10,7 +11,7 @@ function getDiffDays(createdAt: string): number {
   return Math.ceil(diff / (1000 * 60 * 60 * 24));
 }
 
-export function URLListItem({ url, createdAt }: Props) {
+export function URLListItem({ url, title, createdAt }: Props) {
   const diffDays = getDiffDays(createdAt);
   const bgColor = diffDays > 7 ? "bg-gray-200" : "";
 
@@ -23,10 +24,12 @@ export function URLListItem({ url, createdAt }: Props) {
           rel="noreferrer noopener"
           class="underline text-pink-700"
         >
-          {url}
+          {title || url}
         </a>
       </h3>
-      <time class="text-gray-500" dateTime={createdAt}>{createdAt}</time>
+      <time class="text-gray-500" dateTime={createdAt}>
+        {createdAt}
+      </time>
     </li>
   );
 }
