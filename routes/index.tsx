@@ -13,7 +13,9 @@ export const handler: Handlers = {
     const headers = new Headers();
     const supabase = createSupabaseClient(req.headers, headers);
 
-    const { data: { session } } = await supabase.auth.getSession();
+    const {
+      data: { session },
+    } = await supabase.auth.getSession();
 
     try {
       assert(session);
@@ -28,10 +30,12 @@ export const handler: Handlers = {
 
     const { user } = session;
 
-    const result = await supabase.from("items").select("*").eq(
-      "uid",
-      user.id,
-    ).order("created_at", { ascending: false }).limit(20);
+    const result = await supabase
+      .from("items")
+      .select("*")
+      .eq("uid", user.id)
+      .order("created_at", { ascending: false })
+      .limit(20);
 
     return await ctx.render({ items: result.error ? [] : result.data });
   },
@@ -40,6 +44,7 @@ export const handler: Handlers = {
 type PageData = {
   items: {
     url: string;
+    title: string;
     created_at: string;
   }[];
 };
@@ -62,7 +67,9 @@ export default function Home({ data: { items } }: PageProps<PageData>) {
           <h1 class="text-2xl font-bold">Archive Reminder</h1>
 
           <div>
-            <a href="/api/logout" class="underline">Sign out</a>
+            <a href="/api/logout" class="underline">
+              Sign out
+            </a>
           </div>
         </div>
 
@@ -71,11 +78,8 @@ export default function Home({ data: { items } }: PageProps<PageData>) {
         </div>
 
         <ul>
-          {items.map(({ url, created_at: createdAt }) => (
-            <URLListItem
-              url={url}
-              createdAt={createdAt}
-            />
+          {items.map(({ created_at: createdAt, ...rest }) => (
+            <URLListItem {...rest} createdAt={createdAt} />
           ))}
         </ul>
       </div>

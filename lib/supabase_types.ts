@@ -13,17 +13,20 @@ export type Database = {
         Row: {
           id: number;
           url: string;
+          title: string;
           created_at: string;
           uid: string;
         };
         Insert: {
           id?: number;
           url: string;
+          title: string;
           uid: string;
         };
         Update: {
           id?: number;
           url: string;
+          title: string;
           uid: string;
         };
       };
