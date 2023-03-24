@@ -1,6 +1,8 @@
 {
   "deno.enable": true,
   "deno.lint": true,
+  "deno.inlayHints.parameterTypes.enabled": true,
+  "deno.inlayHints.variableTypes.enabled": true,
   "prettier.disableLanguages": [
     "typescript",
     "javascript"
