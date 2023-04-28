@@ -1,18 +1,13 @@
+import { getDaysDiff } from "@/lib/get-days-diff.ts";
+
 type Props = {
   url: string;
   title: string;
   createdAt: string;
 };
 
-function getDiffDays(createdAt: string): number {
-  const date = new Date(createdAt);
-  const now = new Date();
-  const diff = Math.abs(now.getTime() - date.getTime());
-  return Math.ceil(diff / (1000 * 60 * 60 * 24));
-}
-
 export function URLListItem({ url, title, createdAt }: Props) {
-  const diffDays = getDiffDays(createdAt);
+  const diffDays = getDaysDiff(new Date(), new Date(createdAt));
   const bgColor = diffDays > 7 ? "bg-gray-200" : "";
 
   return (
