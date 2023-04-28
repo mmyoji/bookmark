@@ -3,6 +3,7 @@ import { DOMParser } from "linkedom";
 
 import { type Handlers } from "$fresh/server.ts";
 
+import { ItemsRepository } from "@/lib/items.repository.ts";
 import { createSupabaseClient } from "@/lib/supabase.ts";
 
 async function fetchTitle(url: string): Promise<string> {
@@ -39,7 +40,8 @@ export const handler: Handlers = {
 
     assert(session);
 
-    await supabase.from("items").insert({
+    const repo = new ItemsRepository(supabase);
+    await repo.create({
       url,
       title,
       uid: session.user.id,
