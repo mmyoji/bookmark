@@ -6,6 +6,8 @@ import { createServerSupabaseClient } from "@supabase/auth-helpers-shared";
 
 import { type Database } from "@/lib/supabase_types.ts";
 
+export type SupabaseClient = ReturnType<typeof createSupabaseClient>;
+
 export function createSupabaseClient(
   requestHeaders: Headers,
   responseHeaders?: Headers,
