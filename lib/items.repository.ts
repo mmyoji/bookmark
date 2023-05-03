@@ -11,22 +11,22 @@ export class ItemsRepository {
     await this.kv.set(["items", data.date, data.url], data);
   }
 
-  async findMany(): Promise<Item[]> {
-    const items: Item[] = [];
-    for await (
-      const entry of this.kv.list<Item>({ prefix: ["items"] }, {
-        reverse: true,
-        limit: 20,
-      })
-    ) {
-      items.push(entry.value);
-    }
-    return items;
+  findMany(): Promise<Item[]> {
+    return this.#list([{ prefix: ["items"] }, {
+      reverse: true,
+      limit: 20,
+    }]);
   }
 
-  async search(date: string): Promise<Item[]> {
+  search(date: string): Promise<Item[]> {
+    return this.#list([{ prefix: ["items", date] }]);
+  }
+
+  async #list(
+    options: Parameters<Deno.Kv["list"]>,
+  ): Promise<Item[]> {
     const items: Item[] = [];
-    for await (const entry of this.kv.list<Item>({ prefix: ["items", date] })) {
+    for await (const entry of this.kv.list<Item>(...options)) {
       items.push(entry.value);
     }
     return items;
