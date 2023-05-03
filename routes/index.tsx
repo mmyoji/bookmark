@@ -7,6 +7,7 @@ import { CreateForm } from "@/components/CreateForm.tsx";
 import { URLListItem } from "@/components/URLListItem.tsx";
 
 import { ItemsRepository } from "@/lib/items.repository.ts";
+import { initKV } from "@/lib/kv.ts";
 import { createSupabaseClient } from "@/lib/supabase.ts";
 
 export const handler: Handlers = {
@@ -29,7 +30,7 @@ export const handler: Handlers = {
       });
     }
 
-    const kv = await Deno.openKv();
+    const kv = await initKV();
     const repo = new ItemsRepository(kv);
     const items = await repo.findMany();
 

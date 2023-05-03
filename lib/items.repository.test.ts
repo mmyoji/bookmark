@@ -1,13 +1,14 @@
 import { assert, assertEquals } from "std/testing/asserts.ts";
 
 import { ItemsRepository } from "@/lib/items.repository.ts";
+import { initTestKV, KV } from "@/lib/kv.ts";
 
 function testDB(
   desc: string,
-  fn: (kv: Deno.Kv, repo: ItemsRepository) => Promise<void>,
+  fn: (kv: KV, repo: ItemsRepository) => Promise<void>,
 ): void {
   Deno.test(`ItemsRepository.${desc}`, async () => {
-    const kv = await Deno.openKv(":memory:");
+    const kv = await initTestKV();
     const repo = new ItemsRepository(kv);
 
     await fn(kv, repo);
