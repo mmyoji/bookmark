@@ -40,12 +40,16 @@ export const handler: Handlers = {
 
     assert(session);
 
-    const repo = new ItemsRepository(supabase);
+    const kv = await Deno.openKv();
+    const date = new Date().toISOString().slice(0, 10);
+    const repo = new ItemsRepository(kv);
     await repo.create({
+      date,
       url,
       title,
-      uid: session.user.id,
     });
+
+    await kv.close();
 
     return new Response(null, { headers: { location: "/" }, status: 302 });
   },
