@@ -3,11 +3,11 @@ import { getDaysDiff } from "@/lib/get-days-diff.ts";
 type Props = {
   url: string;
   title: string;
-  createdAt: string;
+  date: string;
 };
 
-export function URLListItem({ url, title, createdAt }: Props) {
-  const diffDays = getDaysDiff(new Date(), new Date(createdAt));
+export function URLListItem({ url, title, date }: Props) {
+  const diffDays = getDaysDiff(new Date(), new Date(date));
   const bgColor = diffDays > 7 ? "bg-gray-200" : "";
 
   return (
@@ -22,8 +22,8 @@ export function URLListItem({ url, title, createdAt }: Props) {
           {title || url}
         </a>
       </h3>
-      <time class="text-gray-500" dateTime={createdAt}>
-        {createdAt}
+      <time class="text-gray-500" dateTime={date}>
+        {date}
       </time>
     </li>
   );

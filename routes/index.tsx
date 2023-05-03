@@ -6,6 +6,7 @@ import { type Handlers, type PageProps } from "$fresh/server.ts";
 import { CreateForm } from "@/components/CreateForm.tsx";
 import { URLListItem } from "@/components/URLListItem.tsx";
 
+import { ItemsRepository } from "@/lib/items.repository.ts";
 import { createSupabaseClient } from "@/lib/supabase.ts";
 
 export const handler: Handlers = {
@@ -28,16 +29,13 @@ export const handler: Handlers = {
       });
     }
 
-    const { user } = session;
+    const kv = await Deno.openKv();
+    const repo = new ItemsRepository(kv);
+    const items = await repo.findMany();
 
-    const result = await supabase
-      .from("items")
-      .select("*")
-      .eq("uid", user.id)
-      .order("created_at", { ascending: false })
-      .limit(20);
+    await kv.close();
 
-    return await ctx.render({ items: result.error ? [] : result.data });
+    return await ctx.render({ items });
   },
 };
 
@@ -45,7 +43,7 @@ type PageData = {
   items: {
     url: string;
     title: string;
-    created_at: string;
+    date: string;
   }[];
 };
 
@@ -78,8 +76,8 @@ export default function Home({ data: { items } }: PageProps<PageData>) {
         </div>
 
         <ul>
-          {items.map(({ created_at: createdAt, ...rest }) => (
-            <URLListItem {...rest} createdAt={createdAt} />
+          {items.map(({ date, ...rest }) => (
+            <URLListItem {...rest} date={date} />
           ))}
         </ul>
       </div>

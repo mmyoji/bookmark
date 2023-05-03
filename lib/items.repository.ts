@@ -1,25 +1,34 @@
-import { SupabaseClient } from "@/lib/supabase.ts";
+type Item = {
+  date: string; // YYYY-MM-DD
+  url: string;
+  title: string;
+};
 
 export class ItemsRepository {
-  #supabase: SupabaseClient;
+  constructor(private kv: Deno.Kv) {}
 
-  constructor(supabase: SupabaseClient) {
-    this.#supabase = supabase;
+  async create(data: Item): Promise<void> {
+    await this.kv.set(["items", data.date, data.url], data);
   }
 
-  async create(
-    { url, title, uid }: { url: string; title: string; uid: string },
-  ): Promise<void> {
-    await this.#supabase.from("items").insert({ url, title, uid });
+  async findMany(): Promise<Item[]> {
+    const items: Item[] = [];
+    for await (
+      const entry of this.kv.list<Item>({ prefix: ["items"] }, {
+        reverse: true,
+        limit: 20,
+      })
+    ) {
+      items.push(entry.value);
+    }
+    return items;
   }
 
-  findMany(minDate: string, maxDate: string) {
-    const key = "created_at";
-    return this.#supabase
-      .from("items")
-      .select("*")
-      .gte(key, minDate)
-      .lt(key, maxDate)
-      .order(key, { ascending: true });
+  async search(date: string): Promise<Item[]> {
+    const items: Item[] = [];
+    for await (const entry of this.kv.list<Item>({ prefix: ["items", date] })) {
+      items.push(entry.value);
+    }
+    return items;
   }
 }
