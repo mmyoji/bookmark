@@ -15,5 +15,5 @@ jobs:
           deno-version: v1.x
       - run: deno fmt --check
       - run: deno lint
-      # - run: deno check main.ts
+      - run: deno check main.ts
       - run: deno test --unstable
