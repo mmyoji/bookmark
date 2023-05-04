@@ -7,7 +7,7 @@ import { CreateForm } from "@/components/CreateForm.tsx";
 import { URLListItem } from "@/components/URLListItem.tsx";
 
 import { ItemsRepository } from "@/lib/items.repository.ts";
-import { initKV } from "@/lib/kv.ts";
+import { run } from "@/lib/kv.ts";
 import { createSupabaseClient } from "@/lib/supabase.ts";
 
 export const handler: Handlers = {
@@ -30,11 +30,10 @@ export const handler: Handlers = {
       });
     }
 
-    const kv = await initKV();
-    const repo = new ItemsRepository(kv);
-    const items = await repo.findMany();
-
-    await kv.close();
+    const items = await run((kv) => {
+      const repo = new ItemsRepository(kv);
+      return repo.findMany();
+    });
 
     return await ctx.render({ items });
   },
