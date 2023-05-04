@@ -1,17 +1,15 @@
-import { assert, assertEquals } from "std/testing/asserts.ts";
+import { assertEquals } from "std/testing/asserts.ts";
 
-import { ItemsRepository } from "@/lib/items.repository.ts";
+import { createItem, findItems, searchItems } from "@/lib/items.repository.ts";
 import { initTestKV, KV } from "@/lib/kv.ts";
 
 function testDB(
   desc: string,
-  fn: (kv: KV, repo: ItemsRepository) => Promise<void>,
+  fn: (kv: KV) => Promise<void>,
 ): void {
   Deno.test(`ItemsRepository.${desc}`, async () => {
     const kv = await initTestKV();
-    const repo = new ItemsRepository(kv);
-
-    await fn(kv, repo);
+    await fn(kv);
 
     for await (const entry of kv.list({ prefix: ["items"] })) {
       await kv.delete(entry.key);
@@ -20,17 +18,16 @@ function testDB(
   });
 }
 
-testDB("create() saves data", async (kv, repo) => {
+testDB("create() saves data", async (kv) => {
   const data = {
     date: "2023-05-04",
     url: "http://example.com",
     title: "Example Page",
   };
-
-  await repo.create(data);
+  await createItem(data)(kv);
 
   const res = await kv.get<typeof data>(["items", data.date, data.url]);
-  assert(res.value);
+
   assertEquals(res.value, {
     date: "2023-05-04",
     url: "http://example.com",
@@ -40,7 +37,7 @@ testDB("create() saves data", async (kv, repo) => {
 
 const shuffle = <T>(arr: T[]) => [...arr].sort(() => Math.random() - 0.5);
 
-async function setupData(repo: ItemsRepository) {
+async function setupData(kv: KV) {
   const title = "Example Page";
   const url = "http://example.com";
 
@@ -80,16 +77,16 @@ async function setupData(repo: ItemsRepository) {
   ]);
 
   for (const date of dates) {
-    await repo.create({ date, title, url });
+    await createItem({ date, title, url })(kv);
   }
 }
 
 testDB(
   "findMany() returns limited number of items in desc order",
-  async (_kv, repo) => {
-    await setupData(repo);
+  async (kv) => {
+    await setupData(kv);
 
-    const items = await repo.findMany();
+    const items = await findItems()(kv);
 
     assertEquals(items.length, 20);
     assertEquals(items[0].date, "2023-12-31");
@@ -99,39 +96,44 @@ testDB(
 
 testDB(
   "search() returns target date of items",
-  async (_kv, repo) => {
-    await repo.create({
-      date: "2023-01-01",
-      title: "test 1",
-      url: "http://example.com",
-    });
-    await repo.create({
-      date: "2023-01-01",
-      title: "test 2",
-      url: "http://example.com/foo",
-    });
-    await repo.create({
-      date: "2023-01-02",
-      title: "test 1",
-      url: "http://example.com",
-    });
-    await repo.create({
-      date: "2023-01-02",
-      title: "test 2",
-      url: "http://example.com/foo",
-    });
-    await repo.create({
-      date: "2023-01-10",
-      title: "test 1",
-      url: "http://example.com",
-    });
-    await repo.create({
-      date: "2023-01-10",
-      title: "test 2",
-      url: "http://example.com/foo",
-    });
+  async (kv) => {
+    const data = [
+      {
+        date: "2023-01-01",
+        title: "test 1",
+        url: "http://example.com",
+      },
+      {
+        date: "2023-01-01",
+        title: "test 2",
+        url: "http://example.com/foo",
+      },
+      {
+        date: "2023-01-02",
+        title: "test 1",
+        url: "http://example.com",
+      },
+      {
+        date: "2023-01-02",
+        title: "test 2",
+        url: "http://example.com/foo",
+      },
+      {
+        date: "2023-01-10",
+        title: "test 1",
+        url: "http://example.com",
+      },
+      {
+        date: "2023-01-10",
+        title: "test 2",
+        url: "http://example.com/foo",
+      },
+    ];
+    for (const d of data) {
+      await createItem(d)(kv);
+    }
 
-    const items = await repo.search("2023-01-02");
+    const items = await searchItems("2023-01-02")(kv);
 
     assertEquals(items.length, 2);
     assertEquals(items, [

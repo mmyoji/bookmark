@@ -1,4 +1,4 @@
-import { KV } from "@/lib/kv.ts";
+import { KVFunc, list } from "@/lib/kv.ts";
 
 type Item = {
   date: string; // YYYY-MM-DD
@@ -8,31 +8,20 @@ type Item = {
 
 const KEY = "items";
 
-export class ItemsRepository {
-  constructor(private kv: KV) {}
+export const createItem = (data: Item): KVFunc<void> => {
+  return async (kv) => {
+    await kv.set([KEY, data.date, data.url], data);
+  };
+};
 
-  async create(data: Item): Promise<void> {
-    await this.kv.set([KEY, data.date, data.url], data);
-  }
-
-  findMany(): Promise<Item[]> {
-    return this.#list([{ prefix: [KEY] }, {
+export const findItems = (): KVFunc<Item[]> => {
+  return (kv) =>
+    list<Item>([{ prefix: [KEY] }, {
       reverse: true,
       limit: 20,
-    }]);
-  }
+    }])(kv);
+};
 
-  search(date: string): Promise<Item[]> {
-    return this.#list([{ prefix: [KEY, date] }]);
-  }
-
-  async #list(
-    options: Parameters<Deno.Kv["list"]>,
-  ): Promise<Item[]> {
-    const items: Item[] = [];
-    for await (const entry of this.kv.list<Item>(...options)) {
-      items.push(entry.value);
-    }
-    return items;
-  }
-}
+export const searchItems = (date: string): KVFunc<Item[]> => {
+  return (kv) => list<Item>([{ prefix: [KEY, date] }])(kv);
+};

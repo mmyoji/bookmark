@@ -6,7 +6,7 @@ import { type Handlers, type PageProps } from "$fresh/server.ts";
 import { CreateForm } from "@/components/CreateForm.tsx";
 import { URLListItem } from "@/components/URLListItem.tsx";
 
-import { ItemsRepository } from "@/lib/items.repository.ts";
+import { findItems } from "@/lib/items.repository.ts";
 import { run } from "@/lib/kv.ts";
 import { createSupabaseClient } from "@/lib/supabase.ts";
 
@@ -30,10 +30,7 @@ export const handler: Handlers = {
       });
     }
 
-    const items = await run((kv) => {
-      const repo = new ItemsRepository(kv);
-      return repo.findMany();
-    });
+    const items = await run(findItems());
 
     return await ctx.render({ items });
   },
