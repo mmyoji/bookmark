@@ -4,7 +4,7 @@ import { DOMParser } from "linkedom";
 import { type Handlers } from "$fresh/server.ts";
 
 import { ItemsRepository } from "@/lib/items.repository.ts";
-import { initKV } from "@/lib/kv.ts";
+import { run } from "@/lib/kv.ts";
 import { createSupabaseClient } from "@/lib/supabase.ts";
 
 async function fetchTitle(url: string): Promise<string> {
@@ -41,16 +41,16 @@ export const handler: Handlers = {
 
     assert(session);
 
-    const kv = await initKV();
     const date = new Date().toISOString().slice(0, 10);
-    const repo = new ItemsRepository(kv);
-    await repo.create({
-      date,
-      url,
-      title,
-    });
 
-    await kv.close();
+    await run((kv) => {
+      const repo = new ItemsRepository(kv);
+      return repo.create({
+        date,
+        url,
+        title,
+      });
+    });
 
     return new Response(null, { headers: { location: "/" }, status: 302 });
   },
