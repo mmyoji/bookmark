@@ -10,6 +10,14 @@ import { findItems } from "@/lib/items.repository.ts";
 import { runKV } from "@/lib/kv.ts";
 import { createSupabaseClient } from "@/lib/supabase.ts";
 
+// A part of Session.User
+type User = {
+  id: string;
+  aud: string;
+  role: string;
+  email: string;
+};
+
 export const handler: Handlers = {
   async GET(req, ctx) {
     const headers = new Headers();
@@ -19,20 +27,9 @@ export const handler: Handlers = {
       data: { session },
     } = await supabase.auth.getSession();
 
-    try {
-      assert(session);
-    } catch (err) {
-      return new Response(null, {
-        status: 302,
-        headers: {
-          location: "/login",
-        },
-      });
-    }
-
     const items = await runKV(findItems());
 
-    return await ctx.render({ items });
+    return await ctx.render({ items, user: session?.user });
   },
 };
 
@@ -42,9 +39,10 @@ type PageData = {
     title: string;
     date: string;
   }[];
+  user: User | undefined;
 };
 
-export default function Home({ data: { items } }: PageProps<PageData>) {
+export default function Home({ data: { items, user } }: PageProps<PageData>) {
   return (
     <>
       <Head>
@@ -61,16 +59,20 @@ export default function Home({ data: { items } }: PageProps<PageData>) {
         <div class="my-6 flex justify-between">
           <h1 class="text-2xl font-bold">Archive Reminder</h1>
 
-          <div>
-            <a href="/api/logout" class="underline">
-              Sign out
-            </a>
-          </div>
+          {!!user && (
+            <div>
+              <a href="/api/logout" class="underline">
+                Sign out
+              </a>
+            </div>
+          )}
         </div>
 
-        <div class="my-4">
-          <CreateForm />
-        </div>
+        {!!user && (
+          <div class="my-4">
+            <CreateForm />
+          </div>
+        )}
 
         <ul>
           {items.map(({ date, ...rest }) => (
