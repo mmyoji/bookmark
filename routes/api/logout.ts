@@ -1,5 +1,5 @@
 import { type Handlers } from "$fresh/server.ts";
-import { deleteCookie } from "std/http/cookie.ts";
+import { deleteCookie } from "$std/http/cookie.ts";
 
 import { CookieKey } from "@/lib/cookie-keys.ts";
 

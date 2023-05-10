@@ -1,7 +1,6 @@
-import { assert } from "std/testing/asserts.ts";
-import { setCookie } from "std/http/cookie.ts";
-
 import { type Handlers } from "$fresh/server.ts";
+import { assert } from "$std/testing/asserts.ts";
+import { setCookie } from "$std/http/cookie.ts";
 
 import { CookieKey } from "@/lib/cookie-keys.ts";
 import { runKV } from "@/lib/kv.ts";

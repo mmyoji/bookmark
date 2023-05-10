@@ -1,5 +1,5 @@
-import { crypto, timingSafeEqual, toHashString } from "std/crypto/mod.ts";
-import { decode } from "std/encoding/hex.ts";
+import { crypto, timingSafeEqual, toHashString } from "$std/crypto/mod.ts";
+import { decode } from "$std/encoding/hex.ts";
 
 function toHash(password: string): Promise<ArrayBuffer> {
   return crypto.subtle.digest(

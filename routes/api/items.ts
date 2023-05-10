@@ -1,7 +1,7 @@
-import { assert } from "std/testing/asserts.ts";
-import { DOMParser } from "linkedom";
-
 import { type Handlers } from "$fresh/server.ts";
+import { assert } from "$std/testing/asserts.ts";
+
+import { DOMParser } from "linkedom";
 
 import { State } from "@/lib/context.ts";
 import { createItem } from "@/lib/items.repository.ts";
