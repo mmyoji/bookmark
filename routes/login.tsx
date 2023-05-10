@@ -33,7 +33,7 @@ export default function LoginPage(props: PageProps) {
             <img src="/logo.svg" alt="Logo" class="h-24 w-auto mx-auto" />
           </a>
           {error && <Notice message={error} color="yellow" />}
-          <AuthForm type="Login" />
+          <AuthForm />
         </div>
       </div>
     </>

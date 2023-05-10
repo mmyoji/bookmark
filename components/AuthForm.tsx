@@ -1,13 +1,9 @@
 import { Button } from "@/components/Button.tsx";
 import { Input } from "@/components/Input.tsx";
 
-type Props = {
-  type: "Login";
-};
-
-export function AuthForm({ type }: Props) {
+export function AuthForm() {
   return (
-    <form method="POST" class="space-y-4" action={`/api/${type.toLowerCase()}`}>
+    <form method="POST" class="space-y-4" action="/api/login">
       <Input
         placeholder="Username"
         name="username"
@@ -23,7 +19,7 @@ export function AuthForm({ type }: Props) {
         class="w-full"
       />
       <Button type="submit" class="w-full shadow-md">
-        {type}
+        Login
       </Button>
     </form>
   );
