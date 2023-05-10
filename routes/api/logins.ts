@@ -5,8 +5,19 @@ import { runKV } from "@/lib/kv.ts";
 import { createLogin } from "@/lib/logins.repository.ts";
 import { hashPassword } from "@/lib/password.ts";
 
+function validAuth(auth: string | null): boolean {
+  if (!auth) return false;
+
+  const [_, apiKey] = auth.split("Bearer ");
+  return !!apiKey && apiKey === Deno.env.get("API_KEY");
+}
+
 export const handler: Handlers = {
   async POST(req) {
+    if (!validAuth(req.headers.get("Authorization"))) {
+      return new Response(null, { status: 404 });
+    }
+
     const params = await req.json();
 
     assert(typeof params.username === "string");
