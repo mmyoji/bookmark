@@ -1,6 +1,6 @@
 import { KVFunc, list } from "@/lib/kv.ts";
 
-type Item = {
+export type Item = {
   date: string; // YYYY-MM-DD
   url: string;
   title: string;

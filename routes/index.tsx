@@ -5,13 +5,8 @@ import { CreateForm } from "@/components/CreateForm.tsx";
 import { URLListItem } from "@/components/URLListItem.tsx";
 
 import { type State } from "@/lib/context.ts";
-import { findItems } from "@/lib/items.repository.ts";
+import { findItems, type Item } from "@/lib/items.repository.ts";
 import { runKV } from "@/lib/kv.ts";
-
-// A part of Session.User
-type User = {
-  username: string;
-};
 
 export const handler: Handlers<unknown, State> = {
   async GET(_req, ctx) {
@@ -22,12 +17,8 @@ export const handler: Handlers<unknown, State> = {
 };
 
 type PageData = {
-  items: {
-    url: string;
-    title: string;
-    date: string;
-  }[];
-  user: User | undefined;
+  items: Item[];
+  user: State["currentUser"];
 };
 
 export default function Home({ data: { items, user } }: PageProps<PageData>) {
