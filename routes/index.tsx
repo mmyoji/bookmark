@@ -4,7 +4,7 @@ import { type Handlers, type PageProps } from "$fresh/server.ts";
 import { CreateForm } from "@/components/CreateForm.tsx";
 import { URLListItem } from "@/components/URLListItem.tsx";
 
-import { State } from "@/lib/context.ts";
+import { type State } from "@/lib/context.ts";
 import { findItems } from "@/lib/items.repository.ts";
 import { runKV } from "@/lib/kv.ts";
 

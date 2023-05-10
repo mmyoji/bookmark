@@ -1,4 +1,4 @@
-import { Handlers } from "$fresh/server.ts";
+import { type Handlers } from "$fresh/server.ts";
 import { assert } from "$std/testing/asserts.ts";
 
 import { runKV } from "@/lib/kv.ts";

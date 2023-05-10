@@ -3,7 +3,7 @@ import { assert } from "$std/testing/asserts.ts";
 
 import { DOMParser } from "linkedom";
 
-import { State } from "@/lib/context.ts";
+import { type State } from "@/lib/context.ts";
 import { createItem } from "@/lib/items.repository.ts";
 import { runKV } from "@/lib/kv.ts";
 
