@@ -5,8 +5,8 @@ import { CreateForm } from "@/components/CreateForm.tsx";
 import { URLListItem } from "@/components/URLListItem.tsx";
 
 import { type State } from "@/lib/context.ts";
-import { findItems, type Item } from "@/lib/items.repository.ts";
-import { runKV } from "@/lib/kv.ts";
+import { findItems, type Item } from "@/lib/db/items.kv.ts";
+import { runKV } from "@/lib/db/kv.ts";
 
 export const handler: Handlers<unknown, State> = {
   async GET(_req, ctx) {

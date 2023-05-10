@@ -1,7 +1,7 @@
 import { assertEquals } from "$std/testing/asserts.ts";
 
-import { createItem, findItems, searchItems } from "@/lib/items.repository.ts";
-import { initTestKV, KV } from "@/lib/kv.ts";
+import { createItem, findItems, searchItems } from "@/lib/db/items.kv.ts";
+import { initTestKV, KV } from "@/lib/db/kv.ts";
 
 function testDB(
   desc: string,

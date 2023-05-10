@@ -1,8 +1,8 @@
 import { type Handlers } from "$fresh/server.ts";
 import { assert } from "$std/testing/asserts.ts";
 
-import { runKV } from "@/lib/kv.ts";
-import { createLogin } from "@/lib/logins.repository.ts";
+import { runKV } from "@/lib/db/kv.ts";
+import { createLogin } from "@/lib/db/logins.kv.ts";
 import { hashPassword } from "@/lib/password.ts";
 
 function validAuth(auth: string | null): boolean {
