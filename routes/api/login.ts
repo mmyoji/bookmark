@@ -2,7 +2,7 @@ import { type Handlers } from "$fresh/server.ts";
 import { assert } from "$std/testing/asserts.ts";
 import { setCookie } from "$std/http/cookie.ts";
 
-import { CookieKey } from "@/lib/cookie-keys.ts";
+import { appConfig } from "@/lib/app.config.ts";
 import { runKV } from "@/lib/db/kv.ts";
 import { findLogin } from "@/lib/db/logins.kv.ts";
 import { verifyPassword } from "@/lib/password.ts";
@@ -39,11 +39,11 @@ export const handler: Handlers = {
     const redirectUrl = new URL(req.url).searchParams.get("redirect_url") ??
       "/";
     setCookie(headers, {
-      name: CookieKey.uid,
+      name: appConfig.cookies.key.uid,
       value: login.username,
       maxAge: 60 * 60 * 24 * 7,
       httpOnly: true,
-      secure: !!Deno.env.get("DENO_DEPLOYMENT_ID"),
+      secure: !!appConfig.deploy.id,
       sameSite: "Lax",
       path: "/",
     });
