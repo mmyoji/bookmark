@@ -1,6 +1,7 @@
 import { type Handlers } from "$fresh/server.ts";
 import { assert } from "$std/testing/asserts.ts";
 
+import { appConfig } from "@/lib/app.config.ts";
 import { runKV } from "@/lib/db/kv.ts";
 import { createLogin } from "@/lib/db/logins.kv.ts";
 import { hashPassword } from "@/lib/password.ts";
@@ -9,7 +10,7 @@ function validAuth(auth: string | null): boolean {
   if (!auth) return false;
 
   const [_, apiKey] = auth.split("Bearer ");
-  return !!apiKey && apiKey === Deno.env.get("API_KEY");
+  return !!apiKey && apiKey === appConfig.api.key;
 }
 
 export const handler: Handlers = {
