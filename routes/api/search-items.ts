@@ -1,6 +1,5 @@
-import { assert } from "std/testing/asserts.ts";
-
 import { type Handlers } from "$fresh/server.ts";
+import { assert } from "$std/testing/asserts.ts";
 
 import { searchItems } from "@/lib/items.repository.ts";
 import { runKV } from "@/lib/kv.ts";

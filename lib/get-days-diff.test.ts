@@ -1,4 +1,4 @@
-import { assertEquals } from "std/testing/asserts.ts";
+import { assertEquals } from "$std/testing/asserts.ts";
 
 import { getDaysDiff } from "@/lib/get-days-diff.ts";
 

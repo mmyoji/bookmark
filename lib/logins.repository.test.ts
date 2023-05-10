@@ -1,4 +1,4 @@
-import { assertEquals } from "std/testing/asserts.ts";
+import { assertEquals } from "$std/testing/asserts.ts";
 
 import { createLogin, findLogin } from "@/lib/logins.repository.ts";
 import { initTestKV, KV } from "@/lib/kv.ts";

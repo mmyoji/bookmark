@@ -1,4 +1,4 @@
-import { assertEquals } from "std/testing/asserts.ts";
+import { assertEquals } from "$std/testing/asserts.ts";
 
 import { hashPassword, verifyPassword } from "@/lib/password.ts";
 
