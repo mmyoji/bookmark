@@ -7,7 +7,7 @@ function testDB(
   desc: string,
   fn: (kv: KV) => Promise<void>,
 ): void {
-  Deno.test(`LoginsRepository.${desc}`, async () => {
+  Deno.test(desc, async () => {
     const kv = await initTestKV();
     await fn(kv);
 

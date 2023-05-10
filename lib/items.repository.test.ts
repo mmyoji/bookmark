@@ -7,7 +7,7 @@ function testDB(
   desc: string,
   fn: (kv: KV) => Promise<void>,
 ): void {
-  Deno.test(`ItemsRepository.${desc}`, async () => {
+  Deno.test(desc, async () => {
     const kv = await initTestKV();
     await fn(kv);
 
@@ -18,7 +18,7 @@ function testDB(
   });
 }
 
-testDB("create() saves data", async (kv) => {
+testDB("createItem() saves data", async (kv) => {
   const data = {
     date: "2023-05-04",
     url: "http://example.com",
@@ -82,7 +82,7 @@ async function setupData(kv: KV) {
 }
 
 testDB(
-  "findMany() returns limited number of items in desc order",
+  "findItems() returns limited number of items in desc order",
   async (kv) => {
     await setupData(kv);
 
@@ -95,7 +95,7 @@ testDB(
 );
 
 testDB(
-  "search() returns target date of items",
+  "searchItems() returns target date of items",
   async (kv) => {
     const data = [
       {
