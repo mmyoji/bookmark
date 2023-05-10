@@ -9,9 +9,9 @@ export function AuthForm({ type }: Props) {
   return (
     <form method="POST" class="space-y-4" action={`/api/${type.toLowerCase()}`}>
       <Input
-        placeholder="Email"
-        name="email"
-        type="email"
+        placeholder="Username"
+        name="username"
+        type="text"
         required
         class="w-full max-w-screen-sm"
       />

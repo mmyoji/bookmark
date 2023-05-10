@@ -1,15 +1,12 @@
 import { type Handlers } from "$fresh/server.ts";
+import { deleteCookie } from "std/http/cookie.ts";
 
-import { createSupabaseClient } from "@/lib/supabase.ts";
+import { CookieKey } from "@/lib/cookie-keys.ts";
 
 export const handler: Handlers = {
-  async GET(req) {
+  GET() {
     const headers = new Headers({ location: "/" });
-    const supabase = createSupabaseClient(req.headers, headers);
-
-    const { error } = await supabase.auth.signOut();
-    if (error) throw error;
-
+    deleteCookie(headers, CookieKey.uid, { path: "/" });
     return new Response(null, { headers, status: 302 });
   },
 };

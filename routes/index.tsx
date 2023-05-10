@@ -1,35 +1,23 @@
-import { assert } from "std/testing/asserts.ts";
-
 import { Head } from "$fresh/runtime.ts";
 import { type Handlers, type PageProps } from "$fresh/server.ts";
 
 import { CreateForm } from "@/components/CreateForm.tsx";
 import { URLListItem } from "@/components/URLListItem.tsx";
 
+import { State } from "@/lib/context.ts";
 import { findItems } from "@/lib/items.repository.ts";
 import { runKV } from "@/lib/kv.ts";
-import { createSupabaseClient } from "@/lib/supabase.ts";
 
 // A part of Session.User
 type User = {
-  id: string;
-  aud: string;
-  role: string;
-  email: string;
+  username: string;
 };
 
-export const handler: Handlers = {
-  async GET(req, ctx) {
-    const headers = new Headers();
-    const supabase = createSupabaseClient(req.headers, headers);
-
-    const {
-      data: { session },
-    } = await supabase.auth.getSession();
-
+export const handler: Handlers<unknown, State> = {
+  async GET(_req, ctx) {
     const items = await runKV(findItems());
 
-    return await ctx.render({ items, user: session?.user });
+    return await ctx.render({ items, user: ctx.state.currentUser });
   },
 };
 
