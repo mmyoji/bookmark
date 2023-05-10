@@ -3,23 +3,25 @@
 // This file is automatically updated during development when running `dev.ts`.
 
 import config from "./deno.json" assert { type: "json" };
-import * as $0 from "./routes/api/items.ts";
-import * as $1 from "./routes/api/login.ts";
-import * as $2 from "./routes/api/logins.ts";
-import * as $3 from "./routes/api/logout.ts";
-import * as $4 from "./routes/api/search-items.ts";
-import * as $5 from "./routes/index.tsx";
-import * as $6 from "./routes/login.tsx";
+import * as $0 from "./routes/_middleware.ts";
+import * as $1 from "./routes/api/items.ts";
+import * as $2 from "./routes/api/login.ts";
+import * as $3 from "./routes/api/logins.ts";
+import * as $4 from "./routes/api/logout.ts";
+import * as $5 from "./routes/api/search-items.ts";
+import * as $6 from "./routes/index.tsx";
+import * as $7 from "./routes/login.tsx";
 
 const manifest = {
   routes: {
-    "./routes/api/items.ts": $0,
-    "./routes/api/login.ts": $1,
-    "./routes/api/logins.ts": $2,
-    "./routes/api/logout.ts": $3,
-    "./routes/api/search-items.ts": $4,
-    "./routes/index.tsx": $5,
-    "./routes/login.tsx": $6,
+    "./routes/_middleware.ts": $0,
+    "./routes/api/items.ts": $1,
+    "./routes/api/login.ts": $2,
+    "./routes/api/logins.ts": $3,
+    "./routes/api/logout.ts": $4,
+    "./routes/api/search-items.ts": $5,
+    "./routes/index.tsx": $6,
+    "./routes/login.tsx": $7,
   },
   islands: {},
   baseUrl: import.meta.url,

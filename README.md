@@ -4,9 +4,6 @@ Remind what you read before (1 week ago).
 
 ## Dependency
 
-- Supabase
-  - [Auth](https://supabase.com/docs/guides/auth/overview)
-  - [Database](https://supabase.com/docs/guides/database)
 - direnv
 
 ## Usage
