@@ -1,6 +1,6 @@
 import { assertEquals } from "$std/testing/asserts.ts";
 
-import { getDaysDiff } from "@/lib/get-days-diff.ts";
+import { countDaysBetween } from "@/lib/date.utils.ts";
 
 [
   {
@@ -29,7 +29,7 @@ import { getDaysDiff } from "@/lib/get-days-diff.ts";
     days: 8,
   },
 ].forEach(({ base, target, days }) => {
-  Deno.test(`getDaysDiff() returns ${days} (days) between ${base.toISOString()} and ${target.toISOString()}`, () => {
-    assertEquals(getDaysDiff(base, target), days);
+  Deno.test(`countDaysBetween() returns ${days} (days) between ${base.toISOString()} and ${target.toISOString()}`, () => {
+    assertEquals(countDaysBetween(base, target), days);
   });
 });

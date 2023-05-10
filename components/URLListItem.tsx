@@ -1,4 +1,4 @@
-import { getDaysDiff } from "@/lib/get-days-diff.ts";
+import { countDaysBetween } from "@/lib/date.utils.ts";
 
 type Props = {
   url: string;
@@ -7,8 +7,8 @@ type Props = {
 };
 
 export function URLListItem({ url, title, date }: Props) {
-  const diffDays = getDaysDiff(new Date(), new Date(date));
-  const bgColor = diffDays > 7 ? "bg-gray-200" : "";
+  const days = countDaysBetween(new Date(), new Date(date));
+  const bgColor = days > 7 ? "bg-gray-200" : "";
 
   return (
     <li class={`border rounded p-2 my-1.5 ${bgColor}`}>
