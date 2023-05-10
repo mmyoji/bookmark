@@ -8,7 +8,7 @@ type Props = {
 
 export function URLListItem({ url, title, date }: Props) {
   const days = countDaysBetween(new Date(), new Date(date));
-  const bgColor = days > 7 ? "bg-gray-200" : "";
+  const bgColor = days > 8 ? "bg-gray-200" : "";
 
   return (
     <li class={`border rounded p-2 my-1.5 ${bgColor}`}>
