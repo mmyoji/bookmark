@@ -1,4 +1,4 @@
-import { KVFunc } from "@/lib/kv.ts";
+import { KVFunc } from "@/lib/db/kv.ts";
 
 type Login = {
   username: string;

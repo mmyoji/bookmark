@@ -3,8 +3,8 @@ import { assert } from "$std/testing/asserts.ts";
 import { setCookie } from "$std/http/cookie.ts";
 
 import { CookieKey } from "@/lib/cookie-keys.ts";
-import { runKV } from "@/lib/kv.ts";
-import { findLogin } from "@/lib/logins.repository.ts";
+import { runKV } from "@/lib/db/kv.ts";
+import { findLogin } from "@/lib/db/logins.kv.ts";
 import { verifyPassword } from "@/lib/password.ts";
 
 function errorResposne(headers: Headers) {

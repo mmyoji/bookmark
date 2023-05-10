@@ -1,6 +1,6 @@
 import { assertEquals } from "$std/testing/asserts.ts";
 
-import { initTestKV, KV, list } from "@/lib/kv.ts";
+import { initTestKV, KV, list } from "@/lib/db/kv.ts";
 
 type TKey = [string, string];
 type TVal = { val: number };

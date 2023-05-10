@@ -4,8 +4,8 @@ import { assert } from "$std/testing/asserts.ts";
 import { DOMParser } from "linkedom";
 
 import { type State } from "@/lib/context.ts";
-import { createItem } from "@/lib/items.repository.ts";
-import { runKV } from "@/lib/kv.ts";
+import { createItem } from "@/lib/db/items.kv.ts";
+import { runKV } from "@/lib/db/kv.ts";
 
 async function fetchTitle(url: string): Promise<string> {
   const res = await fetch(url).catch(() => undefined);
