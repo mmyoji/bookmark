@@ -4,7 +4,7 @@ import { type Handlers, type PageProps } from "$fresh/server.ts";
 import { AuthForm } from "@/components/AuthForm.tsx";
 import { Notice } from "@/components/Notice.tsx";
 
-import { State } from "@/lib/context.ts";
+import { type State } from "@/lib/context.ts";
 
 export const handler: Handlers<unknown, State> = {
   GET(_req, ctx) {
