@@ -19,7 +19,7 @@ export const handler: Handlers<unknown, State> = {
 };
 
 export default function LoginPage(props: PageProps) {
-  const errorMessage = props.url.searchParams.get("error");
+  const error = props.url.searchParams.get("error");
 
   return (
     <>
@@ -32,9 +32,7 @@ export default function LoginPage(props: PageProps) {
           <a href="/">
             <img src="/logo.svg" alt="Logo" class="h-24 w-auto mx-auto" />
           </a>
-          {errorMessage === "Invalid login credentials" && (
-            <Notice message={errorMessage} color="yellow" />
-          )}
+          {error && <Notice message={error} color="yellow" />}
           <AuthForm type="Login" />
         </div>
       </div>
