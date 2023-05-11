@@ -2,12 +2,10 @@ export type KV = Deno.Kv;
 
 export type KVFunc<T> = (kv: KV) => Promise<T>;
 
-const initKV = () => Deno.openKv();
+const kv = await Deno.openKv();
 
 export async function runKV<T>(fn: (kv: KV) => Promise<T>): Promise<T> {
-  const kv = await initKV();
   const ret = await fn(kv);
-  await kv.close();
   return ret;
 }
 
