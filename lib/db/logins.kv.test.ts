@@ -21,7 +21,7 @@ function testDB(
 testDB("createLogin() saves data", async (kv) => {
   const data = {
     username: crypto.randomUUID(),
-    encryptedPassword: "password",
+    hashedPassword: "password",
   };
   await createLogin(data)(kv);
 
@@ -33,7 +33,7 @@ testDB("createLogin() saves data", async (kv) => {
 testDB("findLogin() fetches by username", async (kv) => {
   const data = {
     username: crypto.randomUUID(),
-    encryptedPassword: "password",
+    hashedPassword: "password",
   };
   await createLogin(data)(kv);
 

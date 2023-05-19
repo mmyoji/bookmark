@@ -26,7 +26,7 @@ export const handler: Handlers = {
 
     const data = {
       username: params.username,
-      encryptedPassword: await hashPassword(params.password),
+      hashedPassword: hashPassword(params.password),
     };
 
     await runKV(createLogin(data));

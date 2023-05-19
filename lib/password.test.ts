@@ -4,18 +4,18 @@ import { hashPassword, verifyPassword } from "@/lib/password.ts";
 
 const pswd = "P@s$w0rd";
 
-Deno.test("verifyPassword() returns true when password matches", async () => {
-  const encryptedPassword = await hashPassword(pswd);
+Deno.test("verifyPassword() returns true when password matches", () => {
+  const hashed = hashPassword(pswd);
 
-  const result = await verifyPassword(pswd, encryptedPassword);
+  const result = verifyPassword(pswd, hashed);
 
   assertEquals(result, true);
 });
 
-Deno.test("verifyPassword() returns false when password unmatches", async () => {
-  const encryptedPassword = await hashPassword(pswd);
+Deno.test("verifyPassword() returns false when password unmatches", () => {
+  const hashed = hashPassword(pswd);
 
-  const result = await verifyPassword("P@ssw0rd", encryptedPassword);
+  const result = verifyPassword("P@ssw0rd", hashed);
 
   assertEquals(result, false);
 });

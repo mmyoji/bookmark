@@ -2,7 +2,7 @@ import { KVFunc } from "@/lib/db/kv.ts";
 
 type Login = {
   username: string;
-  encryptedPassword: string;
+  hashedPassword: string;
 };
 
 const KEY = "logins";
