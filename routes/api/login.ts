@@ -31,7 +31,7 @@ export const handler: Handlers = {
       return errorResposne(headers);
     }
 
-    const result = await verifyPassword(password, login.encryptedPassword);
+    const result = verifyPassword(password, login.hashedPassword);
     if (!result) {
       return errorResposne(headers);
     }
