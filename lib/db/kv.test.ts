@@ -28,7 +28,7 @@ async function teardown(kv: KV) {
     await kv.delete(key);
   }
 
-  await kv.close();
+  kv.close();
 }
 
 Deno.test("kv.list() returns an array of objects", async () => {

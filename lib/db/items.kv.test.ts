@@ -14,7 +14,7 @@ function testDB(
     for await (const entry of kv.list({ prefix: ["items"] })) {
       await kv.delete(entry.key);
     }
-    await kv.close();
+    kv.close();
   });
 }
 
