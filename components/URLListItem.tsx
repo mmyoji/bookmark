@@ -1,30 +1,39 @@
+import ItemDeleteButton from "@/islands/ItemDeleteButton.tsx";
+
 import { countDaysBetween } from "@/lib/date.utils.ts";
+import { type Item } from "@/lib/db/items.kv.ts";
 
 type Props = {
-  url: string;
-  title: string;
-  date: string;
+  item: Item;
+  isSignIn: boolean;
 };
 
-export function URLListItem({ url, title, date }: Props) {
+export function URLListItem({ item: { url, title, date }, isSignIn }: Props) {
   const days = countDaysBetween(new Date(), new Date(date));
   const bgColor = days > 8 ? "bg-gray-200" : "";
 
   return (
-    <li class={`border rounded p-2 my-1.5 ${bgColor}`}>
-      <h3>
-        <a
-          href={url}
-          target="_blank"
-          rel="noreferrer noopener"
-          class="underline text-pink-700"
-        >
-          {title || url}
-        </a>
-      </h3>
-      <time class="text-gray-500" dateTime={date}>
-        {date}
-      </time>
+    <li class={`border rounded p-2 my-1.5 flex justify-between ${bgColor}`}>
+      <div>
+        <h3>
+          <a
+            href={url}
+            target="_blank"
+            rel="noreferrer noopener"
+            class="underline text-pink-700"
+          >
+            {title || url}
+          </a>
+        </h3>
+        <time class="text-gray-500" dateTime={date}>
+          {date}
+        </time>
+      </div>
+      {isSignIn && (
+        <div>
+          <ItemDeleteButton item={{ date, url }} />
+        </div>
+      )}
     </li>
   );
 }
