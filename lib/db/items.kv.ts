@@ -14,6 +14,12 @@ export const createItem = (data: Item): KVFunc<void> => {
   };
 };
 
+export const deleteItem = (data: Pick<Item, "date" | "url">): KVFunc<void> => {
+  return async (kv) => {
+    await kv.delete([KEY, data.date, data.url]);
+  };
+};
+
 export const findItems = (): KVFunc<Item[]> => {
   return (kv) =>
     list<Item>([{ prefix: [KEY] }, {

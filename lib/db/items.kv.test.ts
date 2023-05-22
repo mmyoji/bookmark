@@ -1,6 +1,11 @@
 import { assertEquals } from "$std/testing/asserts.ts";
 
-import { createItem, findItems, searchItems } from "@/lib/db/items.kv.ts";
+import {
+  createItem,
+  deleteItem,
+  findItems,
+  searchItems,
+} from "@/lib/db/items.kv.ts";
 import { initTestKV, KV } from "@/lib/db/kv.ts";
 
 function testDB(
@@ -33,6 +38,20 @@ testDB("createItem() saves data", async (kv) => {
     url: "http://example.com",
     title: "Example Page",
   });
+});
+
+testDB("deleteItem() deletes given key", async (kv) => {
+  const data = {
+    date: "2023-05-04",
+    url: "http://example.com",
+    title: "Example Page",
+  };
+  await createItem(data)(kv);
+
+  await deleteItem({ date: data.date, url: data.url })(kv);
+
+  const res = await kv.get(["items", data.date, data.url]);
+  assertEquals(res.value, null);
 });
 
 const shuffle = <T>(arr: T[]) => [...arr].sort(() => Math.random() - 0.5);

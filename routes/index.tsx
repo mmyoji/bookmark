@@ -54,9 +54,7 @@ export default function Home({ data: { items, user } }: PageProps<PageData>) {
         )}
 
         <ul>
-          {items.map(({ date, ...rest }) => (
-            <URLListItem {...rest} date={date} />
-          ))}
+          {items.map((item) => <URLListItem isSignIn={!!user} item={item} />)}
         </ul>
       </div>
     </>
