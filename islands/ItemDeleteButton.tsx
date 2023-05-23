@@ -1,4 +1,5 @@
 import { type JSX } from "preact";
+import IconTrash from "tabler_icons_tsx/tsx/trash.tsx";
 
 import { type Item } from "@/lib/db/items.kv.ts";
 
@@ -29,7 +30,7 @@ export default function ItemDeleteButton({ item: { date, url } }: Props) {
 
   return (
     <button class="text-slate-600" onClick={handleClick}>
-      x
+      <IconTrash class="w-5 h-5" />
     </button>
   );
 }
