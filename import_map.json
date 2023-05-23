@@ -11,6 +11,8 @@
     "@twind/preset-tailwind": "https://esm.sh/@twind/preset-tailwind@1.1.4",
     "@/": "./",
     "linkedom": "https://esm.sh/linkedom@0.14.26",
-    "scrypt": "https://deno.land/x/scrypt@v4.2.1/mod.ts"
+    "scrypt": "https://deno.land/x/scrypt@v4.2.1/mod.ts",
+    "tabler_icons_tsx": "https://deno.land/x/tabler_icons_tsx@0.0.3",
+    "tabler_icons_tsx/": "https://deno.land/x/tabler_icons_tsx@0.0.3/"
   }
 }
