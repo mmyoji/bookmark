@@ -1,5 +1,5 @@
 module.exports = async ({ github, context, fetch, dayjs }) => {
-  const date = dayjs().subtract(7, "day").format("YYYY-MM-DD");
+  const date = dayjs().subtract(14, "day").format("YYYY-MM-DD");
 
   const res = await fetch(
     `https://mmyoji-archive-reminder.deno.dev/api/search-items?date=${date}`,

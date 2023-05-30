@@ -1,5 +1,6 @@
 import ItemDeleteButton from "@/islands/ItemDeleteButton.tsx";
 
+import { appConfig } from "@/lib/app.config.ts";
 import { countDaysBetween } from "@/lib/date.utils.ts";
 import { type Item } from "@/lib/db/items.kv.ts";
 
@@ -10,7 +11,7 @@ type Props = {
 
 export function URLListItem({ item: { url, title, date }, isSignIn }: Props) {
   const days = countDaysBetween(new Date(), new Date(date));
-  const bgColor = days > 8 ? "bg-gray-200" : "";
+  const bgColor = days > appConfig.remindIn + 1 ? "bg-gray-200" : "";
 
   return (
     <li class={`border rounded p-2 my-1.5 flex justify-between ${bgColor}`}>
