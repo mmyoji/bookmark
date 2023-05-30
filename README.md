@@ -1,6 +1,6 @@
 # Archive Reminder
 
-Remind what you read before (1 week ago).
+Remind what you read before (2 weeks ago).
 
 ## Dependency
 
