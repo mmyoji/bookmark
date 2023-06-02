@@ -21,7 +21,7 @@ export function URLListItem({ item: { url, title, date }, isSignIn }: Props) {
             href={url}
             target="_blank"
             rel="noreferrer noopener"
-            class="underline text-pink-700"
+            class="underline text-pink-700 break-all"
           >
             {title || url}
           </a>
