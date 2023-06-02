@@ -9,13 +9,16 @@ export async function runKV<T>(fn: (kv: KV) => Promise<T>): Promise<T> {
   return ret;
 }
 
-export function list<T>(options: Parameters<KV["list"]>): KVFunc<T[]> {
+export function list<T>(
+  options: Parameters<KV["list"]>,
+): KVFunc<[T[], string]> {
   return async (kv) => {
     const data: T[] = [];
-    for await (const entry of kv.list<T>(...options)) {
+    const list = kv.list<T>(...options);
+    for await (const entry of list) {
       data.push(entry.value);
     }
-    return data;
+    return [data, list.cursor];
   };
 }
 

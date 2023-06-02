@@ -31,16 +31,17 @@ async function teardown(kv: KV) {
   kv.close();
 }
 
-Deno.test("kv.list() returns an array of objects", async () => {
+Deno.test("kv.list() returns an array of objects and its cursor", async () => {
   const kv = await setup();
 
-  const data = await list<TVal>([{ prefix: ["test"] }])(kv);
+  const [data, cursor] = await list<TVal>([{ prefix: ["test"] }])(kv);
 
   assertEquals(data, [
     { val: 2 },
     { val: 3 },
     { val: 1 },
   ]);
+  assertEquals(cursor, "");
 
   await teardown(kv);
 });

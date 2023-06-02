@@ -1,4 +1,4 @@
-import { assertEquals } from "$std/testing/asserts.ts";
+import { assert, assertEquals } from "$std/testing/asserts.ts";
 
 import {
   createItem,
@@ -61,18 +61,6 @@ async function setupData(kv: KV) {
   const url = "http://example.com";
 
   const dates = shuffle([
-    "2023-01-01",
-    "2023-01-02",
-
-    "2023-01-11",
-    "2023-01-21",
-    "2023-01-31",
-    "2023-02-01",
-    "2023-02-02",
-
-    "2023-02-11",
-    "2023-02-21",
-    "2023-02-28",
     "2023-03-01",
     "2023-03-02",
 
@@ -105,11 +93,19 @@ testDB(
   async (kv) => {
     await setupData(kv);
 
-    const items = await findItems()(kv);
+    let [items, cursor] = await findItems(undefined)(kv);
 
-    assertEquals(items.length, 20);
+    assertEquals(items.length, 10);
     assertEquals(items[0].date, "2023-12-31");
-    assertEquals(items[19].date, "2023-02-11");
+    assertEquals(items[9].date, "2023-11-01");
+    assert(cursor !== "");
+
+    [items, cursor] = await findItems(cursor)(kv);
+
+    assertEquals(items.length, 7);
+    assertEquals(items[0].date, "2023-10-11");
+    assertEquals(items[6].date, "2023-03-01");
+    assertEquals(cursor, "");
   },
 );
 
