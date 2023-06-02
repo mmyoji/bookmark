@@ -1,6 +1,8 @@
 import { Head } from "$fresh/runtime.ts";
 import { type Handlers, type PageProps } from "$fresh/server.ts";
 
+import IconChevronRight from "tabler_icons_tsx/tsx/chevron-right.tsx";
+
 import { CreateForm } from "@/components/CreateForm.tsx";
 import { URLListItem } from "@/components/URLListItem.tsx";
 
@@ -9,19 +11,23 @@ import { findItems, type Item } from "@/lib/db/items.kv.ts";
 import { runKV } from "@/lib/db/kv.ts";
 
 export const handler: Handlers<unknown, State> = {
-  async GET(_req, ctx) {
-    const items = await runKV(findItems());
+  async GET(req, ctx) {
+    const after = new URL(req.url).searchParams.get("after") || undefined;
+    const [items, cursor] = await runKV(findItems(after));
 
-    return await ctx.render({ items, user: ctx.state.currentUser });
+    return await ctx.render({ items, cursor, user: ctx.state.currentUser });
   },
 };
 
 type PageData = {
+  cursor: string;
   items: Item[];
   user: State["currentUser"];
 };
 
-export default function Home({ data: { items, user } }: PageProps<PageData>) {
+export default function Home(
+  { data: { cursor, items, user } }: PageProps<PageData>,
+) {
   return (
     <>
       <Head>
@@ -56,6 +62,20 @@ export default function Home({ data: { items, user } }: PageProps<PageData>) {
         <ul>
           {items.map((item) => <URLListItem isSignIn={!!user} item={item} />)}
         </ul>
+
+        {!!cursor && (
+          <div class="flex justify-center mt-4">
+            <a
+              class="bg-pink-700 text-white border border-solid border-pink-700 rounded pt-1 pb-1.5 pr-1 pl-2"
+              href={`?after=${cursor}`}
+            >
+              <div class="flex items-center leading-normal">
+                <span>NEXT</span>
+                <IconChevronRight class="pt-0.5 w-5 h-5" />
+              </div>
+            </a>
+          </div>
+        )}
       </div>
     </>
   );

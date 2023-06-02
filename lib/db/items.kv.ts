@@ -20,14 +20,20 @@ export const deleteItem = (data: Pick<Item, "date" | "url">): KVFunc<void> => {
   };
 };
 
-export const findItems = (): KVFunc<Item[]> => {
+export const findItems = (
+  cursor: string | undefined,
+): KVFunc<[Item[], string]> => {
   return (kv) =>
     list<Item>([{ prefix: [KEY] }, {
+      cursor,
       reverse: true,
-      limit: 20,
+      limit: 10,
     }])(kv);
 };
 
 export const searchItems = (date: string): KVFunc<Item[]> => {
-  return (kv) => list<Item>([{ prefix: [KEY, date] }])(kv);
+  return async (kv) => {
+    const [items] = await list<Item>([{ prefix: [KEY, date] }])(kv);
+    return items;
+  };
 };
