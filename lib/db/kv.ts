@@ -2,7 +2,7 @@ export type KV = Deno.Kv;
 
 export type KVFunc<T> = (kv: KV) => Promise<T>;
 
-const kv = await Deno.openKv();
+const kv = await Deno.openKv(Deno.env.get("KV_PATH"));
 
 export async function runKV<T>(fn: (kv: KV) => Promise<T>): Promise<T> {
   const ret = await fn(kv);
@@ -22,4 +22,15 @@ export function list<T>(
   };
 }
 
-export const initTestKV = () => Deno.openKv(":memory:");
+export function testKV(
+  desc: string,
+  fn: (kv: KV) => Promise<void>,
+): void {
+  Deno.test(desc, async () => {
+    const kv = await Deno.openKv(":memory:");
+
+    await fn(kv);
+
+    kv.close();
+  });
+}

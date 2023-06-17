@@ -6,24 +6,15 @@ import {
   findItems,
   searchItems,
 } from "@/lib/db/items.kv.ts";
-import { initTestKV, KV } from "@/lib/db/kv.ts";
+import { KV, testKV } from "@/lib/db/kv.ts";
 
-function testDB(
-  desc: string,
-  fn: (kv: KV) => Promise<void>,
-): void {
-  Deno.test(desc, async () => {
-    const kv = await initTestKV();
-    await fn(kv);
-
-    for await (const entry of kv.list({ prefix: ["items"] })) {
-      await kv.delete(entry.key);
-    }
-    kv.close();
-  });
+async function teardown(kv: KV) {
+  for await (const entry of kv.list({ prefix: ["items"] })) {
+    await kv.delete(entry.key);
+  }
 }
 
-testDB("createItem() saves data", async (kv) => {
+testKV("createItem() saves data", async (kv) => {
   const data = {
     date: "2023-05-04",
     url: "http://example.com",
@@ -38,9 +29,11 @@ testDB("createItem() saves data", async (kv) => {
     url: "http://example.com",
     title: "Example Page",
   });
+
+  await teardown(kv);
 });
 
-testDB("deleteItem() deletes given key", async (kv) => {
+testKV("deleteItem() deletes given key", async (kv) => {
   const data = {
     date: "2023-05-04",
     url: "http://example.com",
@@ -52,6 +45,8 @@ testDB("deleteItem() deletes given key", async (kv) => {
 
   const res = await kv.get(["items", data.date, data.url]);
   assertEquals(res.value, null);
+
+  await teardown(kv);
 });
 
 const shuffle = <T>(arr: T[]) => [...arr].sort(() => Math.random() - 0.5);
@@ -88,7 +83,7 @@ async function setupData(kv: KV) {
   }
 }
 
-testDB(
+testKV(
   "findItems() returns limited number of items in desc order",
   async (kv) => {
     await setupData(kv);
@@ -106,10 +101,12 @@ testDB(
     assertEquals(items[0].date, "2023-10-11");
     assertEquals(items[6].date, "2023-03-01");
     assertEquals(cursor, "");
+
+    await teardown(kv);
   },
 );
 
-testDB(
+testKV(
   "searchItems() returns target date of items",
   async (kv) => {
     const data = [
@@ -163,5 +160,7 @@ testDB(
         url: "http://example.com/foo",
       },
     ]);
+
+    await teardown(kv);
   },
 );
