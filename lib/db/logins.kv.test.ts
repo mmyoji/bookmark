@@ -1,24 +1,15 @@
 import { assertEquals } from "$std/testing/asserts.ts";
 
 import { createLogin, findLogin } from "@/lib/db/logins.kv.ts";
-import { initTestKV, KV } from "@/lib/db/kv.ts";
+import { KV, testKV } from "@/lib/db/kv.ts";
 
-function testDB(
-  desc: string,
-  fn: (kv: KV) => Promise<void>,
-): void {
-  Deno.test(desc, async () => {
-    const kv = await initTestKV();
-    await fn(kv);
-
-    for await (const entry of kv.list({ prefix: ["logins"] })) {
-      await kv.delete(entry.key);
-    }
-    kv.close();
-  });
+async function teardown(kv: KV) {
+  for await (const entry of kv.list({ prefix: ["logins"] })) {
+    await kv.delete(entry.key);
+  }
 }
 
-testDB("createLogin() saves data", async (kv) => {
+testKV("createLogin() saves data", async (kv) => {
   const data = {
     username: crypto.randomUUID(),
     hashedPassword: "password",
@@ -28,9 +19,11 @@ testDB("createLogin() saves data", async (kv) => {
   const res = await kv.get<typeof data>(["logins", data.username]);
 
   assertEquals(res.value, data);
+
+  await teardown(kv);
 });
 
-testDB("findLogin() fetches by username", async (kv) => {
+testKV("findLogin() fetches by username", async (kv) => {
   const data = {
     username: crypto.randomUUID(),
     hashedPassword: "password",
@@ -42,4 +35,6 @@ testDB("findLogin() fetches by username", async (kv) => {
 
   login = await findLogin(crypto.randomUUID())(kv);
   assertEquals(login, null);
+
+  await teardown(kv);
 });

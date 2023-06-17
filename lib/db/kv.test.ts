@@ -1,6 +1,6 @@
 import { assertEquals } from "$std/testing/asserts.ts";
 
-import { initTestKV, KV, list } from "@/lib/db/kv.ts";
+import { KV, list, testKV } from "@/lib/db/kv.ts";
 
 type TKey = [string, string];
 type TVal = { val: number };
@@ -13,26 +13,20 @@ const DATA: [TKey, TVal][] = [
   [["testt", "foo"], { val: 5 }],
 ];
 
-async function setup() {
-  const kv = await initTestKV();
-
+async function setup(kv: KV) {
   for (const [key, val] of DATA) {
     await kv.set(key, val);
   }
-
-  return kv;
 }
 
 async function teardown(kv: KV) {
   for (const [key] of DATA) {
     await kv.delete(key);
   }
-
-  kv.close();
 }
 
-Deno.test("kv.list() returns an array of objects and its cursor", async () => {
-  const kv = await setup();
+testKV("kv.list() returns an array of objects and its cursor", async (kv) => {
+  await setup(kv);
 
   const [data, cursor] = await list<TVal>([{ prefix: ["test"] }])(kv);
 
