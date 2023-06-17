@@ -2,7 +2,7 @@ export type KV = Deno.Kv;
 
 export type KVFunc<T> = (kv: KV) => Promise<T>;
 
-const kv = await Deno.openKv(Deno.env.get("KV_PATH"));
+export const kv = await Deno.openKv(Deno.env.get("KV_PATH"));
 
 export async function runKV<T>(fn: (kv: KV) => Promise<T>): Promise<T> {
   const ret = await fn(kv);
