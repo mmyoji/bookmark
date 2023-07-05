@@ -71,6 +71,7 @@ export default function LoginPage({ data }: PageProps<Data>) {
     <>
       <Head>
         <title>Login - {appConfig.name}</title>
+        <meta name="robots" content="noindex, nofollow" />
       </Head>
 
       <div class="max-w-xs flex h-screen m-auto">
