@@ -10,7 +10,7 @@ import * as $4 from "./routes/api/logout.ts";
 import * as $5 from "./routes/api/search-items.ts";
 import * as $6 from "./routes/index.tsx";
 import * as $7 from "./routes/login.tsx";
-import * as $$0 from "./islands/ItemDeleteButton.tsx";
+import * as $$0 from "./islands/DeleteButton.tsx";
 
 const manifest = {
   routes: {
@@ -24,7 +24,7 @@ const manifest = {
     "./routes/login.tsx": $7,
   },
   islands: {
-    "./islands/ItemDeleteButton.tsx": $$0,
+    "./islands/DeleteButton.tsx": $$0,
   },
   baseUrl: import.meta.url,
 };

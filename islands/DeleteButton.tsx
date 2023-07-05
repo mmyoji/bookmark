@@ -7,7 +7,7 @@ type Props = {
   item: Pick<Item, "date" | "url">;
 };
 
-export default function ItemDeleteButton({ item: { date, url } }: Props) {
+export default function DeleteButton({ item: { date, url } }: Props) {
   const handleClick: JSX.MouseEventHandler<HTMLButtonElement> = async () => {
     if (!confirm("Are you sure to delete this?")) {
       return;

@@ -1,4 +1,4 @@
-import ItemDeleteButton from "@/islands/ItemDeleteButton.tsx";
+import DeleteButton from "@/islands/DeleteButton.tsx";
 
 import { appConfig } from "@/lib/app.config.ts";
 import { countDaysBetween } from "@/lib/date.utils.ts";
@@ -32,7 +32,7 @@ export function URLListItem({ item: { url, title, date }, isSignIn }: Props) {
       </div>
       {isSignIn && (
         <div>
-          <ItemDeleteButton item={{ date, url }} />
+          <DeleteButton item={{ date, url }} />
         </div>
       )}
     </li>
