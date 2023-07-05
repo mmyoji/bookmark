@@ -4,6 +4,7 @@ import { type Handlers, type PageProps } from "$fresh/server.ts";
 import { AuthForm } from "@/components/AuthForm.tsx";
 import { Notice } from "@/components/Notice.tsx";
 
+import { appConfig } from "@/lib/app.config.ts";
 import { type State } from "@/lib/context.ts";
 
 export const handler: Handlers<unknown, State> = {
@@ -24,7 +25,7 @@ export default function LoginPage(props: PageProps) {
   return (
     <>
       <Head>
-        <title>Login - Archive Reminder</title>
+        <title>Login - {appConfig.name}</title>
       </Head>
 
       <div class="max-w-xs flex h-screen m-auto">

@@ -7,7 +7,7 @@ Deno.test("GET /login without login", async () => {
 
   assertEquals(resp.status, 200);
   const text = await resp.text();
-  assert(text.includes("<title>Login - Archive Reminder</title>"));
+  assert(text.includes("<title>Login - Bookmark</title>"));
 });
 
 Deno.test("GET /login with login", async () => {

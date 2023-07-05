@@ -1,6 +1,7 @@
-# Archive Reminder
+# Bookmark
 
-Remind what you read before (2 weeks ago).
+- simple bookmark app
+- remind me what I read before
 
 ## Dependency
 
