@@ -7,7 +7,7 @@ Deno.test("GET / without login", async () => {
 
   assertEquals(resp.status, 200);
   const text = await resp.text();
-  assert(text.includes("<title>Archive Reminder</title>"));
+  assert(text.includes("<title>Bookmark</title>"));
   assert(!text.includes(">Sign out</a>"));
 });
 
@@ -17,7 +17,7 @@ Deno.test("GET / with login", async () => {
 
   assertEquals(resp.status, 200);
   const text = await resp.text();
-  assert(text.includes("<title>Archive Reminder</title>"));
+  assert(text.includes("<title>Bookmark</title>"));
   assert(text.includes(">Sign out</a>"));
 
   await teardown();

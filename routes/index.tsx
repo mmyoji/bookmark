@@ -6,6 +6,7 @@ import IconChevronRight from "tabler_icons_tsx/tsx/chevron-right.tsx";
 import { CreateForm } from "@/components/CreateForm.tsx";
 import { URLListItem } from "@/components/URLListItem.tsx";
 
+import { appConfig } from "@/lib/app.config.ts";
 import { type State } from "@/lib/context.ts";
 import { findItems, type Item } from "@/lib/db/items.kv.ts";
 import { runKV } from "@/lib/db/kv.ts";
@@ -31,7 +32,7 @@ export default function Home(
   return (
     <>
       <Head>
-        <title>Archive Reminder</title>
+        <title>{appConfig.name}</title>
       </Head>
 
       <div class="p-4 mx-auto max-w-screen-md">
@@ -42,7 +43,7 @@ export default function Home(
         />
 
         <div class="my-6 flex justify-between">
-          <h1 class="text-2xl font-bold">Archive Reminder</h1>
+          <h1 class="text-2xl font-bold">{appConfig.name}</h1>
 
           {!!user && (
             <div>

@@ -1,4 +1,5 @@
 export const appConfig = {
+  name: "Bookmark",
   remindIn: 14, // days
   api: {
     key: Deno.env.get("API_KEY")!,
