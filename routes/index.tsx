@@ -1,9 +1,9 @@
-import { Head } from "$fresh/runtime.ts";
 import { type Handlers, type PageProps } from "$fresh/server.ts";
 
 import IconChevronRight from "tabler_icons_tsx/tsx/chevron-right.tsx";
 
 import { CreateForm } from "@/components/CreateForm.tsx";
+import { Head } from "@/components/Head.tsx";
 import { URLListItem } from "@/components/URLListItem.tsx";
 
 import { appConfig } from "@/lib/app.config.ts";
@@ -31,10 +31,7 @@ export default function Home(
 ) {
   return (
     <>
-      <Head>
-        <title>{appConfig.name}</title>
-        <meta name="robots" content="noindex, nofollow" />
-      </Head>
+      <Head />
 
       <div class="p-4 mx-auto max-w-screen-md">
         <img
