@@ -1,9 +1,9 @@
-import { Head } from "$fresh/runtime.ts";
 import { type Handlers, type PageProps } from "$fresh/server.ts";
 import { setCookie } from "$std/http/cookie.ts";
 import { assert } from "$std/testing/asserts.ts";
 
 import { AuthForm } from "@/components/AuthForm.tsx";
+import { Head } from "@/components/Head.tsx";
 import { Notice } from "@/components/Notice.tsx";
 
 import { appConfig } from "@/lib/app.config.ts";
@@ -69,10 +69,7 @@ export default function LoginPage({ data }: PageProps<Data>) {
 
   return (
     <>
-      <Head>
-        <title>Login - {appConfig.name}</title>
-        <meta name="robots" content="noindex, nofollow" />
-      </Head>
+      <Head title="Login" />
 
       <div class="max-w-xs flex h-screen m-auto">
         <div class="m-auto space-y-8 w-72">
