@@ -1,11 +1,10 @@
 import { type Handlers } from "$fresh/server.ts";
 import { assert } from "$std/testing/asserts.ts";
 
-import { DOMParser } from "linkedom";
-
 import { type State } from "@/lib/context.ts";
 import { createItem } from "@/lib/db/items.kv.ts";
 import { runKV } from "@/lib/db/kv.ts";
+import { parseTitle } from "@/lib/html-parser.ts";
 
 async function fetchTitle(url: string): Promise<string> {
   const res = await fetch(url).catch(() => undefined);
@@ -14,15 +13,7 @@ async function fetchTitle(url: string): Promise<string> {
   }
 
   const text = await res.text().catch(() => "");
-  if (!text) return "";
-
-  const doc = new DOMParser().parseFromString(text, "text/html");
-  if (!doc) return "";
-
-  const title = doc.querySelector("title");
-  if (!title || !title.textContent) return "";
-
-  return title.textContent;
+  return parseTitle(text);
 }
 
 export const handler: Handlers<unknown, State> = {
