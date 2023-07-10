@@ -45,7 +45,7 @@ export default function Home(
 
           {!!user && (
             <div>
-              <a href="/api/logout" class="underline">
+              <a href="/logout" class="underline">
                 Sign out
               </a>
             </div>
