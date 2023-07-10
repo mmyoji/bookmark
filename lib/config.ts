@@ -1,4 +1,4 @@
-export const appConfig = {
+export const config = {
   name: "Bookmark",
   remindIn: 14, // days
   api: {

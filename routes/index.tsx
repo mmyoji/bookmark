@@ -6,7 +6,7 @@ import { CreateForm } from "@/components/CreateForm.tsx";
 import { Head } from "@/components/Head.tsx";
 import { URLListItem } from "@/components/URLListItem.tsx";
 
-import { appConfig } from "@/lib/app.config.ts";
+import { config } from "@/lib/config.ts";
 import { type State } from "@/lib/context.ts";
 import { findItems, type Item } from "@/lib/db/items.kv.ts";
 import { runKV } from "@/lib/db/kv.ts";
@@ -41,7 +41,7 @@ export default function Home(
         />
 
         <div class="my-6 flex justify-between">
-          <h1 class="text-2xl font-bold">{appConfig.name}</h1>
+          <h1 class="text-2xl font-bold">{config.name}</h1>
 
           {!!user && (
             <div>
