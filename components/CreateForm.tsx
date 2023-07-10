@@ -2,7 +2,7 @@ import { Input } from "@/components/Input.tsx";
 
 export function CreateForm() {
   return (
-    <form method="POST" class="space-y-4" action="/api/items">
+    <form method="POST" class="space-y-4" action="/items">
       <Input
         placeholder="URL"
         name="url"
