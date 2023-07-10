@@ -22,7 +22,7 @@ export const handler: Handlers<Data, State> = {
     const after = new URL(req.url).searchParams.get("after") || undefined;
     const [items, cursor] = await runKV(findItems(after));
 
-    return await ctx.render({ items, cursor, user: ctx.state.currentUser });
+    return ctx.render({ items, cursor, user: ctx.state.currentUser });
   },
 };
 
