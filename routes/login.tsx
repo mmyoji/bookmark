@@ -62,9 +62,7 @@ export const handler: Handlers<Data, State> = {
   },
 };
 
-export default function LoginPage({ data }: PageProps<Data>) {
-  const { error } = data;
-
+export default function LoginPage({ data: { error } }: PageProps<Data>) {
   return (
     <>
       <Head title="Login" />
