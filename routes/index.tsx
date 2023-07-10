@@ -11,7 +11,13 @@ import { type State } from "@/lib/context.ts";
 import { findItems, type Item } from "@/lib/db/items.kv.ts";
 import { runKV } from "@/lib/db/kv.ts";
 
-export const handler: Handlers<unknown, State> = {
+type Data = {
+  cursor: string;
+  items: Item[];
+  user: State["currentUser"];
+};
+
+export const handler: Handlers<Data, State> = {
   async GET(req, ctx) {
     const after = new URL(req.url).searchParams.get("after") || undefined;
     const [items, cursor] = await runKV(findItems(after));
@@ -20,14 +26,8 @@ export const handler: Handlers<unknown, State> = {
   },
 };
 
-type PageData = {
-  cursor: string;
-  items: Item[];
-  user: State["currentUser"];
-};
-
 export default function Home(
-  { data: { cursor, items, user } }: PageProps<PageData>,
+  { data: { cursor, items, user } }: PageProps<Data>,
 ) {
   return (
     <>
