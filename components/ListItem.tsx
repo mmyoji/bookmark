@@ -9,7 +9,7 @@ type Props = {
   isSignIn: boolean;
 };
 
-export function URLListItem({ item: { url, title, date }, isSignIn }: Props) {
+export function ListItem({ item: { url, title, date }, isSignIn }: Props) {
   const days = countDaysBetween(new Date(), new Date(date));
   const bgColor = days > config.remindIn + 1 ? "bg-gray-200" : "";
 

@@ -4,7 +4,7 @@ import IconChevronRight from "tabler_icons_tsx/tsx/chevron-right.tsx";
 
 import { CreateForm } from "@/components/CreateForm.tsx";
 import { Head } from "@/components/Head.tsx";
-import { URLListItem } from "@/components/URLListItem.tsx";
+import { ListItem } from "@/components/ListItem.tsx";
 
 import { config } from "@/lib/config.ts";
 import { type State } from "@/lib/context.ts";
@@ -59,7 +59,7 @@ export default function Home(
         )}
 
         <ul>
-          {items.map((item) => <URLListItem isSignIn={!!user} item={item} />)}
+          {items.map((item) => <ListItem isSignIn={!!user} item={item} />)}
         </ul>
 
         {!!cursor && (
