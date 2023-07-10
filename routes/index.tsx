@@ -11,6 +11,8 @@ import { type State } from "@/lib/context.ts";
 import { findItems, type Item } from "@/lib/db/items.kv.ts";
 import { runKV } from "@/lib/db/kv.ts";
 
+const cursorKey = "after";
+
 type Data = {
   cursor: string;
   items: Item[];
@@ -19,7 +21,7 @@ type Data = {
 
 export const handler: Handlers<Data, State> = {
   async GET(req, ctx) {
-    const after = new URL(req.url).searchParams.get("after") || undefined;
+    const after = new URL(req.url).searchParams.get(cursorKey) || undefined;
     const [items, cursor] = await runKV(findItems(after));
 
     return ctx.render({ items, cursor, user: ctx.state.currentUser });
@@ -60,7 +62,7 @@ export default function Home(
           <div class="flex justify-center mt-4">
             <a
               class="bg-pink-700 text-white border border-solid border-pink-700 rounded pt-1 pb-1.5 pr-1 pl-2"
-              href={`?after=${cursor}`}
+              href={`?${cursorKey}=${cursor}`}
             >
               <div class="flex items-center leading-normal">
                 <span>NEXT</span>
