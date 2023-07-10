@@ -13,7 +13,7 @@ export default function DeleteButton({ item: { date, url } }: Props) {
       return;
     }
 
-    const res = await fetch(new URL(`/api/items/${date}`, location.origin), {
+    const res = await fetch(new URL(`/items/${date}`, location.origin), {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
