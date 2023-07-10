@@ -3,7 +3,7 @@ import { setCookie } from "$std/http/cookie.ts";
 import { assert } from "$std/testing/asserts.ts";
 
 import { AuthForm } from "@/components/AuthForm.tsx";
-import { Head } from "@/components/Head.tsx";
+import { Layout } from "@/components/Layout.tsx";
 import { Notice } from "@/components/Notice.tsx";
 
 import { config } from "@/lib/config.ts";
@@ -64,15 +64,13 @@ export const handler: Handlers<Data, State> = {
 
 export default function LoginPage({ data: { error } }: PageProps<Data>) {
   return (
-    <>
-      <Head title="Login" />
-
+    <Layout title="Login">
       <div class="max-w-xs flex h-screen m-auto">
         <div class="m-auto space-y-8 w-72">
           {!!error && <Notice message={error} color="yellow" />}
           <AuthForm />
         </div>
       </div>
-    </>
+    </Layout>
   );
 }
