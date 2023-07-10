@@ -28,9 +28,10 @@ async function fetchTitle(url: string): Promise<string> {
 export const handler: Handlers<unknown, State> = {
   async POST(req, ctx) {
     if (!ctx.state.currentUser) {
-      const headers = new Headers();
-      headers.set("location", "/login");
-      return new Response(null, { headers, status: 302 });
+      return new Response(null, {
+        headers: { location: "/login" },
+        status: 302,
+      });
     }
 
     const form = await req.formData();

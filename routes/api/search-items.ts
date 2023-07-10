@@ -10,13 +10,11 @@ export const handler: Handlers = {
 
     assert(typeof date === "string");
 
-    const headers = new Headers();
-    headers.set("Content-type", "application/json");
-
     const items = await runKV(searchItems(date));
-
     return new Response(JSON.stringify(items), {
-      headers,
+      headers: {
+        "content-type": "application/json",
+      },
     });
   },
 };

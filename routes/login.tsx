@@ -21,9 +21,7 @@ const loginFailed = "You are not allowed to login";
 export const handler: Handlers<Data, State> = {
   GET(_req, ctx) {
     if (ctx.state.currentUser) {
-      const headers = new Headers();
-      headers.set("location", "/");
-      return new Response(null, { headers, status: 302 });
+      return new Response(null, { headers: { location: "/" }, status: 302 });
     }
 
     return ctx.render({});
