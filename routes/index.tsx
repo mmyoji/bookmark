@@ -3,7 +3,7 @@ import { type Handlers, type PageProps } from "$fresh/server.ts";
 import IconChevronRight from "tabler_icons_tsx/tsx/chevron-right.tsx";
 
 import { CreateForm } from "@/components/CreateForm.tsx";
-import { Head } from "@/components/Head.tsx";
+import { Layout } from "@/components/Layout.tsx";
 import { ListItem } from "@/components/ListItem.tsx";
 
 import { config } from "@/lib/config.ts";
@@ -32,9 +32,7 @@ export default function Home(
   { data: { cursor, items, user } }: PageProps<Data>,
 ) {
   return (
-    <>
-      <Head />
-
+    <Layout>
       <div class="p-4 mx-auto max-w-screen-md">
         <div class="my-6 flex justify-between">
           <h1 class="text-2xl font-bold">{config.name}</h1>
@@ -72,6 +70,6 @@ export default function Home(
           </div>
         )}
       </div>
-    </>
+    </Layout>
   );
 }
