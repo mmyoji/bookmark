@@ -6,7 +6,7 @@ import { AuthForm } from "@/components/AuthForm.tsx";
 import { Head } from "@/components/Head.tsx";
 import { Notice } from "@/components/Notice.tsx";
 
-import { appConfig } from "@/lib/app.config.ts";
+import { config } from "@/lib/config.ts";
 import { type State } from "@/lib/context.ts";
 import { runKV } from "@/lib/db/kv.ts";
 import { findLogin } from "@/lib/db/logins.kv.ts";
@@ -51,11 +51,11 @@ export const handler: Handlers<Data, State> = {
       "/";
     const headers = new Headers();
     setCookie(headers, {
-      name: appConfig.cookies.key.uid,
+      name: config.cookies.key.uid,
       value: login.username,
       maxAge: 60 * 60 * 24 * 7,
       httpOnly: true,
-      secure: !!appConfig.deploy.id,
+      secure: !!config.deploy.id,
       sameSite: "Lax",
       path: "/",
     });

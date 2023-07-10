@@ -2,7 +2,7 @@ import { createHandler } from "$fresh/server.ts";
 import { type ConnInfo } from "$std/http/server.ts";
 
 import manifest from "@/fresh.gen.ts";
-import { appConfig } from "@/lib/app.config.ts";
+import { config } from "@/lib/config.ts";
 import { kv } from "@/lib/db/kv.ts";
 import { createLogin } from "@/lib/db/logins.kv.ts";
 import { hashPassword } from "@/lib/password.ts";
@@ -27,7 +27,7 @@ export async function loginHeaders(): Promise<
   await createLogin(TEST_LOGIN)(kv);
 
   const headers = new Headers();
-  headers.set("Cookie", `${appConfig.cookies.key.uid}=${TEST_LOGIN.username}`);
+  headers.set("Cookie", `${config.cookies.key.uid}=${TEST_LOGIN.username}`);
   return {
     headers,
     teardown: async () => {
