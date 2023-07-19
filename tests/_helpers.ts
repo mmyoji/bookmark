@@ -1,4 +1,4 @@
-import { createHandler, type ServeHandlerInfo } from "$fresh/server.ts";
+import { createHandler } from "$fresh/server.ts";
 
 import manifest from "@/fresh.gen.ts";
 import { config } from "@/lib/config.ts";
@@ -13,10 +13,6 @@ export const origin = `http://${hostname}`;
 const TEST_LOGIN = {
   username: "test-user",
   hashedPassword: hashPassword("P@s$w0rd"),
-};
-
-const CONN_INFO: ServeHandlerInfo = {
-  remoteAddr: { hostname, port: 53496, transport: "tcp" },
 };
 
 export async function loginHeaders(): Promise<
@@ -36,5 +32,5 @@ export async function loginHeaders(): Promise<
 
 export async function visit(req: Request) {
   const handler = await createHandler(manifest);
-  return handler(req, CONN_INFO);
+  return handler(req);
 }
