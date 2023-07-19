@@ -1,4 +1,4 @@
-import DeleteButton from "@/islands/DeleteButton.tsx";
+import { DeleteButton } from "@/islands/DeleteButton.tsx";
 
 import { config } from "@/lib/config.ts";
 import { countDaysBetween } from "@/lib/date.utils.ts";
