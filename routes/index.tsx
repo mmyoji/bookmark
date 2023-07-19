@@ -1,4 +1,4 @@
-import { type Handlers, type PageProps } from "$fresh/server.ts";
+import { type RouteContext } from "$fresh/server.ts";
 
 import IconChevronRight from "tabler_icons_tsx/tsx/chevron-right.tsx";
 
@@ -8,29 +8,19 @@ import { ListItem } from "@/components/ListItem.tsx";
 
 import { config } from "@/lib/config.ts";
 import { type State } from "@/lib/context.ts";
-import { findItems, type Item } from "@/lib/db/items.kv.ts";
+import { findItems } from "@/lib/db/items.kv.ts";
 import { runKV } from "@/lib/db/kv.ts";
 
 const cursorKey = "after";
 
-type Data = {
-  cursor: string;
-  items: Item[];
-  user: State["currentUser"];
-};
-
-export const handler: Handlers<Data, State> = {
-  async GET(req, ctx) {
-    const after = new URL(req.url).searchParams.get(cursorKey) || undefined;
-    const [items, cursor] = await runKV(findItems(after));
-
-    return ctx.render({ items, cursor, user: ctx.state.currentUser });
-  },
-};
-
-export default function Home(
-  { data: { cursor, items, user } }: PageProps<Data>,
+export default async function Home(
+  req: Request,
+  ctx: RouteContext<unknown, State>,
 ) {
+  const after = new URL(req.url).searchParams.get(cursorKey) || undefined;
+  const [items, cursor] = await runKV(findItems(after));
+  const user = ctx.state.currentUser;
+
   return (
     <Layout>
       <div class="p-4 mx-auto max-w-screen-md">

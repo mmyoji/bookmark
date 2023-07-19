@@ -31,6 +31,7 @@ export async function loginHeaders(): Promise<
 }
 
 export async function visit(req: Request) {
+  // @ts-expect-error Async Router Components with State type is not supported yet
   const handler = await createHandler(manifest);
   return handler(req);
 }
