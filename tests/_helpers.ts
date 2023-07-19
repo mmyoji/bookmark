@@ -1,5 +1,4 @@
-import { createHandler } from "$fresh/server.ts";
-import { type ConnInfo } from "$std/http/server.ts";
+import { createHandler, type ServeHandlerInfo } from "$fresh/server.ts";
 
 import manifest from "@/fresh.gen.ts";
 import { config } from "@/lib/config.ts";
@@ -16,8 +15,7 @@ const TEST_LOGIN = {
   hashedPassword: hashPassword("P@s$w0rd"),
 };
 
-const CONN_INFO: ConnInfo = {
-  localAddr: { hostname, port: 8000, transport: "tcp" },
+const CONN_INFO: ServeHandlerInfo = {
   remoteAddr: { hostname, port: 53496, transport: "tcp" },
 };
 
