@@ -1,5 +1,5 @@
 import { type Handlers } from "$fresh/server.ts";
-import { assert } from "$std/testing/asserts.ts";
+import { assert } from "$std/assert/mod.ts";
 
 import { config } from "@/lib/config.ts";
 import { runKV } from "@/lib/db/kv.ts";
