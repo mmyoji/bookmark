@@ -1,6 +1,6 @@
 import { type Handlers, type PageProps } from "$fresh/server.ts";
 import { setCookie } from "$std/http/cookie.ts";
-import { assert } from "$std/testing/asserts.ts";
+import { assert } from "$std/assert/mod.ts";
 
 import { AuthForm } from "@/components/AuthForm.tsx";
 import { Layout } from "@/components/Layout.tsx";
