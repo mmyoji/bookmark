@@ -14,7 +14,10 @@ export function ListItem({ item: { url, title, date }, isSignIn }: Props) {
   const bgColor = days > config.remindIn + 1 ? "bg-gray-200" : "";
 
   return (
-    <li class={`border rounded p-2 my-1.5 flex justify-between ${bgColor}`}>
+    <li
+      id={url}
+      class={`border rounded p-2 my-1.5 flex justify-between ${bgColor}`}
+    >
       <div>
         <h3>
           <a
