@@ -25,7 +25,8 @@ export function DeleteButton({ item: { date, url } }: Props) {
       return alert("Something wrong happens");
     }
 
-    location.reload();
+    const li = document.getElementById(url);
+    if (li) li.remove();
   };
 
   return (
