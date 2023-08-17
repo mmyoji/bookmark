@@ -1,4 +1,4 @@
-import { type RouteContext } from "$fresh/server.ts";
+import { defineRoute } from "$fresh/server.ts";
 
 import IconChevronRight from "tabler_icons_tsx/tsx/chevron-right.tsx";
 
@@ -13,10 +13,7 @@ import { runKV } from "@/lib/db/kv.ts";
 
 const cursorKey = "after";
 
-export default async function Home(
-  req: Request,
-  ctx: RouteContext<unknown, State>,
-) {
+export default defineRoute<State>(async (req, ctx) => {
   const after = new URL(req.url).searchParams.get(cursorKey) || undefined;
   const [items, cursor] = await runKV(findItems(after));
   const user = ctx.state.currentUser;
@@ -62,4 +59,4 @@ export default async function Home(
       </div>
     </Layout>
   );
-}
+});
