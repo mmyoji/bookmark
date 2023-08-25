@@ -58,6 +58,9 @@ async function setupData(kv: KV) {
   const dates = shuffle([
     "2023-03-01",
     "2023-03-02",
+    "2023-03-03",
+    "2023-03-04",
+    "2023-03-05",
 
     "2023-03-11",
     "2023-03-21",
@@ -76,6 +79,9 @@ async function setupData(kv: KV) {
     "2023-12-11",
     "2023-12-21",
     "2023-12-31",
+
+    "2024-01-02",
+    "2024-01-03",
   ]);
 
   for (const date of dates) {
@@ -90,16 +96,16 @@ testKV(
 
     let [items, cursor] = await findItems(undefined)(kv);
 
-    assertEquals(items.length, 10);
-    assertEquals(items[0].date, "2023-12-31");
-    assertEquals(items[9].date, "2023-11-01");
+    assertEquals(items.length, 20);
+    assertEquals(items[0].date, "2024-01-03");
+    assertEquals(items[19].date, "2023-03-03");
     assert(cursor !== "");
 
     [items, cursor] = await findItems(cursor)(kv);
 
-    assertEquals(items.length, 7);
-    assertEquals(items[0].date, "2023-10-11");
-    assertEquals(items[6].date, "2023-03-01");
+    assertEquals(items.length, 2);
+    assertEquals(items[0].date, "2023-03-02");
+    assertEquals(items[1].date, "2023-03-01");
     assertEquals(cursor, "");
 
     await teardown(kv);
