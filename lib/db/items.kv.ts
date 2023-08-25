@@ -27,7 +27,7 @@ export const findItems = (
     list<Item>([{ prefix: [KEY] }, {
       cursor,
       reverse: true,
-      limit: 10,
+      limit: 20,
     }])(kv);
 };
 
