@@ -5,17 +5,17 @@ type Login = {
   hashedPassword: string;
 };
 
-const KEY = "logins";
+const PREFIX = "logins";
 
 export const createLogin = (data: Login): KVFunc<void> => {
   return async (kv) => {
-    await kv.set([KEY, data.username], data);
+    await kv.set([PREFIX, data.username], data);
   };
 };
 
 export const findLogin = (username: string): KVFunc<Login | null> => {
   return async (kv) => {
-    const res = await kv.get<Login>([KEY, username]);
+    const res = await kv.get<Login>([PREFIX, username]);
     return res.value ?? null;
   };
 };
