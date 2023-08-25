@@ -1,4 +1,4 @@
-import { KVFunc } from "@/lib/db/kv.ts";
+import { defineKVFunc } from "@/lib/db/kv.ts";
 
 type Login = {
   username: string;
@@ -7,15 +7,13 @@ type Login = {
 
 const PREFIX = "logins";
 
-export const createLogin = (data: Login): KVFunc<void> => {
-  return async (kv) => {
-    await kv.set([PREFIX, data.username], data);
-  };
-};
+export const createLogin = defineKVFunc<Login, void>(async (kv, data) => {
+  await kv.set([PREFIX, data.username], data);
+});
 
-export const findLogin = (username: string): KVFunc<Login | null> => {
-  return async (kv) => {
+export const findLogin = defineKVFunc<string, Login | null>(
+  async (kv, username) => {
     const res = await kv.get<Login>([PREFIX, username]);
     return res.value ?? null;
-  };
-};
+  },
+);
