@@ -31,9 +31,7 @@ export const handler: Handlers<unknown, State> = {
     assert(typeof url === "string");
 
     const title = await fetchTitle(url);
-    const date = new Date().toISOString().slice(0, 10);
-
-    await runKV(createItem({ date, url, title }));
+    await runKV(createItem({ date: new Date(), url, title }));
 
     return new Response(null, { headers: { location: "/" }, status: 302 });
   },

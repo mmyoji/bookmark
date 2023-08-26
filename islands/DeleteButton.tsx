@@ -4,28 +4,32 @@ import IconTrash from "tabler_icons_tsx/tsx/trash.tsx";
 import { type Item } from "@/lib/db/items.kv.ts";
 
 type Props = {
-  item: Pick<Item, "date" | "url">;
+  // Remove `url` after migration
+  item: Pick<Item, "date" | "dateISO" | "url">;
 };
 
-export function DeleteButton({ item: { date, url } }: Props) {
+export function DeleteButton({ item: { date, dateISO, url } }: Props) {
   const handleClick: JSX.MouseEventHandler<HTMLButtonElement> = async () => {
     if (!confirm("Are you sure to delete this?")) {
       return;
     }
 
-    const res = await fetch(new URL(`/items/${date}`, location.origin), {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
+    const res = await fetch(
+      new URL(`/items/${dateISO || date}`, location.origin),
+      {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ url }),
       },
-      body: JSON.stringify({ url }),
-    });
+    );
 
     if (!res.ok || res.status >= 400) {
       return alert("Something wrong happens");
     }
 
-    const li = document.getElementById(url);
+    const li = document.getElementById(dateISO || url);
     if (li) li.remove();
   };
 
