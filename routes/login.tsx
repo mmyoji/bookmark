@@ -10,6 +10,7 @@ import { config } from "@/lib/config.ts";
 import { type State } from "@/lib/context.ts";
 import { findLogin } from "@/lib/db/logins.kv.ts";
 import { verifyPassword } from "@/lib/password.ts";
+import { redirect } from "@/lib/response.utils.ts";
 
 type Data = {
   error?: string;
@@ -20,7 +21,7 @@ const loginFailed = "You are not allowed to login";
 export const handler: Handlers<Data, State> = {
   GET(_req, ctx) {
     if (ctx.state.currentUser) {
-      return new Response(null, { headers: { location: "/" }, status: 302 });
+      return redirect({ location: "/" });
     }
 
     return ctx.render({});
@@ -57,7 +58,7 @@ export const handler: Handlers<Data, State> = {
       path: "/",
     });
     headers.set("location", redirectUrl);
-    return new Response(null, { headers, status: 302 });
+    return redirect(headers);
   },
 };
 
