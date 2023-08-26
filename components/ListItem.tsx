@@ -1,7 +1,8 @@
+import { difference } from "$std/datetime/mod.ts";
+
 import { DeleteButton } from "@/islands/DeleteButton.tsx";
 
 import { config } from "@/lib/config.ts";
-import { countDaysBetween } from "@/lib/date.utils.ts";
 import { type Item } from "@/lib/db/items.kv.ts";
 
 type Props = {
@@ -10,10 +11,10 @@ type Props = {
 };
 
 export function ListItem(
-  { item: { url, title, dateISO }, isSignIn }: Props,
+  { item: { url, title, date, dateISO }, isSignIn }: Props,
 ) {
-  const days = countDaysBetween(new Date(), new Date(dateISO));
-  const bgColor = days > config.remindIn + 1 ? "bg-gray-200" : "";
+  const { days } = difference(new Date(), new Date(date), { units: ["days"] });
+  const bgColor = (days ?? 0) > config.remindIn + 1 ? "bg-gray-200" : "";
 
   return (
     <li
