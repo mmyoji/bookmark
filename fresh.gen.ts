@@ -5,11 +5,12 @@
 import * as $0 from "./routes/_middleware.ts";
 import * as $1 from "./routes/api/logins.ts";
 import * as $2 from "./routes/api/search-items.ts";
-import * as $3 from "./routes/index.tsx";
-import * as $4 from "./routes/items.ts";
-import * as $5 from "./routes/items/[date].tsx";
-import * as $6 from "./routes/login.tsx";
-import * as $7 from "./routes/logout.ts";
+import * as $3 from "./routes/api/update-item-format.ts";
+import * as $4 from "./routes/index.tsx";
+import * as $5 from "./routes/items.ts";
+import * as $6 from "./routes/items/[date].tsx";
+import * as $7 from "./routes/login.tsx";
+import * as $8 from "./routes/logout.ts";
 import * as $$0 from "./islands/DeleteButton.tsx";
 
 const manifest = {
@@ -17,11 +18,12 @@ const manifest = {
     "./routes/_middleware.ts": $0,
     "./routes/api/logins.ts": $1,
     "./routes/api/search-items.ts": $2,
-    "./routes/index.tsx": $3,
-    "./routes/items.ts": $4,
-    "./routes/items/[date].tsx": $5,
-    "./routes/login.tsx": $6,
-    "./routes/logout.ts": $7,
+    "./routes/api/update-item-format.ts": $3,
+    "./routes/index.tsx": $4,
+    "./routes/items.ts": $5,
+    "./routes/items/[date].tsx": $6,
+    "./routes/login.tsx": $7,
+    "./routes/logout.ts": $8,
   },
   islands: {
     "./islands/DeleteButton.tsx": $$0,
