@@ -1,7 +1,8 @@
 import { assertEquals } from "$std/assert/mod.ts";
 
 import { createLogin, findLogin } from "@/lib/db/logins.kv.ts";
-import { KV, testKV } from "@/lib/db/kv.ts";
+import { KV } from "@/lib/db/kv.ts";
+import { testKV } from "@/lib/db/test.helpers.ts";
 
 async function teardown(kv: KV) {
   for await (const entry of kv.list({ prefix: ["logins"] })) {

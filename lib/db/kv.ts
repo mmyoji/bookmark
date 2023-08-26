@@ -27,16 +27,3 @@ export function list<T>(
     return [data, list.cursor];
   };
 }
-
-export function testKV(
-  desc: string,
-  fn: (kv: KV) => Promise<void>,
-): void {
-  Deno.test(desc, async () => {
-    const kv = await Deno.openKv(":memory:");
-
-    await fn(kv);
-
-    kv.close();
-  });
-}

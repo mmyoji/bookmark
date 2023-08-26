@@ -6,7 +6,8 @@ import {
   findItems,
   searchItems,
 } from "@/lib/db/items.kv.ts";
-import { KV, testKV } from "@/lib/db/kv.ts";
+import { KV } from "@/lib/db/kv.ts";
+import { testKV } from "@/lib/db/test.helpers.ts";
 
 async function teardown(kv: KV) {
   for await (const entry of kv.list({ prefix: ["items"] })) {
