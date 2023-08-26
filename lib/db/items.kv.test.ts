@@ -6,7 +6,6 @@ import {
   findItems,
   Item,
   searchItems,
-  updateItemFormat,
 } from "@/lib/db/items.kv.ts";
 import { KV } from "@/lib/db/kv.ts";
 import { testKV } from "@/lib/db/test.helpers.ts";
@@ -47,7 +46,7 @@ testKV("deleteItem() deletes given key", async (kv) => {
     title: "Example Page",
   })(kv);
 
-  await deleteItem({ date, dateISO })(kv);
+  await deleteItem(dateISO)(kv);
 
   const res = await kv.get(["items", date, dateISO]);
   assertEquals(res.value, null);
@@ -176,62 +175,3 @@ testKV(
     await teardown(kv);
   },
 );
-
-testKV("updateItemFormat()", async (kv) => {
-  const origin = "https://example.com";
-  await Promise.all([
-    kv.set(["items", "2023-01-02", `${origin}/foo`], {
-      date: "2023-01-02",
-      title: "foo",
-      url: `${origin}/foo`,
-    }),
-    kv.set(["items", "2023-01-03", `${origin}/bar`], {
-      date: "2023-01-03",
-      title: "bar",
-      url: `${origin}/bar`,
-    }),
-    kv.set(["items", "2023-01-04", `${origin}/buz`], {
-      date: "2023-01-04",
-      title: "buz",
-      url: `${origin}/buz`,
-    }),
-    kv.set(["items", "2023-01-05", "2023-01-05T10:00:00.000Z"], {
-      date: "2023-01-05",
-      dateISO: "2023-01-05T10:00:00.000Z",
-      title: "foofoo",
-      url: `${origin}/foofoo`,
-    }),
-  ]);
-
-  await updateItemFormat()(kv);
-
-  const iter = kv.list({ prefix: ["items"] });
-  const items = [];
-  for await (const entry of iter) {
-    items.push(entry);
-  }
-
-  assertEquals(items.length, 4);
-  assertEquals(items[0].key[0], "items");
-  assertEquals(items[0].key[1], "2023-01-02");
-  assertEquals((items[0].key[2] as string).startsWith("2023-01-02T"), true);
-  assertEquals((items[0].value as Item).date, "2023-01-02");
-  assertEquals(
-    (items[0].value as Item).dateISO.startsWith("2023-01-02T"),
-    true,
-  );
-  assertEquals((items[0].value as Item).title, "foo");
-  assertEquals((items[0].value as Item).url, `${origin}/foo`);
-
-  assertEquals(items[3].key[0], "items");
-  assertEquals(items[3].key[1], "2023-01-05");
-  assertEquals(items[3].key[2], "2023-01-05T10:00:00.000Z");
-  assertEquals(items[3].value, {
-    date: "2023-01-05",
-    dateISO: "2023-01-05T10:00:00.000Z",
-    title: "foofoo",
-    url: `${origin}/foofoo`,
-  });
-
-  await teardown(kv);
-});

@@ -10,10 +10,9 @@ type Props = {
 };
 
 export function ListItem(
-  { item: { url, title, date, dateISO }, isSignIn }: Props,
+  { item: { url, title, dateISO }, isSignIn }: Props,
 ) {
-  // TODO: Use only dateISO after migration
-  const days = countDaysBetween(new Date(), new Date(dateISO || date));
+  const days = countDaysBetween(new Date(), new Date(dateISO));
   const bgColor = days > config.remindIn + 1 ? "bg-gray-200" : "";
 
   return (
@@ -32,13 +31,13 @@ export function ListItem(
             {title || url}
           </a>
         </h3>
-        <time class="text-gray-500" dateTime={dateISO || date}>
-          {dateISO || date}
+        <time class="text-gray-500" dateTime={dateISO}>
+          {dateISO}
         </time>
       </div>
       {isSignIn && (
         <div>
-          <DeleteButton item={{ date, url, dateISO }} />
+          <DeleteButton dateISO={dateISO} />
         </div>
       )}
     </li>

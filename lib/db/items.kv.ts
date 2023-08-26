@@ -18,39 +18,9 @@ export const createItem = defineKVFunc<
   await kv.set([PREFIX, date, dateISO], { ...data, date, dateISO });
 });
 
-export const deleteItemLegacy = defineKVFunc<Pick<Item, "date" | "url">, void>(
-  async (kv, data) => {
-    await kv.delete([PREFIX, data.date, data.url]);
-  },
-);
-
-async function updateItems(kv: Deno.Kv, items: Item[]) {
-  for (const item of items) {
-    if (item.dateISO) continue;
-
-    const suffix = new Date().toISOString().slice(10);
-    const dateISO = `${item.date}${suffix}`;
-    await kv.set([PREFIX, item.date, dateISO], {
-      ...item,
-      dateISO,
-    });
-    await kv.delete([PREFIX, item.date, item.url]);
-  }
-}
-
-export const updateItemFormat = defineKVFunc<void, void>(async (kv) => {
-  let [items, cursor] = await list<Item>([{ prefix: [PREFIX] }])(kv);
-  await updateItems(kv, items);
-
-  while (cursor) {
-    [items, cursor] = await list<Item>([{ prefix: [PREFIX] }])(kv);
-    await updateItems(kv, items);
-  }
-});
-
-export const deleteItem = defineKVFunc<Pick<Item, "date" | "dateISO">, void>(
-  async (kv, data) => {
-    await kv.delete([PREFIX, data.date, data.dateISO]);
+export const deleteItem = defineKVFunc<string, void>(
+  async (kv, dateISO) => {
+    await kv.delete([PREFIX, dateISO.slice(0, 10), dateISO]);
   },
 );
 
