@@ -4,9 +4,8 @@ type KVFunc<T> = (kv: KV) => Promise<T>;
 
 export const kv = await Deno.openKv(Deno.env.get("KV_PATH"));
 
-export async function runKV<T>(fn: (kv: KV) => Promise<T>): Promise<T> {
-  const ret = await fn(kv);
-  return ret;
+export function runKV<T>(fn: (kv: KV) => Promise<T>): Promise<T> {
+  return fn(kv);
 }
 
 export function defineKVFunc<Arg, ReturnValue>(
