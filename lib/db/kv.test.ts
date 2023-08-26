@@ -1,6 +1,7 @@
 import { assertEquals } from "$std/assert/mod.ts";
 
-import { KV, list, testKV } from "@/lib/db/kv.ts";
+import { KV, list } from "@/lib/db/kv.ts";
+import { testKV } from "@/lib/db/test.helpers.ts";
 
 type TKey = [string, string];
 type TVal = { val: number };
