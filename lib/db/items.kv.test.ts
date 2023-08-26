@@ -4,6 +4,7 @@ import {
   createItem,
   deleteItem,
   findItems,
+  Item,
   searchItems,
 } from "@/lib/db/items.kv.ts";
 import { KV } from "@/lib/db/kv.ts";
@@ -16,17 +17,19 @@ async function teardown(kv: KV) {
 }
 
 testKV("createItem() saves data", async (kv) => {
-  const data = {
-    date: "2023-05-04",
+  const date = "2023-05-04";
+  const dateISO = `${date}T10:00:00.000Z`;
+  await createItem({
+    date: new Date(dateISO),
     url: "http://example.com",
     title: "Example Page",
-  };
-  await createItem(data)(kv);
+  })(kv);
 
-  const res = await kv.get<typeof data>(["items", data.date, data.url]);
+  const res = await kv.get<Item>(["items", date, dateISO]);
 
   assertEquals(res.value, {
-    date: "2023-05-04",
+    date,
+    dateISO,
     url: "http://example.com",
     title: "Example Page",
   });
@@ -35,16 +38,17 @@ testKV("createItem() saves data", async (kv) => {
 });
 
 testKV("deleteItem() deletes given key", async (kv) => {
-  const data = {
-    date: "2023-05-04",
+  const date = "2023-05-04";
+  const dateISO = `${date}T10:00:00.000Z`;
+  await createItem({
+    date: new Date(dateISO),
     url: "http://example.com",
     title: "Example Page",
-  };
-  await createItem(data)(kv);
+  })(kv);
 
-  await deleteItem({ date: data.date, url: data.url })(kv);
+  await deleteItem({ date, dateISO })(kv);
 
-  const res = await kv.get(["items", data.date, data.url]);
+  const res = await kv.get(["items", date, dateISO]);
   assertEquals(res.value, null);
 
   await teardown(kv);
@@ -56,37 +60,35 @@ async function setupData(kv: KV) {
   const title = "Example Page";
   const url = "http://example.com";
 
-  const dates = shuffle([
-    "2023-03-01",
-    "2023-03-02",
-    "2023-03-03",
-    "2023-03-04",
-    "2023-03-05",
-
-    "2023-03-11",
-    "2023-03-21",
-    "2023-03-31",
-    "2023-10-01",
-    "2023-10-11",
-
-    "2023-11-01",
-    "2023-11-02",
-    "2023-11-30",
-    "2023-12-01",
-    "2023-12-02",
-
-    "2023-12-03",
-    "2023-12-10",
-    "2023-12-11",
-    "2023-12-21",
-    "2023-12-31",
-
-    "2024-01-02",
-    "2024-01-03",
+  const dateISOs = shuffle([
+    "2023-03-01T10:00:00.000Z",
+    "2023-03-01T11:00:00.000Z",
+    "2023-03-02T09:00:00.000Z",
+    "2023-03-02T10:00:00.000Z",
+    "2023-03-03T10:00:00.000Z",
+    "2023-03-04T10:00:00.000Z",
+    "2023-03-05T10:00:00.000Z",
+    "2023-03-11T10:00:00.000Z",
+    "2023-03-21T10:00:00.000Z",
+    "2023-03-31T10:00:00.000Z",
+    "2023-10-01T10:00:00.000Z",
+    "2023-10-11T10:00:00.000Z",
+    "2023-11-01T10:00:00.000Z",
+    "2023-11-02T10:00:00.000Z",
+    "2023-11-30T10:00:00.000Z",
+    "2023-12-01T10:00:00.000Z",
+    "2023-12-02T10:00:00.000Z",
+    "2023-12-03T10:00:00.000Z",
+    "2023-12-10T10:00:00.000Z",
+    "2023-12-10T10:00:10.000Z",
+    "2023-12-11T10:00:00.000Z",
+    "2023-12-11T10:01:00.000Z",
   ]);
 
-  for (const date of dates) {
-    await createItem({ date, title, url })(kv);
+  for (const dateISO of dateISOs) {
+    await createItem({ date: new Date(dateISO), title, url })(
+      kv,
+    );
   }
 }
 
@@ -98,15 +100,15 @@ testKV(
     let [items, cursor] = await findItems(undefined)(kv);
 
     assertEquals(items.length, 20);
-    assertEquals(items[0].date, "2024-01-03");
-    assertEquals(items[19].date, "2023-03-03");
+    assertEquals(items[0].dateISO, "2023-12-11T10:01:00.000Z");
+    assertEquals(items[19].dateISO, "2023-03-02T09:00:00.000Z");
     assert(cursor !== "");
 
     [items, cursor] = await findItems(cursor)(kv);
 
     assertEquals(items.length, 2);
-    assertEquals(items[0].date, "2023-03-02");
-    assertEquals(items[1].date, "2023-03-01");
+    assertEquals(items[0].dateISO, "2023-03-01T11:00:00.000Z");
+    assertEquals(items[1].dateISO, "2023-03-01T10:00:00.000Z");
     assertEquals(cursor, "");
 
     await teardown(kv);
@@ -118,32 +120,32 @@ testKV(
   async (kv) => {
     const data = [
       {
-        date: "2023-01-01",
+        date: new Date("2023-01-01T10:00:00.000Z"),
         title: "test 1",
         url: "http://example.com",
       },
       {
-        date: "2023-01-01",
+        date: new Date("2023-01-01T10:10:00.000Z"),
         title: "test 2",
         url: "http://example.com/foo",
       },
       {
-        date: "2023-01-02",
+        date: new Date("2023-01-02T09:00:00.000Z"),
         title: "test 1",
         url: "http://example.com",
       },
       {
-        date: "2023-01-02",
+        date: new Date("2023-01-02T10:00:00.000Z"),
         title: "test 2",
         url: "http://example.com/foo",
       },
       {
-        date: "2023-01-10",
+        date: new Date("2023-01-10T10:00:00.000Z"),
         title: "test 1",
         url: "http://example.com",
       },
       {
-        date: "2023-01-10",
+        date: new Date("2023-01-10T11:00:00.000Z"),
         title: "test 2",
         url: "http://example.com/foo",
       },
@@ -158,11 +160,13 @@ testKV(
     assertEquals(items, [
       {
         date: "2023-01-02",
+        dateISO: "2023-01-02T09:00:00.000Z",
         title: "test 1",
         url: "http://example.com",
       },
       {
         date: "2023-01-02",
+        dateISO: "2023-01-02T10:00:00.000Z",
         title: "test 2",
         url: "http://example.com/foo",
       },

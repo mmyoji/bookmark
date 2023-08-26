@@ -2,7 +2,7 @@ import { type Handlers } from "$fresh/server.ts";
 import { assert } from "$std/assert/mod.ts";
 
 import { type State } from "@/lib/context.ts";
-import { deleteItem } from "@/lib/db/items.kv.ts";
+import { deleteItem, deleteItemLegacy } from "@/lib/db/items.kv.ts";
 import { runKV } from "@/lib/db/kv.ts";
 
 export const handler: Handlers<unknown, State> = {
@@ -15,12 +15,23 @@ export const handler: Handlers<unknown, State> = {
     assert(typeof json.url == "string" && !!json.url);
     assert(!!ctx.params.date);
 
-    await runKV(
-      deleteItem({
-        date: ctx.params.date,
-        url: json.url,
-      }),
-    );
+    const { date: dateISO } = ctx.params;
+
+    if (dateISO.length === 10) {
+      await runKV(
+        deleteItemLegacy({
+          date: dateISO,
+          url: json.url,
+        }),
+      );
+    } else {
+      await runKV(
+        deleteItem({
+          date: dateISO.slice(0, 10),
+          dateISO,
+        }),
+      );
+    }
 
     return new Response(null, { status: 204 });
   },
