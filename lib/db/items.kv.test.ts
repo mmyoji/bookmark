@@ -7,23 +7,22 @@ import {
   Item,
   searchItems,
 } from "@/lib/db/items.kv.ts";
-import { KV } from "@/lib/db/kv.ts";
-import { testKV } from "@/lib/db/test.helpers.ts";
+import { kv } from "@/lib/db/kv.ts";
 
-async function teardown(kv: KV) {
+async function teardown() {
   for await (const entry of kv.list({ prefix: ["items"] })) {
     await kv.delete(entry.key);
   }
 }
 
-testKV("createItem() saves data", async (kv) => {
+Deno.test("createItem() saves data", async () => {
   const date = "2023-05-04";
   const dateISO = `${date}T10:00:00.000Z`;
   await createItem({
     date: new Date(dateISO),
     url: "http://example.com",
     title: "Example Page",
-  })(kv);
+  });
 
   const res = await kv.get<Item>(["items", date, dateISO]);
 
@@ -34,29 +33,29 @@ testKV("createItem() saves data", async (kv) => {
     title: "Example Page",
   });
 
-  await teardown(kv);
+  await teardown();
 });
 
-testKV("deleteItem() deletes given key", async (kv) => {
+Deno.test("deleteItem() deletes given key", async () => {
   const date = "2023-05-04";
   const dateISO = `${date}T10:00:00.000Z`;
   await createItem({
     date: new Date(dateISO),
     url: "http://example.com",
     title: "Example Page",
-  })(kv);
+  });
 
-  await deleteItem(dateISO)(kv);
+  await deleteItem(dateISO);
 
   const res = await kv.get(["items", date, dateISO]);
   assertEquals(res.value, null);
 
-  await teardown(kv);
+  await teardown();
 });
 
 const shuffle = <T>(arr: T[]) => [...arr].sort(() => Math.random() - 0.5);
 
-async function setupData(kv: KV) {
+async function setupData() {
   const title = "Example Page";
   const url = "http://example.com";
 
@@ -86,38 +85,36 @@ async function setupData(kv: KV) {
   ]);
 
   for (const dateISO of dateISOs) {
-    await createItem({ date: new Date(dateISO), title, url })(
-      kv,
-    );
+    await createItem({ date: new Date(dateISO), title, url });
   }
 }
 
-testKV(
+Deno.test(
   "findItems() returns limited number of items in desc order",
-  async (kv) => {
-    await setupData(kv);
+  async () => {
+    await setupData();
 
-    let [items, cursor] = await findItems(undefined)(kv);
+    let [items, cursor] = await findItems(undefined);
 
     assertEquals(items.length, 20);
     assertEquals(items[0].dateISO, "2023-12-11T10:01:00.000Z");
     assertEquals(items[19].dateISO, "2023-03-02T09:00:00.000Z");
     assert(cursor !== "");
 
-    [items, cursor] = await findItems(cursor)(kv);
+    [items, cursor] = await findItems(cursor);
 
     assertEquals(items.length, 2);
     assertEquals(items[0].dateISO, "2023-03-01T11:00:00.000Z");
     assertEquals(items[1].dateISO, "2023-03-01T10:00:00.000Z");
     assertEquals(cursor, "");
 
-    await teardown(kv);
+    await teardown();
   },
 );
 
-testKV(
+Deno.test(
   "searchItems() returns target date of items",
-  async (kv) => {
+  async () => {
     const data = [
       {
         date: new Date("2023-01-01T10:00:00.000Z"),
@@ -151,10 +148,10 @@ testKV(
       },
     ];
     for (const d of data) {
-      await createItem(d)(kv);
+      await createItem(d);
     }
 
-    const items = await searchItems("2023-01-02")(kv);
+    const items = await searchItems("2023-01-02");
 
     assertEquals(items.length, 2);
     assertEquals(items, [
@@ -172,6 +169,6 @@ testKV(
       },
     ]);
 
-    await teardown(kv);
+    await teardown();
   },
 );

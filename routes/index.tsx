@@ -9,13 +9,12 @@ import { ListItem } from "@/components/ListItem.tsx";
 import { config } from "@/lib/config.ts";
 import { type State } from "@/lib/context.ts";
 import { findItems } from "@/lib/db/items.kv.ts";
-import { runKV } from "@/lib/db/kv.ts";
 
 const cursorKey = "after";
 
 export default defineRoute<State>(async (req, ctx) => {
   const after = new URL(req.url).searchParams.get(cursorKey) || undefined;
-  const [items, cursor] = await runKV(findItems(after));
+  const [items, cursor] = await findItems(after);
   const user = ctx.state.currentUser;
 
   return (

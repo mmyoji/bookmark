@@ -2,7 +2,6 @@ import { type Handlers } from "$fresh/server.ts";
 import { assert } from "$std/assert/mod.ts";
 
 import { config } from "@/lib/config.ts";
-import { runKV } from "@/lib/db/kv.ts";
 import { createLogin } from "@/lib/db/logins.kv.ts";
 import { hashPassword } from "@/lib/password.ts";
 
@@ -29,7 +28,7 @@ export const handler: Handlers = {
       hashedPassword: hashPassword(params.password),
     };
 
-    await runKV(createLogin(data));
+    await createLogin(data);
 
     return new Response(JSON.stringify({ message: "Created" }), {
       status: 201,
