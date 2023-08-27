@@ -24,12 +24,12 @@ export const handler: Handlers = {
     });
 
     if (error != null) {
-      return new Response(JSON.stringify({ error }), {
+      return Response.json({ error }, {
         status: 422,
       });
     }
 
-    return new Response(JSON.stringify({ message: "Created" }), {
+    return Response.json({ message: "Created" }, {
       status: 201,
     });
   },
