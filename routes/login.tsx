@@ -1,6 +1,5 @@
 import { type Handlers, type PageProps } from "$fresh/server.ts";
 import { setCookie } from "$std/http/cookie.ts";
-import { assert } from "$std/assert/mod.ts";
 
 import { AuthForm } from "@/components/AuthForm.tsx";
 import { Layout } from "@/components/Layout.tsx";
@@ -8,15 +7,12 @@ import { Notice } from "@/components/Notice.tsx";
 
 import { config } from "@/lib/config.ts";
 import { type State } from "@/lib/context.ts";
-import { findLogin } from "@/lib/db/logins.kv.ts";
-import { verifyPassword } from "@/lib/password.ts";
 import { redirect } from "@/lib/response.utils.ts";
+import { loginService } from "@/lib/services/login.ts";
 
 type Data = {
   error?: string;
 };
-
-const loginFailed = "You are not allowed to login";
 
 export const handler: Handlers<Data, State> = {
   GET(_req, ctx) {
@@ -29,20 +25,14 @@ export const handler: Handlers<Data, State> = {
 
   async POST(req, ctx) {
     const form = await req.formData();
-    const username = form.get("username");
-    const password = form.get("password");
 
-    assert(typeof username === "string");
-    assert(typeof password === "string");
+    const { username, error } = await loginService.run({
+      username: form.get("username"),
+      password: form.get("password"),
+    });
 
-    const login = await findLogin(username);
-    if (!login) {
-      return ctx.render({ error: loginFailed });
-    }
-
-    const result = verifyPassword(password, login.hashedPassword);
-    if (!result) {
-      return ctx.render({ error: loginFailed });
+    if (error != null) {
+      return ctx.render({ error });
     }
 
     const redirectUrl = new URL(req.url).searchParams.get("redirect_url") ??
@@ -50,7 +40,7 @@ export const handler: Handlers<Data, State> = {
     const headers = new Headers();
     setCookie(headers, {
       name: config.cookies.key.uid,
-      value: login.username,
+      value: username,
       maxAge: 60 * 60 * 24 * 7,
       httpOnly: true,
       secure: !!config.deploy.id,
