@@ -1,9 +1,7 @@
 import { type Handlers } from "$fresh/server.ts";
-import { assert } from "$std/assert/mod.ts";
 
 import { config } from "@/lib/config.ts";
-import { createLogin } from "@/lib/db/logins.kv.ts";
-import { hashPassword } from "@/lib/password.ts";
+import { userRegistrationService } from "@/lib/services/user-registration.ts";
 
 function validAuth(auth: string | null): boolean {
   if (!auth) return false;
@@ -20,15 +18,16 @@ export const handler: Handlers = {
 
     const params = await req.json();
 
-    assert(typeof params.username === "string");
-    assert(typeof params.password === "string");
-
-    const data = {
+    const { error } = await userRegistrationService.run({
       username: params.username,
-      hashedPassword: hashPassword(params.password),
-    };
+      password: params.password,
+    });
 
-    await createLogin(data);
+    if (error != null) {
+      return new Response(JSON.stringify({ error }), {
+        status: 422,
+      });
+    }
 
     return new Response(JSON.stringify({ message: "Created" }), {
       status: 201,
