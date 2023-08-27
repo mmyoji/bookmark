@@ -2,12 +2,7 @@ import { assertEquals } from "$std/assert/mod.ts";
 
 import { createLogin, findLogin } from "@/lib/db/logins.kv.ts";
 import { kv } from "@/lib/db/kv.ts";
-
-async function teardown() {
-  for await (const entry of kv.list({ prefix: ["logins"] })) {
-    await kv.delete(entry.key);
-  }
-}
+import { kvHelper } from "@/lib/db/test.helpers.ts";
 
 Deno.test("createLogin() saves data", async () => {
   const data = {
@@ -20,7 +15,7 @@ Deno.test("createLogin() saves data", async () => {
 
   assertEquals(res.value, data);
 
-  await teardown();
+  await kvHelper.login.deleteAll();
 });
 
 Deno.test("findLogin() fetches by username", async () => {
@@ -30,11 +25,15 @@ Deno.test("findLogin() fetches by username", async () => {
   };
   await createLogin(data);
 
-  let login = await findLogin(data.username);
-  assertEquals(login, data);
+  {
+    const login = await findLogin(data.username);
+    assertEquals(login, data);
+  }
 
-  login = await findLogin(crypto.randomUUID());
-  assertEquals(login, null);
+  {
+    const login = await findLogin(crypto.randomUUID());
+    assertEquals(login, null);
+  }
 
-  await teardown();
+  await kvHelper.login.deleteAll();
 });
