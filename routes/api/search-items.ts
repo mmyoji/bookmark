@@ -10,10 +10,6 @@ export const handler: Handlers = {
     assert(typeof date === "string");
 
     const items = await searchItems(date);
-    return new Response(JSON.stringify(items), {
-      headers: {
-        "content-type": "application/json",
-      },
-    });
+    return Response.json(items);
   },
 };
