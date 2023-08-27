@@ -18,7 +18,7 @@ const TEST_LOGIN = {
 export async function loginHeaders(): Promise<
   { headers: Headers; teardown: () => Promise<void> }
 > {
-  await createLogin(TEST_LOGIN)(kv);
+  await createLogin(TEST_LOGIN);
 
   const headers = new Headers();
   headers.set("Cookie", `${config.cookies.key.uid}=${TEST_LOGIN.username}`);

@@ -8,7 +8,6 @@ import { Notice } from "@/components/Notice.tsx";
 
 import { config } from "@/lib/config.ts";
 import { type State } from "@/lib/context.ts";
-import { runKV } from "@/lib/db/kv.ts";
 import { findLogin } from "@/lib/db/logins.kv.ts";
 import { verifyPassword } from "@/lib/password.ts";
 
@@ -35,7 +34,7 @@ export const handler: Handlers<Data, State> = {
     assert(typeof username === "string");
     assert(typeof password === "string");
 
-    const login = await runKV(findLogin(username));
+    const login = await findLogin(username);
     if (!login) {
       return ctx.render({ error: loginFailed });
     }
