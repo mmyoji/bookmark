@@ -24,5 +24,8 @@ export const kvHelper = {
         await kv.delete(entry.key);
       }
     },
+    async findOne({ username }: { username: string }) {
+      return (await kv.get(["logins", username])).value;
+    },
   },
 };
