@@ -8,12 +8,7 @@ import {
   searchItems,
 } from "@/lib/db/items.kv.ts";
 import { kv } from "@/lib/db/kv.ts";
-
-async function teardown() {
-  for await (const entry of kv.list({ prefix: ["items"] })) {
-    await kv.delete(entry.key);
-  }
-}
+import { kvHelper } from "@/lib/db/test.helpers.ts";
 
 Deno.test("createItem() saves data", async () => {
   const date = "2023-05-04";
@@ -33,13 +28,13 @@ Deno.test("createItem() saves data", async () => {
     title: "Example Page",
   });
 
-  await teardown();
+  await kvHelper.item.deleteAll();
 });
 
 Deno.test("deleteItem() deletes given key", async () => {
   const date = "2023-05-04";
   const dateISO = `${date}T10:00:00.000Z`;
-  await createItem({
+  await kvHelper.item.create({
     date: new Date(dateISO),
     url: "http://example.com",
     title: "Example Page",
@@ -50,7 +45,7 @@ Deno.test("deleteItem() deletes given key", async () => {
   const res = await kv.get(["items", date, dateISO]);
   assertEquals(res.value, null);
 
-  await teardown();
+  await kvHelper.item.deleteAll();
 });
 
 const shuffle = <T>(arr: T[]) => [...arr].sort(() => Math.random() - 0.5);
@@ -84,9 +79,11 @@ async function setupData() {
     "2023-12-11T10:01:00.000Z",
   ]);
 
-  for (const dateISO of dateISOs) {
-    await createItem({ date: new Date(dateISO), title, url });
-  }
+  await Promise.all(
+    dateISOs.map((dateISO) =>
+      kvHelper.item.create({ date: new Date(dateISO), title, url })
+    ),
+  );
 }
 
 Deno.test(
@@ -108,14 +105,14 @@ Deno.test(
     assertEquals(items[1].dateISO, "2023-03-01T10:00:00.000Z");
     assertEquals(cursor, "");
 
-    await teardown();
+    await kvHelper.item.deleteAll();
   },
 );
 
 Deno.test(
   "searchItems() returns target date of items",
   async () => {
-    const data = [
+    await Promise.all([
       {
         date: new Date("2023-01-01T10:00:00.000Z"),
         title: "test 1",
@@ -146,10 +143,7 @@ Deno.test(
         title: "test 2",
         url: "http://example.com/foo",
       },
-    ];
-    for (const d of data) {
-      await createItem(d);
-    }
+    ].map((data) => kvHelper.item.create(data)));
 
     const items = await searchItems("2023-01-02");
 
@@ -169,6 +163,6 @@ Deno.test(
       },
     ]);
 
-    await teardown();
+    await kvHelper.item.deleteAll();
   },
 );
