@@ -3,10 +3,6 @@
 - simple bookmark app
 - remind me what I read before
 
-## Dependency
-
-- direnv
-
 ## Usage
 
 Start the project:

@@ -12,6 +12,5 @@ import twindPlugin from "$fresh/plugins/twindv1.ts";
 import twindConfig from "./twind.config.ts";
 
 await start(manifest, {
-  port: Number(Deno.env.get("PORT") || "8000"),
   plugins: [twindPlugin(twindConfig)],
 });
