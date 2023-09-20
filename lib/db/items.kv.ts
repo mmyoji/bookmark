@@ -1,4 +1,4 @@
-import { kv, list } from "@/lib/db/kv.ts";
+import { kv, list } from "@/lib/db/_kv.ts";
 
 export type Item = {
   date: string; // YYYY-MM-DD
