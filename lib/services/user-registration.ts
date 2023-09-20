@@ -1,6 +1,6 @@
 import { assert } from "$std/assert/mod.ts";
 
-import { createLogin } from "@/lib/db/logins.kv.ts";
+import { createLogin } from "@/lib/kv/logins.ts";
 import { hashPassword } from "@/lib/password.ts";
 
 const error = "username and/or password is invalid";

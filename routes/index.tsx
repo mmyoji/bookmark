@@ -8,7 +8,7 @@ import { ListItem } from "@/components/ListItem.tsx";
 
 import { config } from "@/lib/config.ts";
 import { type State } from "@/lib/context.ts";
-import { findItems } from "@/lib/db/items.kv.ts";
+import { findItems } from "@/lib/kv/items.ts";
 
 const cursorKey = "after";
 

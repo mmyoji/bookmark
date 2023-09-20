@@ -3,7 +3,7 @@ import { getCookies } from "$std/http/cookie.ts";
 
 import { config } from "@/lib/config.ts";
 import { type State } from "@/lib/context.ts";
-import { findLogin } from "@/lib/db/logins.kv.ts";
+import { findLogin } from "@/lib/kv/logins.ts";
 
 export const handler: MiddlewareHandler<State> = async (req, ctx) => {
   const uid = getCookies(req.headers)[config.cookies.key.uid];

@@ -1,6 +1,6 @@
-import { kv } from "@/lib/db/_kv.ts";
-import { createItem } from "@/lib/db/items.kv.ts";
-import { createLogin } from "@/lib/db/logins.kv.ts";
+import { kv } from "@/lib/kv/_core.ts";
+import { createItem } from "@/lib/kv/items.ts";
+import { createLogin } from "@/lib/kv/logins.ts";
 import { hashPassword } from "@/lib/password.ts";
 
 export const kvHelper = {

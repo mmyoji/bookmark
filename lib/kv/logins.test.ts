@@ -1,8 +1,8 @@
 import { assertEquals } from "$std/assert/mod.ts";
 
-import { kv } from "@/lib/db/_kv.ts";
-import { kvHelper } from "@/lib/db/_test-helpers.ts";
-import { createLogin, findLogin } from "@/lib/db/logins.kv.ts";
+import { kv } from "@/lib/kv/_core.ts";
+import { kvHelper } from "@/lib/kv/_test-helpers.ts";
+import { createLogin, findLogin } from "@/lib/kv/logins.ts";
 
 Deno.test("createLogin() saves data", async () => {
   const data = {

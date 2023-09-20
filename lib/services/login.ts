@@ -1,6 +1,6 @@
 import { assert } from "$std/assert/mod.ts";
 
-import { findLogin } from "@/lib/db/logins.kv.ts";
+import { findLogin } from "@/lib/kv/logins.ts";
 import { verifyPassword } from "@/lib/password.ts";
 
 const error = "You are not allowed to login";

@@ -1,7 +1,7 @@
 import { type Handlers } from "$fresh/server.ts";
 import { assert } from "$std/assert/mod.ts";
 
-import { searchItems } from "@/lib/db/items.kv.ts";
+import { searchItems } from "@/lib/kv/items.ts";
 
 export const handler: Handlers = {
   async GET(req) {
