@@ -1,4 +1,4 @@
-import { kv } from "@/lib/db/kv.ts";
+import { kv } from "@/lib/db/_kv.ts";
 import { createItem } from "@/lib/db/items.kv.ts";
 import { createLogin } from "@/lib/db/logins.kv.ts";
 import { hashPassword } from "@/lib/password.ts";

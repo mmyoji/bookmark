@@ -1,5 +1,7 @@
 import { assert, assertEquals } from "$std/assert/mod.ts";
 
+import { kv } from "@/lib/db/_kv.ts";
+import { kvHelper } from "@/lib/db/_test-helpers.ts";
 import {
   createItem,
   deleteItem,
@@ -7,8 +9,6 @@ import {
   Item,
   searchItems,
 } from "@/lib/db/items.kv.ts";
-import { kv } from "@/lib/db/kv.ts";
-import { kvHelper } from "@/lib/db/test.helpers.ts";
 
 Deno.test("createItem() saves data", async () => {
   const date = "2023-05-04";
