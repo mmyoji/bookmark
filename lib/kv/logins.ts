@@ -1,4 +1,4 @@
-import { kv } from "@/lib/db/_kv.ts";
+import { kv } from "@/lib/kv/_core.ts";
 
 type Login = {
   username: string;

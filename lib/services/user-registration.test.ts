@@ -2,7 +2,7 @@ import { userRegistrationService } from "@/lib/services/user-registration.ts";
 
 import { assertEquals, assertNotEquals } from "$std/assert/mod.ts";
 
-import { kvHelper } from "@/lib/db/_test-helpers.ts";
+import { kvHelper } from "@/lib/kv/_test-helpers.ts";
 
 const username = "test-user";
 

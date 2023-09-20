@@ -2,7 +2,7 @@ import { loginService } from "@/lib/services/login.ts";
 
 import { assertEquals } from "$std/assert/mod.ts";
 
-import { kvHelper } from "@/lib/db/_test-helpers.ts";
+import { kvHelper } from "@/lib/kv/_test-helpers.ts";
 
 Deno.test("loginService.run() returns error when username (or password) is not present", async () => {
   const { username, error } = await loginService.run({

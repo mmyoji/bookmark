@@ -1,7 +1,7 @@
 import { type JSX } from "preact";
 import IconTrash from "tabler_icons_tsx/tsx/trash.tsx";
 
-import { type Item } from "@/lib/db/items.kv.ts";
+import { type Item } from "@/lib/kv/items.ts";
 
 type Props = {
   dateISO: Item["dateISO"];

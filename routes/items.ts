@@ -2,7 +2,7 @@ import { type Handlers } from "$fresh/server.ts";
 import { assert } from "$std/assert/mod.ts";
 
 import { type State } from "@/lib/context.ts";
-import { createItem } from "@/lib/db/items.kv.ts";
+import { createItem } from "@/lib/kv/items.ts";
 import { parseTitle } from "@/lib/html-parser.ts";
 import { redirect } from "@/lib/response.utils.ts";
 

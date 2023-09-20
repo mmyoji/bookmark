@@ -2,8 +2,8 @@ import { createHandler } from "$fresh/server.ts";
 
 import manifest from "@/fresh.gen.ts";
 import { config } from "@/lib/config.ts";
-import { kv } from "@/lib/db/_kv.ts";
-import { kvHelper } from "@/lib/db/_test-helpers.ts";
+import { kv } from "@/lib/kv/_core.ts";
+import { kvHelper } from "@/lib/kv/_test-helpers.ts";
 
 const hostname = "127.0.0.1";
 
