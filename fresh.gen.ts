@@ -3,23 +3,23 @@
 // This file is automatically updated during development when running `dev.ts`.
 
 import * as $0 from "./routes/_middleware.ts";
-import * as $1 from "./routes/api/search-items.ts";
+import * as $1 from "./routes/api/search-items/index.ts";
 import * as $2 from "./routes/index.tsx";
-import * as $3 from "./routes/items.ts";
-import * as $4 from "./routes/items/[dateISO].tsx";
-import * as $5 from "./routes/login.tsx";
-import * as $6 from "./routes/logout.ts";
+import * as $3 from "./routes/items/[dateISO].tsx";
+import * as $4 from "./routes/items/index.ts";
+import * as $5 from "./routes/login/index.tsx";
+import * as $6 from "./routes/logout/index.ts";
 import * as $$0 from "./islands/DeleteButton.tsx";
 
 const manifest = {
   routes: {
     "./routes/_middleware.ts": $0,
-    "./routes/api/search-items.ts": $1,
+    "./routes/api/search-items/index.ts": $1,
     "./routes/index.tsx": $2,
-    "./routes/items.ts": $3,
-    "./routes/items/[dateISO].tsx": $4,
-    "./routes/login.tsx": $5,
-    "./routes/logout.ts": $6,
+    "./routes/items/[dateISO].tsx": $3,
+    "./routes/items/index.ts": $4,
+    "./routes/login/index.tsx": $5,
+    "./routes/logout/index.ts": $6,
   },
   islands: {
     "./islands/DeleteButton.tsx": $$0,
