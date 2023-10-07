@@ -371,7 +371,7 @@
     "https://deno.land/x/ts_morph@17.0.1/common/typescript.js": "5dd669eb199ee2a539924c63a92e23d95df43dfe2fbe3a9d68c871648be1ad5e",
     "https://deno.land/x/ts_morph@17.0.1/mod.ts": "adba9b82f24865d15d2c78ef6074b9a7457011719056c9928c800f130a617c93",
     "https://deno.land/x/ts_morph@17.0.1/ts_morph.js": "1bb80284b9e31a4c5c2078cd533fe9b12b4b2d710267055cb655225aa88fb2df",
-    "https://esm.sh/*preact-render-to-string@6.2.1": "6724f1eaf27206b9ba0e604f4b3fa294c9f3e80969216e11ecfc23f56e0ec04e",
+    "https://esm.sh/*preact-render-to-string@6.2.2": "851687a3a0be490123e3585d9e800980eebbf1855fbab69e80d9a3f142e67f78",
     "https://esm.sh/@twind/core@1.1.3": "bf3e64c13de95b061a721831bf2aed322f6e7335848b06d805168c3212686c1d",
     "https://esm.sh/@twind/preset-tailwind@1.1.4": "29f5e4774c344ff08d2636e3d86382060a8b40d6bce1c158b803df1823c2804c",
     "https://esm.sh/linkedom@0.15.3": "3f6981fb44ee87ddadf9d7ec9ebfc5f5e485b746be4c3de93f7d02577e74be4f",
@@ -400,7 +400,7 @@
     "https://esm.sh/v132/htmlparser2@8.0.2/denonext/htmlparser2.mjs": "35ddfbc8c7a644d43fcc668670f315327a0512de0b094fc3204b0688ad3d57cb",
     "https://esm.sh/v132/linkedom@0.15.3/denonext/linkedom.mjs": "2b5635b163cf257aad37561217a6f8df8c3fc5f77fb498f66f37e4c37c909e08",
     "https://esm.sh/v132/nth-check@2.1.1/denonext/nth-check.mjs": "e96bab192d2d88c8b8022115f9e3d8f3ef03aefd4a75117613e953dc33cfa2f4",
-    "https://esm.sh/v132/preact-render-to-string@6.2.1/X-ZS8q/denonext/preact-render-to-string.mjs": "7a5a7c19872e0cb93fe6aa398c20510b3d9f34bd6565c0ccc30cb1a90d53a6c4",
+    "https://esm.sh/v132/preact-render-to-string@6.2.2/X-ZS8q/denonext/preact-render-to-string.mjs": "55283fc14993c67474322e5632215b2a06deeb7d4ff986031dcfff31a5b0b74c",
     "https://esm.sh/v132/uhyphen@0.2.0/denonext/uhyphen.mjs": "53c707ad31488ef2f131e2ac9257d91b7b590a777e60288a34b3a04f1e65ad5a"
   }
 }
