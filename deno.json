@@ -2,11 +2,11 @@
   "lock": false,
   "tasks": {
     "check": "deno fmt --check && deno lint && deno check **/*.ts && deno check **/*.tsx",
-    "start": "deno run --unstable -A --watch=static/,routes/ dev.ts",
+    "start": "deno run -A --watch=static/,routes/ dev.ts",
     "build": "deno run -A dev.ts build",
     "preview": "deno run -A main.ts",
     "update": "deno run -A -r https://fresh.deno.dev/update .",
-    "test": "KV_PATH=\":memory:\" deno test --unstable --allow-read=. --allow-env",
+    "test": "KV_PATH=\":memory:\" deno test --allow-read=. --allow-env",
     "update-deps": "deno cache --reload --lock-write main.ts"
   },
   "lint": {
@@ -36,5 +36,6 @@
   "compilerOptions": {
     "jsx": "react-jsx",
     "jsxImportSource": "preact"
-  }
+  },
+  "unstable": ["kv"]
 }
