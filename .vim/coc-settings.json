@@ -1,7 +1,6 @@
 {
   "coc.preferences.formatOnSave": true,
   "deno.enable": true,
-  "deno.unstable": true,
   "deno.lint": true,
   "deno.inlayHints.parameterTypes.enabled": true,
   "deno.inlayHints.variableTypes.enabled": true,
