@@ -7,7 +7,7 @@
     "preview": "deno run -A main.ts",
     "update": "deno run -A -r https://fresh.deno.dev/update .",
     "test": "KV_PATH=\":memory:\" deno test --allow-read=. --allow-env",
-    "update-deps": "deno cache --reload --lock-write main.ts"
+    "update-deps": "deno cache --reload main.ts"
   },
   "lint": {
     "rules": {
