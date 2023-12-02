@@ -2,27 +2,30 @@
 // This file SHOULD be checked into source version control.
 // This file is automatically updated during development when running `dev.ts`.
 
-import * as $0 from "./routes/_middleware.ts";
-import * as $1 from "./routes/index.tsx";
-import * as $2 from "./routes/items/[dateISO].tsx";
-import * as $3 from "./routes/items/index.ts";
-import * as $4 from "./routes/login/index.tsx";
-import * as $5 from "./routes/logout/index.ts";
-import * as $$0 from "./islands/DeleteButton.tsx";
+import * as $_app from "./routes/_app.tsx";
+import * as $_middleware from "./routes/_middleware.ts";
+import * as $index from "./routes/index.tsx";
+import * as $items_dateISO_ from "./routes/items/[dateISO].tsx";
+import * as $items_index from "./routes/items/index.ts";
+import * as $login_index from "./routes/login/index.tsx";
+import * as $logout_index from "./routes/logout/index.ts";
+import * as $DeleteButton from "./islands/DeleteButton.tsx";
+import { type Manifest } from "$fresh/server.ts";
 
 const manifest = {
   routes: {
-    "./routes/_middleware.ts": $0,
-    "./routes/index.tsx": $1,
-    "./routes/items/[dateISO].tsx": $2,
-    "./routes/items/index.ts": $3,
-    "./routes/login/index.tsx": $4,
-    "./routes/logout/index.ts": $5,
+    "./routes/_app.tsx": $_app,
+    "./routes/_middleware.ts": $_middleware,
+    "./routes/index.tsx": $index,
+    "./routes/items/[dateISO].tsx": $items_dateISO_,
+    "./routes/items/index.ts": $items_index,
+    "./routes/login/index.tsx": $login_index,
+    "./routes/logout/index.ts": $logout_index,
   },
   islands: {
-    "./islands/DeleteButton.tsx": $$0,
+    "./islands/DeleteButton.tsx": $DeleteButton,
   },
   baseUrl: import.meta.url,
-};
+} satisfies Manifest;
 
 export default manifest;
