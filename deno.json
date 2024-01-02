@@ -27,8 +27,8 @@
     "linkedom": "https://esm.sh/linkedom@0.16.4",
     "octokit": "https://esm.sh/octokit@3.1.2",
     "scrypt": "https://deno.land/x/scrypt@v4.3.1/mod.ts",
-    "tabler_icons_tsx": "https://deno.land/x/tabler_icons_tsx@0.0.5",
-    "tabler_icons_tsx/": "https://deno.land/x/tabler_icons_tsx@0.0.5/"
+    "tabler_icons_tsx": "https://deno.land/x/tabler_icons_tsx@0.0.6",
+    "tabler_icons_tsx/": "https://deno.land/x/tabler_icons_tsx@0.0.6/"
   },
   "compilerOptions": { "jsx": "react-jsx", "jsxImportSource": "preact" },
   "unstable": ["cron", "kv"]
