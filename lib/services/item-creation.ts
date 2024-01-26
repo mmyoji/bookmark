@@ -17,7 +17,7 @@ async function run(url: FormDataEntryValue | null): Promise<void> {
   assert(typeof url === "string");
 
   const title = await fetchTitle(url);
-  await createItem({ date: new Date(), url, title });
+  await createItem({ date: Temporal.Now.instant(), url, title });
 }
 
 export const itemCreationService = {

@@ -4,10 +4,9 @@ import { searchItems } from "@/lib/kv/items.ts";
 const DAYS = 14;
 
 export async function runReminder() {
-  const d = new Date();
-  d.setDate(d.getDate() - DAYS);
-  // YYYY-MM-DD
-  const title = d.toISOString().slice(0, 10);
+  const title = Temporal.Now.plainDate("iso8601").subtract(
+    Temporal.Duration.from({ days: DAYS }),
+  ).toString();
 
   const items = await searchItems(title);
   if (!items.length) return;
