@@ -11,10 +11,11 @@ export type Item = {
 const PREFIX = "items";
 
 export async function createItem(
-  data: Pick<Item, "url" | "title"> & { date: Date },
+  data: Pick<Item, "url" | "title"> & { date: Temporal.Instant },
 ): Promise<void> {
-  const dateISO = data.date.toISOString();
-  const date = dateISO.slice(0, 10);
+  const dateISO = new Date(data.date.epochMilliseconds).toISOString();
+  const date = data.date.toZonedDateTimeISO("Asia/Tokyo").toPlainDate()
+    .toString();
   await kv.set([PREFIX, date, dateISO], { ...data, date, dateISO });
 }
 

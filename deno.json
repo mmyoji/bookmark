@@ -31,5 +31,5 @@
     "tabler_icons_tsx/": "https://deno.land/x/tabler_icons_tsx@0.0.6/"
   },
   "compilerOptions": { "jsx": "react-jsx", "jsxImportSource": "preact" },
-  "unstable": ["cron", "kv"]
+  "unstable": ["cron", "kv", "temporal"]
 }
