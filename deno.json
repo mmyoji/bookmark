@@ -24,7 +24,7 @@
     "tailwindcss/": "npm:/tailwindcss@3.4.1/",
     "tailwindcss/plugin": "npm:/tailwindcss@3.4.1/plugin.js",
     "@/": "./",
-    "linkedom": "https://esm.sh/linkedom@0.16.6",
+    "linkedom": "https://esm.sh/linkedom@0.16.8",
     "octokit": "https://esm.sh/octokit@3.1.2",
     "scrypt": "https://deno.land/x/scrypt@v4.3.1/mod.ts",
     "tabler_icons_tsx": "https://deno.land/x/tabler_icons_tsx@0.0.6",
