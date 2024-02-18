@@ -1,4 +1,5 @@
 import { difference } from "$std/datetime/mod.ts";
+import IconEdit from "tabler_icons_tsx/tsx/edit.tsx";
 
 import { DeleteButton } from "@/islands/DeleteButton.tsx";
 
@@ -11,7 +12,7 @@ type Props = {
 };
 
 export function ListItem(
-  { item: { url, title, date, dateISO }, isSignIn }: Props,
+  { item: { url, title, date, dateISO, note }, isSignIn }: Props,
 ) {
   const { days } = difference(new Date(), new Date(date), { units: ["days"] });
   const bgColor = (days ?? 0) > config.remindIn + 1 ? "bg-gray-200" : "";
@@ -32,9 +33,26 @@ export function ListItem(
             {title || url}
           </a>
         </h3>
-        <time class="text-gray-500" dateTime={dateISO}>
-          {dateISO}
-        </time>
+        <div class="flex">
+          <time class="text-gray-500" dateTime={dateISO}>
+            {dateISO}
+          </time>
+          {isSignIn && (
+            <span class="ml-2 leading-loose">
+              <a href={`/items/${dateISO}/edit`}>
+                <IconEdit />
+              </a>
+            </span>
+          )}
+        </div>
+        {note
+          ? (
+            <>
+              <hr class="mt-2" />
+              <p class="whitespace-pre-line">{note}</p>
+            </>
+          )
+          : <></>}
       </div>
       {isSignIn && (
         <div>

@@ -5,9 +5,11 @@ import { kvHelper } from "@/lib/kv/_test-helpers.ts";
 import {
   createItem,
   deleteItem,
+  findItem,
   findItems,
   Item,
   searchItems,
+  updateItem,
 } from "@/lib/kv/items.ts";
 
 Deno.test("createItem() saves data", async () => {
@@ -44,6 +46,32 @@ Deno.test("deleteItem() deletes given key", async () => {
 
   const res = await kv.get(["items", date, dateISO]);
   assertEquals(res.value, null);
+
+  await kvHelper.item.deleteAll();
+});
+
+Deno.test("findItem() returns an item w/ given key", async () => {
+  const date = "2023-05-04";
+  const dateISO = `${date}T10:00:00.000Z`;
+  await kvHelper.item.create({
+    date: new Date(dateISO),
+    url: "http://example.com",
+    title: "Example Page",
+  });
+
+  {
+    const item = await findItem(dateISO);
+
+    assert(item);
+    assertEquals(item.title, "Example Page");
+    assertEquals(item.url, "http://example.com");
+  }
+
+  {
+    const item = await findItem(`${date}T09:00:00.000Z`);
+
+    assertEquals(item, null);
+  }
 
   await kvHelper.item.deleteAll();
 });
@@ -166,3 +194,31 @@ Deno.test(
     await kvHelper.item.deleteAll();
   },
 );
+
+Deno.test("updateItem() updates an item", async () => {
+  const date = "2023-05-04";
+  const dateISO = `${date}T10:00:00.000Z`;
+  await kvHelper.item.create({
+    date: new Date(dateISO),
+    url: "http://example.com",
+    title: "Example Page",
+  });
+
+  await updateItem({
+    date,
+    dateISO,
+    url: "http://example.com",
+    title: "Example Page - 2",
+    note: "test note",
+  });
+
+  const res = await kv.get<Item>(["items", date, dateISO]);
+  assert(res.value);
+  assertEquals(res.value.date, date);
+  assertEquals(res.value.dateISO, dateISO);
+  assertEquals(res.value.title, "Example Page - 2");
+  assertEquals(res.value.url, "http://example.com");
+  assertEquals(res.value.note, "test note");
+
+  await kvHelper.item.deleteAll();
+});

@@ -5,7 +5,8 @@
 import * as $_app from "./routes/_app.tsx";
 import * as $_middleware from "./routes/_middleware.ts";
 import * as $index from "./routes/index.tsx";
-import * as $items_dateISO_ from "./routes/items/[dateISO].tsx";
+import * as $items_dateISO_edit from "./routes/items/[dateISO]/edit.tsx";
+import * as $items_dateISO_index from "./routes/items/[dateISO]/index.tsx";
 import * as $items_index from "./routes/items/index.ts";
 import * as $login_index from "./routes/login/index.tsx";
 import * as $logout_index from "./routes/logout/index.ts";
@@ -17,7 +18,8 @@ const manifest = {
     "./routes/_app.tsx": $_app,
     "./routes/_middleware.ts": $_middleware,
     "./routes/index.tsx": $index,
-    "./routes/items/[dateISO].tsx": $items_dateISO_,
+    "./routes/items/[dateISO]/edit.tsx": $items_dateISO_edit,
+    "./routes/items/[dateISO]/index.tsx": $items_dateISO_index,
     "./routes/items/index.ts": $items_index,
     "./routes/login/index.tsx": $login_index,
     "./routes/logout/index.ts": $logout_index,
