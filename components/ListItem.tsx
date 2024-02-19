@@ -38,7 +38,7 @@ export function ListItem(
             {dateISO}
           </time>
           {isSignIn && (
-            <span class="ml-2 leading-loose">
+            <span class="ml-2 leading-loose text-pink-700">
               <a href={`/items/${dateISO}/edit`}>
                 <IconEdit />
               </a>
