@@ -91,7 +91,10 @@ export default function ItemEditPage({ data: { item } }: PageProps<Data>) {
 
           <InputWrapper>
             <Label htmlFor="note">Note</Label>
-            <textarea class="w-full p-2" name="note">
+            <textarea
+              class="w-full p-2 rounded border-1 border-gray-300 shadow-md"
+              name="note"
+            >
               {item.note ?? ""}
             </textarea>
           </InputWrapper>
