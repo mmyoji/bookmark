@@ -1,4 +1,4 @@
-import { assert, assertEquals } from "$std/assert/mod.ts";
+import { assert, assertEquals } from "@std/assert";
 
 import { loginHeaders, origin, visit } from "@/tests/_helpers.ts";
 

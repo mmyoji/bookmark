@@ -1,5 +1,5 @@
 import { type Handlers } from "$fresh/server.ts";
-import { deleteCookie } from "$std/http/cookie.ts";
+import { deleteCookie } from "@std/http";
 
 import { config } from "@/lib/config.ts";
 import { redirect } from "@/lib/response.utils.ts";

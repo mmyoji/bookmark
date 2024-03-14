@@ -1,6 +1,6 @@
 import { loginService } from "@/lib/services/login.ts";
 
-import { assertEquals } from "$std/assert/mod.ts";
+import { assertEquals } from "@std/assert";
 
 import { kvHelper } from "@/lib/kv/_test-helpers.ts";
 

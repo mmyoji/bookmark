@@ -1,5 +1,5 @@
 import { type Handlers } from "$fresh/server.ts";
-import { assert } from "$std/assert/mod.ts";
+import { assert } from "@std/assert";
 
 import { type State } from "@/lib/context.ts";
 import { deleteItem } from "@/lib/kv/items.ts";

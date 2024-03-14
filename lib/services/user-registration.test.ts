@@ -1,6 +1,6 @@
 import { userRegistrationService } from "@/lib/services/user-registration.ts";
 
-import { assertEquals, assertNotEquals } from "$std/assert/mod.ts";
+import { assertEquals, assertNotEquals } from "@std/assert";
 
 import { kvHelper } from "@/lib/kv/_test-helpers.ts";
 

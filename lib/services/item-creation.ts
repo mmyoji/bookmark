@@ -1,4 +1,4 @@
-import { assert } from "$std/assert/mod.ts";
+import { assert } from "@std/assert";
 
 import { createItem } from "@/lib/kv/items.ts";
 import { parseTitle } from "@/lib/html-parser.ts";
