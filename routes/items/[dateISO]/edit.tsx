@@ -1,5 +1,5 @@
 import { Handlers, PageProps } from "$fresh/server.ts";
-import { assert } from "$std/assert/mod.ts";
+import { assert } from "@std/assert";
 import { ComponentChildren } from "preact";
 
 import { Button } from "@/components/Button.tsx";

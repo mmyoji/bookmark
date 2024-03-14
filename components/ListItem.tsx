@@ -1,4 +1,4 @@
-import { difference } from "$std/datetime/mod.ts";
+import { difference } from "@std/datetime";
 import IconEdit from "tabler_icons_tsx/tsx/edit.tsx";
 
 import { DeleteButton } from "@/islands/DeleteButton.tsx";

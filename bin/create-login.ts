@@ -1,6 +1,6 @@
 #!/usr/bin/env -S deno run --unstable --allow-env
 
-import { assert } from "$std/assert/assert.ts";
+import { assert } from "@std/assert";
 
 import { userRegistrationService } from "@/lib/services/user-registration.ts";
 

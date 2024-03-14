@@ -1,5 +1,5 @@
 import { type MiddlewareHandler } from "$fresh/server.ts";
-import { getCookies } from "$std/http/cookie.ts";
+import { getCookies } from "@std/http";
 
 import { config } from "@/lib/config.ts";
 import { type State } from "@/lib/context.ts";

@@ -1,4 +1,4 @@
-import { assertEquals } from "$std/assert/mod.ts";
+import { assertEquals } from "@std/assert";
 
 import { kv } from "@/lib/kv/_core.ts";
 import { kvHelper } from "@/lib/kv/_test-helpers.ts";

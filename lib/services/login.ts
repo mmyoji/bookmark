@@ -1,4 +1,4 @@
-import { assert } from "$std/assert/mod.ts";
+import { assert } from "@std/assert";
 
 import { findLogin } from "@/lib/kv/logins.ts";
 import { verifyPassword } from "@/lib/password.ts";
