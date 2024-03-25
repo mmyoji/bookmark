@@ -16,7 +16,7 @@ Deno.test("createItem() saves data", async () => {
   const date = "2023-05-04";
   const dateISO = `${date}T10:00:00.000Z`;
   await createItem({
-    date: Temporal.Instant.from(dateISO),
+    date: new Date(dateISO),
     url: "http://example.com",
     title: "Example Page",
   });
@@ -37,7 +37,7 @@ Deno.test("deleteItem() deletes given key", async () => {
   const date = "2023-05-04";
   const dateISO = `${date}T10:00:00.000Z`;
   await kvHelper.item.create({
-    date: Temporal.Instant.from(dateISO),
+    date: new Date(dateISO),
     url: "http://example.com",
     title: "Example Page",
   });
@@ -54,7 +54,7 @@ Deno.test("findItem() returns an item w/ given key", async () => {
   const date = "2023-05-04";
   const dateISO = `${date}T10:00:00.000Z`;
   await kvHelper.item.create({
-    date: Temporal.Instant.from(dateISO),
+    date: new Date(dateISO),
     url: "http://example.com",
     title: "Example Page",
   });
@@ -109,7 +109,7 @@ async function setupData() {
 
   await Promise.all(
     dateISOs.map((dateISO) =>
-      kvHelper.item.create({ date: Temporal.Instant.from(dateISO), title, url })
+      kvHelper.item.create({ date: new Date(dateISO), title, url })
     ),
   );
 }
@@ -142,32 +142,32 @@ Deno.test(
   async () => {
     await Promise.all([
       {
-        date: Temporal.Instant.from("2023-01-01T10:00:00.000Z"),
+        date: new Date("2023-01-01T10:00:00.000Z"),
         title: "test 1",
         url: "http://example.com",
       },
       {
-        date: Temporal.Instant.from("2023-01-01T10:10:00.000Z"),
+        date: new Date("2023-01-01T10:10:00.000Z"),
         title: "test 2",
         url: "http://example.com/foo",
       },
       {
-        date: Temporal.Instant.from("2023-01-02T09:00:00.000Z"),
+        date: new Date("2023-01-02T09:00:00.000Z"),
         title: "test 1",
         url: "http://example.com",
       },
       {
-        date: Temporal.Instant.from("2023-01-02T10:00:00.000Z"),
+        date: new Date("2023-01-02T10:00:00.000Z"),
         title: "test 2",
         url: "http://example.com/foo",
       },
       {
-        date: Temporal.Instant.from("2023-01-10T10:00:00.000Z"),
+        date: new Date("2023-01-10T10:00:00.000Z"),
         title: "test 1",
         url: "http://example.com",
       },
       {
-        date: Temporal.Instant.from("2023-01-10T11:00:00.000Z"),
+        date: new Date("2023-01-10T11:00:00.000Z"),
         title: "test 2",
         url: "http://example.com/foo",
       },
@@ -199,7 +199,7 @@ Deno.test("updateItem() updates an item", async () => {
   const date = "2023-05-04";
   const dateISO = `${date}T10:00:00.000Z`;
   await kvHelper.item.create({
-    date: Temporal.Instant.from(dateISO),
+    date: new Date(dateISO),
     url: "http://example.com",
     title: "Example Page",
   });
