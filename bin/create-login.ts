@@ -1,4 +1,4 @@
-#!/usr/bin/env -S deno run --unstable-kv --unstable-temporal --allow-env
+#!/usr/bin/env -S deno run --unstable --allow-env
 
 import { assert } from "@std/assert";
 
