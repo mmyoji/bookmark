@@ -21,7 +21,7 @@
     "@std/datetime": "jsr:@std/datetime@^0.221.0",
     "@std/http": "jsr:@std/http@^0.221.0",
     "linkedom": "https://esm.sh/linkedom@0.16.11",
-    "octokit": "https://esm.sh/octokit@3.1.2",
+    "octokit": "https://esm.sh/octokit@3.2.0",
     "preact": "https://esm.sh/preact@10.20.1",
     "preact-render-to-string": "https://esm.sh/*preact-render-to-string@6.4.1",
     "preact/": "https://esm.sh/preact@10.20.1/",
