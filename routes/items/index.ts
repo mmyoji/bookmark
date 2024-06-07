@@ -1,8 +1,7 @@
 import { type Handlers } from "$fresh/server.ts";
-
 import { type State } from "@/lib/context.ts";
 import { redirect } from "@/lib/response.utils.ts";
-import { itemCreationService } from "@/lib/services/item-creation.ts";
+import { createItem } from "@/lib/services/create-item.ts";
 
 export const handler: Handlers<unknown, State> = {
   async POST(req, ctx) {
@@ -11,7 +10,7 @@ export const handler: Handlers<unknown, State> = {
     }
 
     const form = await req.formData();
-    await itemCreationService.run(form.get("url"));
+    await createItem(form.get("url"));
 
     return redirect({ location: "/" });
   },

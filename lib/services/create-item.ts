@@ -1,6 +1,4 @@
-import { assert } from "@std/assert";
-
-import { createItem } from "@/lib/kv/items.ts";
+import { createItem as _createItem } from "@/lib/kv/items.ts";
 import { parseTitle } from "@/lib/html-parser.ts";
 
 async function fetchTitle(url: string): Promise<string> {
@@ -13,13 +11,13 @@ async function fetchTitle(url: string): Promise<string> {
   return parseTitle(text);
 }
 
-async function run(url: FormDataEntryValue | null): Promise<void> {
-  assert(typeof url === "string");
+export async function createItem(
+  url: FormDataEntryValue | null,
+): Promise<void> {
+  if (typeof url !== "string") {
+    throw new TypeError("`url` must be string");
+  }
 
   const title = await fetchTitle(url);
-  await createItem({ date: new Date(), url, title });
+  await _createItem({ date: new Date(), url, title });
 }
-
-export const itemCreationService = {
-  run,
-};
