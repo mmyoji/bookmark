@@ -1,14 +1,13 @@
 import { Handlers, PageProps } from "$fresh/server.ts";
-import { assert } from "@std/assert";
-import { ComponentChildren } from "preact";
-
 import { Button } from "@/components/Button.tsx";
 import { Input } from "@/components/Input.tsx";
 import { Label } from "@/components/Label.tsx";
 import { Layout } from "@/components/Layout.tsx";
 import { type State } from "@/lib/context.ts";
-import { findItem, Item, updateItem } from "@/lib/kv/items.ts";
+import { findItem, Item } from "@/lib/kv/items.ts";
 import { redirect } from "@/lib/response.utils.ts";
+import { updateItem } from "@/lib/services/update-item.ts";
+import { ComponentChildren } from "preact";
 
 type Data = {
   item: Item;
@@ -43,17 +42,10 @@ export const handler: Handlers<Data, State> = {
     }
 
     const form = await req.formData();
-    const title = form.get("title");
-    const url = form.get("url");
-    const note = form.get("note");
-    assert(typeof title === "string" && title.length > 0);
-    assert(typeof url === "string" && url.length > 0);
-    assert(typeof note === "string");
-    await updateItem({
-      ...item,
-      title,
-      url,
-      note,
+    await updateItem(item, {
+      title: form.get("title"),
+      url: form.get("url"),
+      note: form.get("note"),
     });
 
     return redirect({ location: "/" });
