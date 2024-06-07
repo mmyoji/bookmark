@@ -1,41 +1,36 @@
-import { assert } from "@std/assert";
-
 import { findLogin } from "@/lib/kv/logins.ts";
 import { verifyPassword } from "@/lib/password.ts";
 
 const error = "You are not allowed to login";
 
-async function run(
-  { username, password }: {
-    username: ReturnType<FormData["get"]>;
-    password: ReturnType<FormData["get"]>;
-  },
-): Promise<
-  { username: string; error: null } | { username: null; error: string }
+type Params = {
+  username: ReturnType<FormData["get"]>;
+  password: ReturnType<FormData["get"]>;
+};
+
+function validate(p: Params): p is { username: string; password: string } {
+  return (typeof p.username === "string") &&
+    (typeof p.password === "string");
+}
+
+export async function login(p: Params): Promise<
+  { username: string; error: string }
 > {
-  try {
-    assert(typeof username === "string");
-    assert(typeof password === "string");
-  } catch (_err) {
-    return {
-      username: null,
-      error,
-    };
+  if (!validate(p)) {
+    return { username: "", error };
   }
+
+  const { username, password } = p;
 
   const login = await findLogin(username);
   if (!login) {
-    return { username: null, error };
+    return { username: "", error };
   }
 
   const result = verifyPassword(password, login.hashedPassword);
   if (!result) {
-    return { username: null, error };
+    return { username: "", error };
   }
 
-  return { username: login.username, error: null };
+  return { username: login.username, error: "" };
 }
-
-export const loginService = {
-  run,
-};

@@ -1,14 +1,12 @@
 import { type Handlers, type PageProps } from "$fresh/server.ts";
-import { setCookie } from "@std/http";
-
 import { AuthForm } from "@/components/AuthForm.tsx";
 import { Layout } from "@/components/Layout.tsx";
 import { Notice } from "@/components/Notice.tsx";
-
 import { config } from "@/lib/config.ts";
 import { type State } from "@/lib/context.ts";
 import { redirect } from "@/lib/response.utils.ts";
-import { loginService } from "@/lib/services/login.ts";
+import { login } from "@/lib/services/login.ts";
+import { setCookie } from "@std/http";
 
 type Data = {
   error?: string;
@@ -26,12 +24,12 @@ export const handler: Handlers<Data, State> = {
   async POST(req, ctx) {
     const form = await req.formData();
 
-    const { username, error } = await loginService.run({
+    const { username, error } = await login({
       username: form.get("username"),
       password: form.get("password"),
     });
 
-    if (error != null) {
+    if (error) {
       return ctx.render({ error });
     }
 

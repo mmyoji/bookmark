@@ -1,49 +1,48 @@
-import { loginService } from "@/lib/services/login.ts";
-
-import { assertEquals } from "@std/assert";
+import { login } from "./login.ts";
 
 import { kvHelper } from "@/lib/kv/_test-helpers.ts";
+import { assertEquals } from "@std/assert";
 
-Deno.test("loginService.run() returns error when username (or password) is not present", async () => {
-  const { username, error } = await loginService.run({
+Deno.test("login() returns error when username (or password) is not present", async () => {
+  const { username, error } = await login({
     username: null,
     password: "password",
   });
 
-  assertEquals(username, null);
+  assertEquals(username, "");
   assertEquals(error, "You are not allowed to login");
 });
 
-Deno.test("loginService.run() returns error with invalid username", async () => {
-  const { username, error } = await loginService.run({
+Deno.test("login() returns error with invalid username", async () => {
+  const { username, error } = await login({
     username: "test-user",
     password: "password",
   });
 
-  assertEquals(username, null);
+  assertEquals(username, "");
   assertEquals(error, "You are not allowed to login");
 });
 
-Deno.test("loginService.run() returns error with invalid password", async () => {
+Deno.test("login() returns error with invalid password", async () => {
   await kvHelper.login.create({ username: "test-user", password: "P@s$w0rd" });
 
-  const { username, error } = await loginService.run({
+  const { username, error } = await login({
     username: "test-user",
     password: "password",
   });
 
-  assertEquals(username, null);
+  assertEquals(username, "");
   assertEquals(error, "You are not allowed to login");
 });
 
-Deno.test("loginService.run() returns username with valid credentials", async () => {
+Deno.test("login() returns username with valid credentials", async () => {
   await kvHelper.login.create({ username: "test-user", password: "P@s$w0rd" });
 
-  const { username, error } = await loginService.run({
+  const { username, error } = await login({
     username: "test-user",
     password: "P@s$w0rd",
   });
 
   assertEquals(username, "test-user");
-  assertEquals(error, null);
+  assertEquals(error, "");
 });
