@@ -8,7 +8,7 @@ export const handler: Handlers<unknown, State> = {
       return new Response(null, { status: 401 });
     }
 
-    if ("dateISO" in ctx.params || !!ctx.params.dateISO) {
+    if (!("dateISO" in ctx.params) || !ctx.params.dateISO) {
       return new Response(null, { status: 404 });
     }
 
