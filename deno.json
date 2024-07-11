@@ -26,8 +26,8 @@
     "preact-render-to-string": "https://esm.sh/*preact-render-to-string@6.5.5",
     "preact/": "https://esm.sh/preact@10.22.1/",
     "scrypt": "https://deno.land/x/scrypt@v4.4.4/mod.ts",
-    "tabler_icons_tsx": "https://deno.land/x/tabler_icons_tsx@0.0.6",
-    "tabler_icons_tsx/": "https://deno.land/x/tabler_icons_tsx@0.0.6/",
+    "tabler_icons_tsx": "https://deno.land/x/tabler_icons_tsx@0.0.7",
+    "tabler_icons_tsx/": "https://deno.land/x/tabler_icons_tsx@0.0.7/",
     "tailwindcss": "npm:tailwindcss@3.4.4",
     "tailwindcss/": "npm:/tailwindcss@3.4.4/",
     "tailwindcss/plugin": "npm:/tailwindcss@3.4.4/plugin.js"
