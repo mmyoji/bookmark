@@ -28,9 +28,9 @@
     "scrypt": "https://deno.land/x/scrypt@v4.4.4/mod.ts",
     "tabler_icons_tsx": "https://deno.land/x/tabler_icons_tsx@0.0.7",
     "tabler_icons_tsx/": "https://deno.land/x/tabler_icons_tsx@0.0.7/",
-    "tailwindcss": "npm:tailwindcss@3.4.4",
-    "tailwindcss/": "npm:/tailwindcss@3.4.4/",
-    "tailwindcss/plugin": "npm:/tailwindcss@3.4.4/plugin.js"
+    "tailwindcss": "npm:tailwindcss@3.4.7",
+    "tailwindcss/": "npm:/tailwindcss@3.4.7/",
+    "tailwindcss/plugin": "npm:/tailwindcss@3.4.7/plugin.js"
   },
   "compilerOptions": { "jsx": "react-jsx", "jsxImportSource": "preact" },
   "unstable": ["cron", "kv"]
