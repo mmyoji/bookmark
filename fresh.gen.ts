@@ -11,7 +11,7 @@ import * as $items_index from "./routes/items/index.ts";
 import * as $login_index from "./routes/login/index.tsx";
 import * as $logout_index from "./routes/logout/index.ts";
 import * as $DeleteButton from "./islands/DeleteButton.tsx";
-import { type Manifest } from "$fresh/server.ts";
+import type { Manifest } from "$fresh/server.ts";
 
 const manifest = {
   routes: {
