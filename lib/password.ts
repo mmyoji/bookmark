@@ -1,4 +1,4 @@
-import { hash, verify } from "scrypt";
+import { hash, verify } from "@denorg/scrypt";
 
 export function hashPassword(password: string): string {
   return hash(password);
