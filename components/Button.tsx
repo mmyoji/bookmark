@@ -1,7 +1,7 @@
 import { type JSX } from "preact";
 
 export function Button(
-  props: JSX.HTMLAttributes<HTMLButtonElement>,
+  props: JSX.ButtonHTMLAttributes<HTMLButtonElement>,
 ) {
   return (
     <button
