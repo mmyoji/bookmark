@@ -22,7 +22,6 @@
     "@std/datetime": "jsr:@std/datetime@^0.225.2",
     "@std/http": "jsr:@std/http@^1.0.8",
     "linkedom": "https://esm.sh/linkedom@0.18.4",
-    "octokit": "https://esm.sh/octokit@4.0.2",
     "preact": "https://esm.sh/preact@10.24.2",
     "preact-render-to-string": "https://esm.sh/*preact-render-to-string@6.5.11",
     "preact/": "https://esm.sh/preact@10.24.2/",
@@ -33,5 +32,5 @@
     "tailwindcss/plugin": "npm:/tailwindcss@3.4.10/plugin.js"
   },
   "compilerOptions": { "jsx": "react-jsx", "jsxImportSource": "preact" },
-  "unstable": ["cron", "kv"]
+  "unstable": ["kv"]
 }
