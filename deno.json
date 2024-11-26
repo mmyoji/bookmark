@@ -1,7 +1,12 @@
 {
   "lock": false,
   "tasks": {
-    "check": "deno fmt --check && deno lint && deno check **/*.ts && deno check **/*.tsx",
+    "check:fmt": "deno fmt --check",
+    "check:lint": "deno lint",
+    "check": {
+      "command": "deno check main.ts",
+      "dependencies": ["check:fmt", "check:lint"]
+    },
     "start": "deno run -A --watch=static/,routes/ dev.ts",
     "build": "deno run -A dev.ts build",
     "preview": "deno run -A main.ts",
