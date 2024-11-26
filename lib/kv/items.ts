@@ -37,11 +37,6 @@ export function findItems(
   }]);
 }
 
-export async function searchItems(date: string): Promise<Item[]> {
-  const [items] = await list<Item>([{ prefix: [PREFIX, date] }]);
-  return items;
-}
-
 export async function updateItem(item: Item): Promise<void> {
   await kv.set([PREFIX, item.date, item.dateISO], { ...item });
 }

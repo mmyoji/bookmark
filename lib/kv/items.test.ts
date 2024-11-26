@@ -8,7 +8,6 @@ import {
   findItem,
   findItems,
   Item,
-  searchItems,
   updateItem,
 } from "@/lib/kv/items.ts";
 
@@ -132,64 +131,6 @@ Deno.test(
     assertEquals(items[0].dateISO, "2023-03-01T11:00:00.000Z");
     assertEquals(items[1].dateISO, "2023-03-01T10:00:00.000Z");
     assertEquals(cursor, "");
-
-    await kvHelper.item.deleteAll();
-  },
-);
-
-Deno.test(
-  "searchItems() returns target date of items",
-  async () => {
-    await Promise.all([
-      {
-        date: new Date("2023-01-01T10:00:00.000Z"),
-        title: "test 1",
-        url: "http://example.com",
-      },
-      {
-        date: new Date("2023-01-01T10:10:00.000Z"),
-        title: "test 2",
-        url: "http://example.com/foo",
-      },
-      {
-        date: new Date("2023-01-02T09:00:00.000Z"),
-        title: "test 1",
-        url: "http://example.com",
-      },
-      {
-        date: new Date("2023-01-02T10:00:00.000Z"),
-        title: "test 2",
-        url: "http://example.com/foo",
-      },
-      {
-        date: new Date("2023-01-10T10:00:00.000Z"),
-        title: "test 1",
-        url: "http://example.com",
-      },
-      {
-        date: new Date("2023-01-10T11:00:00.000Z"),
-        title: "test 2",
-        url: "http://example.com/foo",
-      },
-    ].map((data) => kvHelper.item.create(data)));
-
-    const items = await searchItems("2023-01-02");
-
-    assertEquals(items.length, 2);
-    assertEquals(items, [
-      {
-        date: "2023-01-02",
-        dateISO: "2023-01-02T09:00:00.000Z",
-        title: "test 1",
-        url: "http://example.com",
-      },
-      {
-        date: "2023-01-02",
-        dateISO: "2023-01-02T10:00:00.000Z",
-        title: "test 2",
-        url: "http://example.com/foo",
-      },
-    ]);
 
     await kvHelper.item.deleteAll();
   },
