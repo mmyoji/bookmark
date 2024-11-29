@@ -33,7 +33,7 @@ export function findItems(
   return list<Item>([{ prefix: [PREFIX] }, {
     cursor,
     reverse: true,
-    limit: 20,
+    limit: 30,
   }]);
 }
 
