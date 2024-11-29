@@ -11,11 +11,20 @@ type Props = {
   isSignIn: boolean;
 };
 
+const getBgColor = (days: number) => {
+  if (days > config.remindIn + 7) {
+    return "bg-gray-200";
+  }
+
+  return (days > config.remindIn) ? "bg-pink-100" : "";
+};
+
 export function ListItem(
   { item: { url, title, date, dateISO, note }, isSignIn }: Props,
 ) {
-  const { days } = difference(new Date(), new Date(date), { units: ["days"] });
-  const bgColor = (days ?? 0) > config.remindIn + 1 ? "bg-gray-200" : "";
+  const bgColor = getBgColor(
+    difference(new Date(), new Date(date), { units: ["days"] }).days ?? 0,
+  );
 
   return (
     <li
