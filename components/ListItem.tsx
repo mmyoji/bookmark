@@ -19,17 +19,24 @@ const getBgColor = (days: number) => {
   return (days > config.remindIn) ? "bg-pink-100" : "";
 };
 
+const getDayLabel = (days: number) => {
+  if (days > 1) return `${days} days ago`;
+
+  return days === 1 ? "1 day ago" : "Today";
+};
+
 export function ListItem(
   { item: { url, title, date, dateISO, note }, isSignIn }: Props,
 ) {
-  const bgColor = getBgColor(
-    difference(new Date(), new Date(date), { units: ["days"] }).days ?? 0,
-  );
+  const days =
+    difference(new Date(), new Date(date), { units: ["days"] }).days ?? 0;
 
   return (
     <li
       id={dateISO || url}
-      class={`border rounded p-2 my-1.5 flex justify-between ${bgColor}`}
+      class={`border rounded p-2 my-1.5 flex justify-between ${
+        getBgColor(days)
+      }`}
     >
       <div>
         <h3>
@@ -43,8 +50,12 @@ export function ListItem(
           </a>
         </h3>
         <div class="flex">
-          <time class="text-gray-500" dateTime={dateISO}>
-            {dateISO}
+          <time
+            class="text-gray-500 text-sm"
+            dateTime={dateISO}
+            title={dateISO}
+          >
+            {getDayLabel(days)}
           </time>
           {isSignIn && (
             <span class="ml-2 leading-loose text-pink-700">
