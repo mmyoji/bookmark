@@ -32,7 +32,7 @@ export function ListItem(
     difference(new Date(), new Date(date), { units: ["days"] }).days ?? 0;
 
   return (
-    <li
+    <div
       id={dateISO || url}
       class={`border rounded p-2 my-1.5 flex justify-between ${
         getBgColor(days)
@@ -79,6 +79,6 @@ export function ListItem(
           <DeleteButton dateISO={dateISO} />
         </div>
       )}
-    </li>
+    </div>
   );
 }

@@ -104,6 +104,16 @@ async function setupData() {
     "2023-12-10T10:00:10.000Z",
     "2023-12-11T10:00:00.000Z",
     "2023-12-11T10:01:00.000Z",
+    "2023-12-31T10:00:00.000Z",
+    "2024-01-11T10:00:00.000Z",
+    "2024-02-11T10:00:00.000Z",
+    "2024-03-11T10:00:00.000Z",
+    "2024-04-11T10:00:00.000Z",
+    "2024-05-11T10:00:00.000Z",
+    "2024-06-11T10:00:00.000Z",
+    "2024-07-11T10:00:00.000Z",
+    "2024-08-11T10:00:00.000Z",
+    "2024-09-11T10:00:00.000Z",
   ]);
 
   await Promise.all(
@@ -120,9 +130,9 @@ Deno.test(
 
     let [items, cursor] = await findItems(undefined);
 
-    assertEquals(items.length, 20);
-    assertEquals(items[0].dateISO, "2023-12-11T10:01:00.000Z");
-    assertEquals(items[19].dateISO, "2023-03-02T09:00:00.000Z");
+    assertEquals(items.length, 30);
+    assertEquals(items[0].dateISO, "2024-09-11T10:00:00.000Z");
+    assertEquals(items[29].dateISO, "2023-03-02T09:00:00.000Z");
     assert(cursor !== "");
 
     [items, cursor] = await findItems(cursor);

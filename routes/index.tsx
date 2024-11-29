@@ -19,7 +19,7 @@ export default defineRoute<State>(async (req, ctx) => {
 
   return (
     <Layout>
-      <div class="p-4 mx-auto max-w-screen-md">
+      <div class="p-4 mx-auto max-w-screen-lg">
         <div class="my-6 flex justify-between">
           <h1 class="text-2xl font-bold">{config.name}</h1>
 
@@ -38,9 +38,9 @@ export default defineRoute<State>(async (req, ctx) => {
           </div>
         )}
 
-        <ul>
+        <div class="lg:grid gap-2 grid-cols-3 grid-rows-3">
           {items.map((item) => <ListItem isSignIn={!!user} item={item} />)}
-        </ul>
+        </div>
 
         {!!cursor && (
           <div class="flex justify-center mt-4">
