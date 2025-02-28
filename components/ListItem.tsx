@@ -72,7 +72,7 @@ export function ListItem(
               <p class="whitespace-pre-line">{note}</p>
             </>
           )
-          : <></>}
+          : null}
       </div>
       {isSignIn && (
         <div>
