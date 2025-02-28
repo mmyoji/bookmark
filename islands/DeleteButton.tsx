@@ -32,7 +32,7 @@ export function DeleteButton({ dateISO }: Props) {
   };
 
   return (
-    <button class="text-slate-600" onClick={handleClick}>
+    <button type="button" class="text-slate-600" onClick={handleClick}>
       <IconTrash class="w-5 h-5" />
     </button>
   );
