@@ -39,7 +39,9 @@ export default defineRoute<State>(async (req, ctx) => {
         )}
 
         <div class="lg:grid gap-2 grid-cols-3 grid-rows-3">
-          {items.map((item) => <ListItem isSignIn={!!user} item={item} />)}
+          {items.map((item) => (
+            <ListItem key={item.dateISO} isSignIn={!!user} item={item} />
+          ))}
         </div>
 
         {!!cursor && (
