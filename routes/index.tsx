@@ -1,6 +1,6 @@
 import { defineRoute } from "$fresh/server.ts";
 
-import IconChevronRight from "tabler_icons_tsx/tsx/chevron-right.tsx";
+import { IconChevronRight } from "@tabler/icons-preact";
 
 import { CreateForm } from "@/components/CreateForm.tsx";
 import { Layout } from "@/components/Layout.tsx";
