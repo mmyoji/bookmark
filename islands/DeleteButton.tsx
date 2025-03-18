@@ -1,5 +1,5 @@
 import { type JSX } from "preact";
-import IconTrash from "tabler_icons_tsx/tsx/trash.tsx";
+import { IconTrash } from "@tabler/icons-preact";
 
 import { type Item } from "@/lib/kv/items.ts";
 

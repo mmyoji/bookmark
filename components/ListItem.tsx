@@ -1,5 +1,5 @@
 import { difference } from "@std/datetime";
-import IconEdit from "tabler_icons_tsx/tsx/edit.tsx";
+import { IconEdit } from "@tabler/icons-preact";
 
 import { DeleteButton } from "@/islands/DeleteButton.tsx";
 
