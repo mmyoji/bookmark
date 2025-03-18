@@ -1,7 +1,6 @@
 # Bookmark
 
-- simple bookmark app
-- remind me what I read before
+simple bookmark app
 
 ## Usage
 
