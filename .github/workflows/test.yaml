@@ -14,4 +14,5 @@ jobs:
         with:
           deno-version: v2.x
       - run: deno run check
-      - run: deno run test
+      - name: Test
+        run: deno run build && deno run test

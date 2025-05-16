@@ -1,27 +1,30 @@
-import { type Handlers, type PageProps } from "$fresh/server.ts";
+import { setCookie } from "@std/http";
+import { page } from "fresh";
+
 import { AuthForm } from "@/components/AuthForm.tsx";
-import { Layout } from "@/components/Layout.tsx";
 import { Notice } from "@/components/Notice.tsx";
 import { config } from "@/lib/config.ts";
-import { type State } from "@/lib/context.ts";
 import { redirect } from "@/lib/response.utils.ts";
 import { login } from "@/lib/services/login.ts";
-import { setCookie } from "@std/http";
+import { define } from "@/utils.ts";
 
 type Data = {
   error?: string;
 };
 
-export const handler: Handlers<Data, State> = {
-  GET(_req, ctx) {
+export const handler = define.handlers<Data>({
+  GET(ctx) {
     if (ctx.state.currentUser) {
       return redirect({ location: "/" });
     }
 
-    return ctx.render({});
+    ctx.state.title = "Login";
+
+    return page({});
   },
 
-  async POST(req, ctx) {
+  async POST(ctx) {
+    const req = ctx.req;
     const form = await req.formData();
 
     const { username, error } = await login({
@@ -30,7 +33,7 @@ export const handler: Handlers<Data, State> = {
     });
 
     if (error) {
-      return ctx.render({ error });
+      return page({ error });
     }
 
     const redirectUrl = new URL(req.url).searchParams.get("redirect_url") ??
@@ -48,17 +51,15 @@ export const handler: Handlers<Data, State> = {
     headers.set("location", redirectUrl);
     return redirect(headers);
   },
-};
+});
 
-export default function LoginPage({ data: { error } }: PageProps<Data>) {
+export default define.page<never, Data>(({ data: { error } }) => {
   return (
-    <Layout title="Login">
-      <div class="max-w-xs flex h-screen m-auto">
-        <div class="m-auto space-y-8 w-72">
-          {!!error && <Notice message={error} color="yellow" />}
-          <AuthForm />
-        </div>
+    <div class="max-w-xs flex h-screen m-auto">
+      <div class="m-auto space-y-8 w-72">
+        {!!error && <Notice message={error} color="yellow" />}
+        <AuthForm />
       </div>
-    </Layout>
+    </div>
   );
-}
+});

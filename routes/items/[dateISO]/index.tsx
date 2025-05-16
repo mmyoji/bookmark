@@ -1,9 +1,8 @@
-import { type Handlers } from "$fresh/server.ts";
-import { type State } from "@/lib/context.ts";
 import { deleteItem } from "@/lib/kv/items.ts";
+import { define } from "@/utils.ts";
 
-export const handler: Handlers<unknown, State> = {
-  async DELETE(_req, ctx) {
+export const handler = define.handlers({
+  async DELETE(ctx) {
     if (!ctx.state.currentUser) {
       return new Response(null, { status: 401 });
     }
@@ -16,4 +15,4 @@ export const handler: Handlers<unknown, State> = {
 
     return new Response(null, { status: 204 });
   },
-};
+});

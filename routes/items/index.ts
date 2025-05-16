@@ -1,10 +1,11 @@
-import { type Handlers } from "$fresh/server.ts";
-import { type State } from "@/lib/context.ts";
 import { redirect } from "@/lib/response.utils.ts";
 import { createItem } from "@/lib/services/create-item.ts";
+import { define } from "@/utils.ts";
 
-export const handler: Handlers<unknown, State> = {
-  async POST(req, ctx) {
+export const handler = define.handlers({
+  async POST(ctx) {
+    const req = ctx.req;
+
     if (!ctx.state.currentUser) {
       return redirect({ location: "/login" });
     }
@@ -14,4 +15,4 @@ export const handler: Handlers<unknown, State> = {
 
     return redirect({ location: "/" });
   },
-};
+});
