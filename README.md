@@ -16,5 +16,5 @@ This will watch the project directory and restart as necessary.
 
 ```sh
 # Create a new login
-LOGIN_USERNAME="aaa" LOGIN_PASSWORD="password" ./bin/create-login.ts
+LOGIN_USERNAME="aaa" LOGIN_PASSWORD="password" ./bin/create-login
 ```
