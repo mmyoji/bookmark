@@ -1,10 +1,10 @@
 import { HttpError, page } from "fresh";
-import { ComponentChildren } from "preact";
+import type { ComponentChildren } from "preact";
 
 import { Button } from "@/components/Button.tsx";
 import { Input } from "@/components/Input.tsx";
 import { Label } from "@/components/Label.tsx";
-import { findItem, Item } from "@/lib/kv/items.ts";
+import { findItem, type Item } from "@/lib/kv/items.ts";
 import { redirect } from "@/lib/response.utils.ts";
 import { updateItem } from "@/lib/services/update-item.ts";
 import { define } from "@/utils.ts";

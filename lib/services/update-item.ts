@@ -1,4 +1,4 @@
-import { Item, updateItem as _updateItem } from "@/lib/kv/items.ts";
+import { type Item, updateItem as _updateItem } from "@/lib/kv/items.ts";
 
 type Params = {
   title: FormDataEntryValue | null;
