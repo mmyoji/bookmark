@@ -1,6 +1,5 @@
-import { createHandler } from "$fresh/server.ts";
+import { app } from "../main.ts";
 
-import manifest from "@/fresh.gen.ts";
 import { config } from "@/lib/config.ts";
 import { kv } from "@/lib/kv/_core.ts";
 import { kvHelper } from "@/lib/kv/_test-helpers.ts";
@@ -26,7 +25,6 @@ export async function loginHeaders(): Promise<
   };
 }
 
-export async function visit(req: Request) {
-  const handler = await createHandler(manifest);
-  return handler(req);
+export function visit(req: Request) {
+  return app.handler()(req);
 }
