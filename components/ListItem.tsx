@@ -4,7 +4,7 @@ import { IconEdit } from "@tabler/icons-preact";
 import { DeleteButton } from "@/islands/DeleteButton.tsx";
 
 import { config } from "@/lib/config.ts";
-import { type Item } from "@/lib/kv/items.ts";
+import type { Item } from "@/lib/kv/items.ts";
 
 type Props = {
   item: Item;

@@ -1,4 +1,4 @@
-import { type JSX } from "preact";
+import type { JSX } from "preact";
 
 export function Input(props: JSX.InputHTMLAttributes<HTMLInputElement>) {
   return (

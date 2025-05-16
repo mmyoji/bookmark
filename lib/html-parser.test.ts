@@ -1,6 +1,6 @@
-import { assertEquals } from "@std/assert";
-
 import { parseTitle } from "./html-parser.ts";
+
+import { assertEquals } from "@std/assert";
 
 Deno.test("parseTitle() returns blank string when input is blank string", () => {
   const title = parseTitle("");
