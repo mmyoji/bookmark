@@ -1,6 +1,6 @@
-import { assertEquals } from "@std/assert";
+import { hashPassword, verifyPassword } from "./password.ts";
 
-import { hashPassword, verifyPassword } from "@/lib/password.ts";
+import { assertEquals } from "@std/assert";
 
 const pass = "P@s$w0rd";
 

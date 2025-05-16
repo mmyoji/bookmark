@@ -1,8 +1,7 @@
 import type { FreshContext } from "fresh";
 
-import { State } from "../utils.ts";
-
 import { config } from "@/lib/config.ts";
+import { State } from "@/utils.ts";
 
 export default function App(ctx: FreshContext<State>) {
   return (
