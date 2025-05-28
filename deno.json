@@ -28,7 +28,7 @@
     "@tabler/icons-preact": "npm:@tabler/icons-preact@^3.31.0",
     "fresh": "jsr:@fresh/core@^2.0.0-alpha.33",
     "linkedom": "npm:linkedom@^0.18.9",
-    "preact": "npm:preact@^10.26.6",
+    "preact": "npm:preact@^10.26.7",
     "tailwindcss": "npm:tailwindcss@3.4.17"
   },
   "compilerOptions": {
