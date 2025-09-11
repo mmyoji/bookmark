@@ -1,4 +1,5 @@
 name: Deploy
+
 on:
   push:
     branches: main
@@ -30,5 +31,5 @@ jobs:
         uses: denoland/deployctl@v1
         with:
           project: "mmyoji-bookmark"
-          entrypoint: "main.ts"
-          root: ""
+          entrypoint: "server.js"
+          root: "./_fresh/"
