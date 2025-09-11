@@ -1,11 +1,10 @@
-import { HttpError, page } from "fresh";
+import { HttpError } from "fresh";
 import type { ComponentChildren } from "preact";
 
 import { Button } from "@/components/Button.tsx";
 import { Input } from "@/components/Input.tsx";
 import { Label } from "@/components/Label.tsx";
 import { findItem, type Item } from "@/lib/kv/items.ts";
-import { redirect } from "@/lib/response.utils.ts";
 import { updateItem } from "@/lib/services/update-item.ts";
 import { define } from "@/utils.ts";
 
@@ -26,7 +25,7 @@ export const handler = define.handlers<Data>({
       throw new HttpError(404);
     }
 
-    return page({ item });
+    return { data: { item } };
   },
 
   async POST(ctx) {
@@ -49,7 +48,7 @@ export const handler = define.handlers<Data>({
       note: form.get("note"),
     });
 
-    return redirect({ location: "/" });
+    return ctx.redirect("/");
   },
 });
 

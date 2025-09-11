@@ -15,7 +15,7 @@ type Data = {
 export const handler = define.handlers<Data>({
   GET(ctx) {
     if (ctx.state.currentUser) {
-      return redirect({ location: "/" });
+      return ctx.redirect("/");
     }
 
     ctx.state.title = "Login";
@@ -33,7 +33,7 @@ export const handler = define.handlers<Data>({
     });
 
     if (error) {
-      return page({ error });
+      return { data: { error } };
     }
 
     const redirectUrl = new URL(req.url).searchParams.get("redirect_url") ??
@@ -56,7 +56,7 @@ export const handler = define.handlers<Data>({
 export default define.page<never, Data>(({ data: { error } }) => {
   return (
     <div class="max-w-xs flex h-screen m-auto">
-      <div class="m-auto space-y-8 w-72">
+      <div class="m-auto flex flex-col gap-8 w-72">
         {!!error && <Notice message={error} color="yellow" />}
         <AuthForm />
       </div>

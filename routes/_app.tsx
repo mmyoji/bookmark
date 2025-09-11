@@ -1,9 +1,7 @@
-import type { FreshContext } from "fresh";
-
 import { config } from "@/lib/config.ts";
-import type { State } from "@/utils.ts";
+import { define } from "@/utils.ts";
 
-export default function App(ctx: FreshContext<State>) {
+export default define.page((ctx) => {
   return (
     <html>
       <head>
@@ -13,12 +11,10 @@ export default function App(ctx: FreshContext<State>) {
         <title>
           {[ctx.state.title, config.name].filter(Boolean).join(" - ")}
         </title>
-        <link rel="stylesheet" href="/styles.css" />
       </head>
       <body>
-        {/* @ts-expect-error ignore currently */}
         <ctx.Component />
       </body>
     </html>
   );
-}
+});

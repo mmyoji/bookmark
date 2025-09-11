@@ -34,7 +34,7 @@ export function ListItem(
   return (
     <div
       id={dateISO || url}
-      class={`border rounded p-2 my-1.5 flex justify-between ${
+      class={`border border-gray-200 rounded p-2 my-1.5 flex justify-between ${
         getBgColor(days)
       }`}
     >

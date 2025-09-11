@@ -3,7 +3,7 @@ import { Input } from "@/components/Input.tsx";
 
 export function AuthForm() {
   return (
-    <form method="POST" class="space-y-4" action="/login">
+    <form method="POST" class="flex flex-col gap-4" action="/login">
       <Input
         placeholder="Username"
         name="username"
